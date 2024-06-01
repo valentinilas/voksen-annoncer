@@ -2,11 +2,19 @@ import { useState } from 'react'
 import reactLogo from './assets/react.svg'
 import viteLogo from '/vite.svg'
 
-// Buttons
-import Button from './components/button/Button';
+// Components
+import Button from './components/button/button';
+import MainNav from './components/main-nav/main-nav';
 
 // Icons
 import { UserIcon } from "@heroicons/react/24/outline";
+import { UserPlusIcon } from "@heroicons/react/24/outline";
+import { ArrowLeftEndOnRectangleIcon } from "@heroicons/react/24/outline";
+import Spotlight from './components/spotlight/spotlight';
+
+
+
+
 
 function App() {
   const [count, setCount] = useState(0)
@@ -19,22 +27,12 @@ function App() {
           <div className="logo">
             <span className="font-bold text-cherry-900 text-2xl">Voksen Annoncer</span>
           </div>
-          <nav>
-            <ul className="flex gap-6 items-center">
-              <li><a className="text-cherry-900 hover:text-cherry-600 font-bold" href="/">Ads</a></li>
-              <li><a className="text-cherry-900 hover:text-cherry-600 font-bold" href="/">Klinikker</a></li>
-              <li><a className="text-cherry-900 hover:text-cherry-600 font-bold" href="/">Websites</a></li>
-              <li><a className="text-cherry-900 hover:text-cherry-600 font-bold" href="/">Support</a></li>
-              <li>
-                <Button >
-                  <UserIcon className="size-5 text-cherry-500 " />
-                  Login
-                </Button>
-              </li>
-            </ul>
-          </nav>
+          <MainNav/>
         </div>
       </header>
+      <div className="container mx-auto bg-white p-5 mt-10 rounded-lg shadow-sm">
+        <Spotlight/>
+      </div>
       <div className="container mx-auto bg-white p-5 mt-10 rounded-lg shadow-sm">
         <div className="flex gap-5 my-5 items-center">
           <Button variant="primary">Primary</Button>
@@ -51,10 +49,10 @@ function App() {
         <div className="flex gap-5 my-5 items-center">
           <Button iconDirection="left" Icon={UserIcon}>Icon left</Button>
           <Button size="s" iconDirection="left" Icon={UserIcon}>Icon left</Button>
-          <Button variant="secondary"  iconDirection="left" Icon={UserIcon}>Icon left</Button>
-          <Button variant="primary"  iconDirection="left" Icon={UserIcon}>Icon left</Button>
-          <Button variant="tertiary"  iconDirection="left" Icon={UserIcon}>Icon left</Button>
-          <Button variant="text"  iconDirection="left" Icon={UserIcon}>Icon left</Button>
+          <Button variant="secondary" iconDirection="left" Icon={UserIcon}>Icon left</Button>
+          <Button variant="primary" iconDirection="left" Icon={UserIcon}>Icon left</Button>
+          <Button variant="tertiary" iconDirection="left" Icon={UserIcon}>Icon left</Button>
+          <Button variant="text" iconDirection="left" Icon={UserIcon}>Icon left</Button>
           <Button size="l" iconDirection="left" Icon={UserIcon}>Icon left</Button>
           <Button iconDirection="right" Icon={UserIcon}>Icon right</Button>
         </div>
