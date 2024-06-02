@@ -34,10 +34,10 @@ export default function Spotlight() {
 
 
     return (
-        <section>
+        <section className="container mx-auto bg-white p-5 mt-10 rounded-lg shadow-sm">
             <div className="flex justify-between items-center mb-4">
                 <h3 className="text-lg font-bold">Spotlight</h3>
-                <Button variant="secondary">Get promoted</Button>
+                <Button variant="secondary" size="s" onClick={()=>alert('Sign up!')}>Get promoted</Button>
             </div>
 
             <EmblaCarousel slides={SLIDES} options={OPTIONS} />

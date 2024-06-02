@@ -11,7 +11,9 @@ import { UserIcon } from "@heroicons/react/24/outline";
 import { UserPlusIcon } from "@heroicons/react/24/outline";
 import { ArrowLeftEndOnRectangleIcon } from "@heroicons/react/24/outline";
 import Spotlight from './components/spotlight/spotlight';
+import Filters from './components/filters/filters';
 import Footer from './components/footer/footer';
+import Results from './components/results/results';
 
 
 
@@ -31,10 +33,12 @@ function App() {
           <MainNav />
         </div>
       </header>
-      <div className="container mx-auto bg-white p-5 mt-10 rounded-lg shadow-sm">
-        <Spotlight />
-      </div>
-      <div className="container mx-auto bg-white p-5 mt-10 rounded-lg shadow-sm">
+
+      <Spotlight />
+      <Filters />
+      <Results/>
+
+      {/* <div className="container mx-auto bg-white p-5 mt-10 rounded-lg shadow-sm">
         <div className="flex gap-5 my-5 items-center">
           <Button variant="primary">Primary</Button>
           <Button variant="secondary">Secondary</Button>
@@ -59,7 +63,7 @@ function App() {
         </div>
 
 
-      </div>
+      </div> */}
 
 
       <Footer />
