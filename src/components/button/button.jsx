@@ -79,7 +79,6 @@ export default function Button({ children, href, variant = "primary", size = "m"
     const Element = href ? 'a' : 'button';
     const elementProps = href ? { ...props, href } : { ...props, type: 'button' };
 
-    console.log(elementProps);
 
     return (
         <Element className={classes} {...elementProps}>

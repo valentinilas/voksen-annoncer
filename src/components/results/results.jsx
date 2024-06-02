@@ -1,38 +1,32 @@
 import Button from "../button/button";
+import Result from "../result/result";
+
+// Database
+import { useEffect, useState } from "react";
+
+import { supabase } from "../../lib/supabase";
+
 
 export default function Results() {
-    const items = [1, 2, 3, 4, 1, 2, 3, 4];
+
+    const [adList, setAdList] = useState([]);
+
+    useEffect(() => {
+        getAdList();
+    }, []);
+
+    async function getAdList() {
+        let { data: ads, error } = await supabase
+            .from('ads')
+            .select('*, regions ( id, region_name )')
+        setAdList(ads);
+        console.log(ads);
+    }
+
+
     const BLOCKS =
-        items.map((item, index) => {
-            return <div key={index}>
-                <div className="border-b mb-4 pb-4 ">
-                    {/* Card main content */}
-                    <div className="flex justify-between columns-2 	">
-                        <div className="result-text">
-                            <h3 className="font-bold text-xl">Lorem ipsum dolor sit amet</h3>
-                            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
-                        </div>
-                        <div className="result-image">
-                            <img src="https://placehold.co/600x400" className="mb-2 rounded-md" />
-                        </div>
-                    </div>
-
-                    {/* Card Details */}
-                    <div class="flex p-4 bg-white border  border-cherry-200 justify-between rounded-md items-center gap-4">
-                        <div> <Button >Details</Button></div>
-                        <div className="flex items-center gap-4">
-                            <span>Location: København</span>
-                            <span>Age: 24</span>
-                            <span>Service: Massage</span>
-                        </div>
-
-
-
-                    </div>
-
-                </div>
-
-            </div>
+        adList.map((ad, index) => {
+            return <Result key={ad.id} id={ad.id} title={ad.title} description={ad.description} thumb_url={ad.image_urls[0]} url={ad.url} region_name={ad.regions.region_name} image_urls={ad.image_urls} />
         });
     return (
         <section className="container mx-auto bg-white mt-1 p-5 0 rounded-lg shadow-sm">

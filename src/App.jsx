@@ -14,6 +14,7 @@ import Spotlight from './components/spotlight/spotlight';
 import Filters from './components/filters/filters';
 import Footer from './components/footer/footer';
 import Results from './components/results/results';
+import CreateAd from './components/create-ad/create-ad';
 
 
 
@@ -33,8 +34,9 @@ function App() {
           <MainNav />
         </div>
       </header>
-
+     
       <Spotlight />
+      <CreateAd/>
       <Filters />
       <Results/>
 
