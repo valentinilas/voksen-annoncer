@@ -1,6 +1,8 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import { supabase } from '../../lib/supabase';
 import Button from '../button/button';
+
+
 
 export default function CreateAd() {
     const [title, setTitle] = useState('');
@@ -8,7 +10,7 @@ export default function CreateAd() {
     const [images, setImages] = useState([]);
     const [regions, setRegions] = useState([]);
     const [selectedRegion, setSelectedRegion] = useState('');
-
+    const fileInput = useRef(null);
 
     useEffect(() => {
         fetchRegions();
@@ -87,6 +89,7 @@ export default function CreateAd() {
             setTitle('');
             setDescription('');
             setImages([]);
+            fileInput.current.value = '';
             setSelectedRegion('');
         }
     };
@@ -125,6 +128,7 @@ export default function CreateAd() {
                         Upload Images
                     </label>
                     <input
+                    ref={fileInput}
                         id="images"
                         type="file"
                         multiple

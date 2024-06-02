@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { AdjustmentsHorizontalIcon } from "@heroicons/react/24/outline";
+import { MagnifyingGlassIcon } from "@heroicons/react/24/outline";
 
 import { useEffect } from "react";
 
@@ -72,7 +73,7 @@ export default function Filters() {
           />
         </div>
 
-        <Button variant="secondary" onClick={handleSearch}>Search</Button>
+        <Button variant="secondary" Icon={MagnifyingGlassIcon} onClick={handleSearch}>Search</Button>
         <Button variant="tertiary" size="m-icon-only" Icon={AdjustmentsHorizontalIcon}></Button>
 
       </div>
