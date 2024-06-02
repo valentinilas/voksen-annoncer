@@ -1,11 +1,11 @@
-export default function Button({ children, href, variant = "primary", size = "m", Icon, iconDirection="left", ...props }) {
+export default function Button({ children, href, variant = "primary", size = "m", Icon, iconDirection = "left", ...props }) {
 
     // Variants: Primary, Secondary, Tertiary
     // Sizes: S, M, L
     // Icons: Start, End
 
     // Default
-    let classes = "cursor-pointer rounded-full font-medium	 flex gap-2 justify-items-center items-center transition-colors border-2"
+    let classes = "cursor-pointer rounded-full font-medium	 flex gap-2 justify-items-center items-center transition-colors border-2 disabled:opacity-50 disabled:cursor-not-allowed"
 
     // Size
     let sizeClasses;
@@ -23,6 +23,21 @@ export default function Button({ children, href, variant = "primary", size = "m"
             sizeClasses = ' px-6 py-2 text-lg';
             iconClasses += ' size-5'
             break;
+
+
+        case 's-icon-only':
+            sizeClasses = ' px-2 py-2';
+            iconClasses += ' size-3'
+            break;
+        case 'm-icon-only':
+            sizeClasses = ' px-3 py-3';
+            iconClasses += ' size-5'
+            break;
+        case 'l-icon-only':
+            sizeClasses = ' px-4 py-4';
+            iconClasses += ' size-5'
+            break;
+
 
     }
 
@@ -55,14 +70,16 @@ export default function Button({ children, href, variant = "primary", size = "m"
 
 
     // Icon
-  
+
     if (iconDirection === "right") {
         classes += ' flex-row-reverse'
     }
-  
+
     // Element
     const Element = href ? 'a' : 'button';
     const elementProps = href ? { ...props, href } : { ...props, type: 'button' };
+
+    console.log(elementProps);
 
     return (
         <Element className={classes} {...elementProps}>

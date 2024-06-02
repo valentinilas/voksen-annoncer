@@ -11,6 +11,7 @@ import { UserIcon } from "@heroicons/react/24/outline";
 import { UserPlusIcon } from "@heroicons/react/24/outline";
 import { ArrowLeftEndOnRectangleIcon } from "@heroicons/react/24/outline";
 import Spotlight from './components/spotlight/spotlight';
+import Footer from './components/footer/footer';
 
 
 
@@ -25,13 +26,13 @@ function App() {
       <header className="bg-white border-b border-cherry-200 p-5">
         <div className="container mx-auto header-elements flex justify-between items-center">
           <div className="logo">
-            <span className="font-bold text-cherry-900 text-2xl">Voksen Annoncer</span>
+            <span className="font-bold text-cherry-900 text-2xl">VA</span>
           </div>
-          <MainNav/>
+          <MainNav />
         </div>
       </header>
       <div className="container mx-auto bg-white p-5 mt-10 rounded-lg shadow-sm">
-        <Spotlight/>
+        <Spotlight />
       </div>
       <div className="container mx-auto bg-white p-5 mt-10 rounded-lg shadow-sm">
         <div className="flex gap-5 my-5 items-center">
@@ -61,7 +62,7 @@ function App() {
       </div>
 
 
-
+      <Footer />
 
     </>
   )
