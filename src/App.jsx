@@ -2,9 +2,11 @@ import { useState, useEffect } from 'react'
 
 // Router
 import {
-  createBrowserRouter,
+  createHashRouter,
   RouterProvider,
 } from "react-router-dom";
+import { HashRouter } from "react-router-dom";
+
 import RootLayout from './pages/root-layout';
 
 import ProtectedRoute from './components/protected-route/protected-route';
@@ -50,7 +52,7 @@ function App() {
 
 
   // Routing
-  const router = createBrowserRouter([
+  const router = createHashRouter([
     {
       path: "/",
       element: <RootLayout />,

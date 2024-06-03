@@ -26,8 +26,8 @@ export default defineConfig(({ mode }) => {
   // Load environment variables based on the current mode (e.g., development or production)
   const env = loadEnv(mode, process.cwd())
   return {
-    // base: env.VITE_BASE_PATH,
-    base: '/voksen-annoncer/',
+    base: env.VITE_BASE_PATH,
+    // base: '/voksen-annoncer/',
     plugins: [react()],
     // Add this to make sure environment variables are available to your application
     define: {
