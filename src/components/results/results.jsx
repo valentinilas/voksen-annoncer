@@ -21,7 +21,6 @@ export default function Results() {
             .select('*, regions ( id, region_name )')
             .order('id', { ascending: false })
         setAdList(ads);
-        console.log(ads);
     }
 
 

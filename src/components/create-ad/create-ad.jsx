@@ -2,15 +2,23 @@ import React, { useState, useEffect, useRef } from 'react';
 import { supabase } from '../../lib/supabase';
 import Button from '../button/button';
 
+import { useNavigate } from 'react-router-dom';
+
 
 
 export default function CreateAd() {
+
+
+
     const [title, setTitle] = useState('');
     const [description, setDescription] = useState('');
     const [images, setImages] = useState([]);
     const [regions, setRegions] = useState([]);
     const [selectedRegion, setSelectedRegion] = useState('');
     const fileInput = useRef(null);
+
+    const navigate = useNavigate();
+
 
     useEffect(() => {
         fetchRegions();
@@ -91,6 +99,8 @@ export default function CreateAd() {
             setImages([]);
             fileInput.current.value = '';
             setSelectedRegion('');
+          
+            navigate('/');
         }
     };
 
@@ -156,7 +166,7 @@ export default function CreateAd() {
                     </select>
                 </div>
                 <div className="flex items-center justify-between">
-                    <Button type="submit">Create Ad</Button>
+                    <Button type="submit" value="Submit">Create Ad</Button>
                 </div>
             </form>
         </div>

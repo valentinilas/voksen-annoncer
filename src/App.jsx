@@ -1,75 +1,72 @@
-import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from '/vite.svg'
+import { useState, useEffect } from 'react'
 
-// Components
-import Button from './components/button/button';
-import MainNav from './components/main-nav/main-nav';
+// Router
+import {
+  createBrowserRouter,
+  RouterProvider,
+} from "react-router-dom";
+import RootLayout from './pages/root-layout';
 
-// Icons
-import { UserIcon } from "@heroicons/react/24/outline";
-import { UserPlusIcon } from "@heroicons/react/24/outline";
-import { ArrowLeftEndOnRectangleIcon } from "@heroicons/react/24/outline";
-import Spotlight from './components/spotlight/spotlight';
-import Filters from './components/filters/filters';
-import Footer from './components/footer/footer';
-import Results from './components/results/results';
+import ProtectedRoute from './components/protected-route/protected-route';
+
+// Auth
+import { supabase } from './lib/supabase';
+
+// Pages
+import Home from './pages/home';
+import SignIn from './components/sign-in/sign-in';
+import SignUp from './components/sign-up/sign-up';
 import CreateAd from './components/create-ad/create-ad';
 
 
 
 
-
 function App() {
-  const [count, setCount] = useState(0)
+  // const [session, setSession] = useState(null)
+
+  // useEffect(() => {
+  //   supabase.auth.getSession().then(({ data: { session } }) => {
+  //     setSession(session)
+  //   })
+
+  //   const {
+  //     data: { subscription },
+  //   } = supabase.auth.onAuthStateChange((_event, session) => {
+  //     setSession(session)
+  //   })
+
+  //   return () => subscription.unsubscribe()
+  // }, [])
+
+  // if (!session) {
+  //   // return (<Auth supabaseClient={supabase} appearance={{ theme: ThemeSupa }} />)
+  //   console.log('Not logged in');
+  // }
+  // else {
+  //   // return (<div>Logged in!</div>)
+  //   console.log('Logged in');
+  // }
+
+
+
+  // Routing
+  const router = createBrowserRouter([
+    {
+      path: "/",
+      element: <RootLayout />,
+      // Loaded in the outlet component
+      children: [
+        { path: '/', element: <Home /> },
+        { path: 'new-ad', element: <ProtectedRoute><CreateAd /></ProtectedRoute> },
+        { path: 'sign-up', element: <SignUp /> },
+        { path: 'sign-in', element: <SignIn /> },
+      ]
+    },
+  ]);
 
   return (
     <>
-
-      <header className="bg-white border-b border-cherry-200 p-5">
-        <div className="container mx-auto header-elements flex justify-between items-center">
-          <div className="logo">
-            <span className="font-bold text-cherry-900 text-2xl">VA</span>
-          </div>
-          <MainNav />
-        </div>
-      </header>
-     
-      <Spotlight />
-      <CreateAd/>
-      <Filters />
-      <Results/>
-
-      {/* <div className="container mx-auto bg-white p-5 mt-10 rounded-lg shadow-sm">
-        <div className="flex gap-5 my-5 items-center">
-          <Button variant="primary">Primary</Button>
-          <Button variant="secondary">Secondary</Button>
-          <Button variant="tertiary">Tertiary</Button>
-          <Button variant="text" href="/">Text</Button>
-        </div>
-
-        <div className="flex gap-5 my-5 items-center">
-          <Button size="s">Small</Button>
-          <Button size="m">Medium</Button>
-          <Button size="l">Large</Button>
-        </div>
-        <div className="flex gap-5 my-5 items-center">
-          <Button iconDirection="left" Icon={UserIcon}>Icon left</Button>
-          <Button size="s" iconDirection="left" Icon={UserIcon}>Icon left</Button>
-          <Button variant="secondary" iconDirection="left" Icon={UserIcon}>Icon left</Button>
-          <Button variant="primary" iconDirection="left" Icon={UserIcon}>Icon left</Button>
-          <Button variant="tertiary" iconDirection="left" Icon={UserIcon}>Icon left</Button>
-          <Button variant="text" iconDirection="left" Icon={UserIcon}>Icon left</Button>
-          <Button size="l" iconDirection="left" Icon={UserIcon}>Icon left</Button>
-          <Button iconDirection="right" Icon={UserIcon}>Icon right</Button>
-        </div>
-
-
-      </div> */}
-
-
-      <Footer />
-
+      <RouterProvider router={router} />
     </>
   )
 }
