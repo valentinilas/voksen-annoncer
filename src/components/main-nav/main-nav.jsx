@@ -16,7 +16,6 @@ export default function MainNav() {
     const { session, auth_user_log_out } = useAuth();
     const userName = session && session.user && session.user.user_metadata ? session.user.user_metadata.username : null;
 
-    console.log(userName);
     const navigate = useNavigate();
     const handleLogOut = async () => {
         try {
@@ -32,6 +31,7 @@ export default function MainNav() {
             <ul className="flex items-center">
                 <li><Button variant="text" to="/">Home</Button></li>
                 <li><Button variant="text" href="/">Support</Button></li>
+                {session && <li><Button variant="primary" Icon={PlusIcon} to="/new-ad">Create a new ad</Button></li>}
                 <li className="pl-6 ml-6 border-l border-cherry-200 flex gap-2">
                     {!session &&
                         <>
@@ -42,9 +42,8 @@ export default function MainNav() {
                     {session &&
                         <>
 
-                            <Button variant="text" Icon={UserIcon} to="/dashboard">{userName}</Button>
-                            <Button variant="primary" Icon={PlusIcon} to="/new-ad">Create a new ad</Button>
-                            <Button variant="secondary" Icon={ArrowLeftStartOnRectangleIcon} onClick={handleLogOut}>Log out</Button>
+                            <Button variant="secondary" Icon={UserIcon} to="/dashboard">{userName}</Button>
+                            <Button variant="tertiary" Icon={ArrowLeftStartOnRectangleIcon} onClick={handleLogOut}>Log out</Button>
                         </>
                     }
 

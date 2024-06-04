@@ -1,15 +1,15 @@
 import { useEffect, useState } from "react";
 import { supabase } from "../../lib/supabase";
 import { formatDate } from "../../util/format-date";
-import Label from "../label/label";
 import { useAuth } from "../../lib/auth-context";
 import Button from "../button/button";
 import { NavLink } from "react-router-dom";
 
 export default function MyAds() {
     const { session, loading: sessionLoading } = useAuth(); // Assume useAuth provides a loading state
-    console.log('My Ads, session loading->', sessionLoading);
     const [data, setData] = useState({ ads: null, loading: true, error: null });
+
+    console.log('MY ADS');
 
     useEffect(() => {
         if (sessionLoading) {
@@ -25,14 +25,15 @@ export default function MyAds() {
         const profileId = session.user.id;
 
         const getUserAds = async () => {
-            console.log('Getting USER ADS');
+            // console.log('Getting USER ADS');
             try {
                 const { data: ads, error } = await supabase
                     .from('ads')
                     .select('*')
-                    .eq('profile', profileId)
+                    .eq('user_id', profileId)
 
                 if (error) throw error;
+
 
                 setData({ ads, loading: false, error: null });
             } catch (error) {
@@ -42,6 +43,49 @@ export default function MyAds() {
 
         getUserAds();
     }, [session, sessionLoading]);
+
+
+
+    // Handle delete row
+    const deleteRow = async (row_value) => {
+        console.log('DELETE ROW TRIGGERED');
+        try {
+            const { error } = await supabase
+                .from('ads')
+                .delete()
+                .eq('uuid', row_value);
+
+                console.log
+
+            if (error) throw error;
+
+            setData((prevData) => {
+                return {
+                    ...prevData,
+                    ads: prevData.ads.filter(ad => {
+                        console.log(ad);
+                        console.log(ad.uuid !== row_value)
+                        return ad.uuid !== row_value
+                    })
+                    
+                }
+
+            });
+            console.log('DELETE COMPLETE');
+            console.log(data);
+        }
+        catch (error) {
+            console.log(error);
+        }
+    }
+
+
+
+
+
+
+
+
 
     if (sessionLoading || data.loading) {
         return <p>Loading ads...</p>;
@@ -56,7 +100,7 @@ export default function MyAds() {
     if (!ads.length) {
         return <div>
             <p>You don't have any ads created</p>
-            <Button to="/create-ad">Create ad</Button>
+            <Button to="/new-ad">Create ad</Button>
         </div>;
     }
 
@@ -73,7 +117,7 @@ export default function MyAds() {
                     <div className="flex gap-2 justify-end mt-10  pt-5">
                         <Button variant="primary" to={`/ad/${uuid}`} className="mr-auto">View</Button>
                         <Button variant="secondary">Edit</Button>
-                        <Button variant="tertiary">Delete</Button>
+                        <Button variant="tertiary" onClick={() => deleteRow(uuid)}>Delete</Button>
                     </div>
                 </li>
             })}
