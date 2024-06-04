@@ -1,4 +1,6 @@
-export default function Button({ children, type, className, href, variant = "primary", size = "m", Icon, iconDirection = "left", ...props }) {
+import { NavLink } from "react-router-dom";
+
+export default function Button({ children, type, className, to, href, variant = "primary", size = "m", Icon, iconDirection = "left", ...props }) {
 
     // Variants: Primary, Secondary, Tertiary
     // Sizes: S, M, L
@@ -75,25 +77,27 @@ export default function Button({ children, type, className, href, variant = "pri
         classes += ' flex-row-reverse'
     }
 
-    // Element
-    const Element = href ? 'a' : 'button';
-    // const elementProps = href ? { ...props, href } : { ...props, };
+    // // Element
+    // const Element = href ? 'a' : 'button';
+    // // const elementProps = href ? { ...props, href } : { ...props, };
 
-    let elementProps;
+    // let elementProps;
 
-    if (href) {
-        elementProps = { ...props, href };
-    }
-    else {
-        if (type) {
-            elementProps = { ...props, type }
-        }
-        else {
-            elementProps = { ...props, type: props.type || 'button' }
-        }
-    }
+    // if (href) {
+    //     elementProps = { ...props, href };
+    // }
 
+    // else {
+    //     if (type) {
+    //         elementProps = { ...props, type }
+    //     }
+    //     else {
+    //         elementProps = { ...props, type: props.type || 'button' }
+    //     }
+    // }
 
+    const Element = to ? NavLink : href ? 'a' : 'button';
+    const elementProps = to ? { ...props, to } : href ? { ...props, href } : { ...props, type: type || 'button' };
 
     return (
         <Element className={classes} {...elementProps}>

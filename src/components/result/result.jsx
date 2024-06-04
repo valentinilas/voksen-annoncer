@@ -31,7 +31,7 @@ export default function Result({data}) {
 
             {/* Card Details */}
             <div className="flex p-4 bg-white border  border-cherry-200 justify-between rounded-md items-center gap-4">
-                <div> <NavLink to={`/ad/${uuid}`}><Button>Details</Button></NavLink></div>
+                <div> <Button to={`/ad/${uuid}`}>Details</Button></div>
                 <div className="flex items-center gap-4">
                     <span>Region: {region_name}</span>
                     <span>Age: 24</span>

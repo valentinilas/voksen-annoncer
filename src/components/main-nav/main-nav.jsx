@@ -4,7 +4,7 @@ import { UserPlusIcon } from "@heroicons/react/24/outline";
 import { ArrowLeftEndOnRectangleIcon } from "@heroicons/react/24/outline";
 import { ArrowLeftStartOnRectangleIcon } from "@heroicons/react/24/outline";
 import { PlusIcon } from "@heroicons/react/24/outline";
-import { NavLink, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 
 
 import { useAuth } from "../../lib/auth-context";
@@ -30,20 +30,20 @@ export default function MainNav() {
     return (
         <nav>
             <ul className="flex items-center">
-                <li><NavLink to="/"><Button variant="text">Home</Button></NavLink></li>
+                <li><Button variant="text" to="/">Home</Button></li>
                 <li><Button variant="text" href="/">Support</Button></li>
                 <li className="pl-6 ml-6 border-l border-cherry-200 flex gap-2">
                     {!session &&
                         <>
-                            <NavLink to="/sign-in"><Button variant="tertiary" Icon={ArrowLeftEndOnRectangleIcon}>Login</Button></NavLink>
-                            <NavLink to="/sign-up"><Button variant="primary" Icon={UserPlusIcon} >Sign up</Button></NavLink>
+                            <Button variant="tertiary" Icon={ArrowLeftEndOnRectangleIcon} to="/sign-in">Login</Button>
+                            <Button variant="primary" Icon={UserPlusIcon} to="/sign-up">Sign up</Button>
                         </>
                     }
                     {session &&
                         <>
-                            
-                            <NavLink to="/dashboard"><Button variant="text" Icon={UserIcon}>{userName}</Button></NavLink>
-                            <NavLink to="/new-ad"><Button variant="primary" Icon={PlusIcon} >Create a new ad</Button></NavLink>
+
+                            <Button variant="text" Icon={UserIcon} to="/dashboard">{userName}</Button>
+                            <Button variant="primary" Icon={PlusIcon} to="/new-ad">Create a new ad</Button>
                             <Button variant="secondary" Icon={ArrowLeftStartOnRectangleIcon} onClick={handleLogOut}>Log out</Button>
                         </>
                     }
