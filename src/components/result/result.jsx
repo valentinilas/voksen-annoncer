@@ -1,9 +1,13 @@
 import Button from "../button/button";
 import Label from "../label/label";
 import { formatDate } from "../../util/format-date";
+import { NavLink } from "react-router-dom";
 
 
-export default function Result({ id, title, created_at, description, url, thumb_url, image_urls, region_name }) {
+
+export default function Result({data}) {
+
+    const { uuid = "", title = "", created_at = null, description = "", image_urls = [], region_name = "" } = data;
 
 
     const formattedDate = formatDate(created_at);
@@ -18,7 +22,7 @@ export default function Result({ id, title, created_at, description, url, thumb_
                     <p>{description}</p>
                 </div>
                 <div className="result-image col-span-3">
-                    <img src={thumb_url} className="mb-2 rounded-md w-full object-cover aspect-square" />
+                    {image_urls.length > 0 ? <img src={image_urls[0]} className="mb-2 rounded-md w-full object-cover aspect-square" /> : null}
                     {image_urls.length > 1 && <div className="result-thumbs flex gap-2">
                         {image_urls.map(image_src => <img key={image_src} src={image_src + '?width=100&height=100'} className="mb-2 rounded-md w-full max-w-24 object-cover aspect-square" />)}
                     </div>}
@@ -27,7 +31,7 @@ export default function Result({ id, title, created_at, description, url, thumb_
 
             {/* Card Details */}
             <div className="flex p-4 bg-white border  border-cherry-200 justify-between rounded-md items-center gap-4">
-                <div> <Button href={url} >Details</Button></div>
+                <div> <NavLink to={`/ad/${uuid}`}><Button>Details</Button></NavLink></div>
                 <div className="flex items-center gap-4">
                     <span>Region: {region_name}</span>
                     <span>Age: 24</span>

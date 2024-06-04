@@ -21,7 +21,7 @@ export default function MainNav() {
     const handleLogOut = async () => {
         try {
             await auth_user_log_out();
-            navigate('/');
+            navigate('/dashboard');
         } catch (error) {
             setError(error.message);
         }

@@ -11,6 +11,9 @@ import { ChevronRightIcon } from "@heroicons/react/24/outline";
 
 export default function Spotlight() {
 
+
+    
+
     const items = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10];
 
     const OPTIONS = { loop: false, align: 'start', containScroll: 'trimSnaps' };
