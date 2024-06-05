@@ -86,7 +86,7 @@ export default function CreateAd() {
         const { data, error } = await supabase
             .from('ads')
             .insert([
-                { title, description, region: selectedRegion, image_urls: imageUrls }
+                { title, description, region_id: selectedRegion, image_urls: imageUrls }
             ]);
 
         if (error) {

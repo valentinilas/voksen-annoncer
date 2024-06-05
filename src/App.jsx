@@ -35,7 +35,7 @@ function App() {
       // Loaded in the outlet component
       children: [
         { path: '/', element: <Home /> },
-        { path: '/dashboard', element: <Dashboard /> },
+        { path: '/dashboard', element: <ProtectedRoute><Dashboard /></ProtectedRoute> },
         { path: '/new-ad', element: <ProtectedRoute><CreateAd /></ProtectedRoute> },
         { path: '/sign-up', element: <SignUp /> },
         { path: '/sign-in', element: <SignIn /> },
