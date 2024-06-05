@@ -7,7 +7,7 @@ import { NavLink } from "react-router-dom";
 
 export default function Result({data}) {
 
-    const { uuid = "", title = "", created_at = null, description = "", image_urls = [], region_name = "" } = data;
+    const { uuid = "", title = "", created_at = null, description = "", image_urls = [], regions = "" } = data;
 
 
     const formattedDate = formatDate(created_at);
@@ -33,7 +33,7 @@ export default function Result({data}) {
             <div className="flex p-4 bg-white border  border-cherry-200 justify-between rounded-md items-center gap-4">
                 <div> <Button to={`/ad/${uuid}`}>Details</Button></div>
                 <div className="flex items-center gap-4">
-                    <span>Region: {region_name}</span>
+                    <span>Region: {regions.region_name}</span>
                     <span>Age: 24</span>
                     <span>Service: Massage</span>
                 </div>

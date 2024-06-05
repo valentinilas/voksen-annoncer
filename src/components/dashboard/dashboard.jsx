@@ -12,7 +12,6 @@ export default function Dashboard() {
 
             <div className="grid grid-cols-12 gap-6">
                 <div className="col-span-4 border  p-6 rounded-md">
-                    <h4 className="text-xl mb-4">Profile</h4>
                     <ProfileDetail />
                 </div>
                 <div className="my-ads col-span-8  bg-stone-50 text-black p-6 rounded-md">

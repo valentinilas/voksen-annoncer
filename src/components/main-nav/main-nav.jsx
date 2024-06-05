@@ -13,8 +13,17 @@ import { useAuth } from "../../lib/auth-context";
 
 export default function MainNav() {
 
-    const { session, auth_user_log_out } = useAuth();
-    const userName = session && session.user && session.user.user_metadata ? session.user.user_metadata.username : null;
+
+    const { profileData, session, auth_user_log_out } = useAuth();
+
+    const { profile, loading, error } = profileData;
+    let username = "";
+
+    if (!(loading || error) && profile.username) {
+        username = profile.username;
+    }
+
+
 
     const navigate = useNavigate();
     const handleLogOut = async () => {
@@ -42,7 +51,7 @@ export default function MainNav() {
                     {session &&
                         <>
 
-                            <Button variant="secondary" Icon={UserIcon} to="/dashboard">{userName}</Button>
+                            <Button variant="secondary" Icon={UserIcon} to="/dashboard">{username}</Button>
                             <Button variant="tertiary" Icon={ArrowLeftStartOnRectangleIcon} onClick={handleLogOut}>Log out</Button>
                         </>
                     }

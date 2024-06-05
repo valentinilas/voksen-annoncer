@@ -10,31 +10,69 @@ export function useAuth() {
 
 export function AuthProvider({ children }) {
     const [session, setSession] = useState(null);
-    const [userMetaData, setUserMetaData] = useState('');
-    const [loading, setLoading] = useState(true);
+    const [profileData, setProfileData] = useState({ profile: null, loading: true, error: null });
 
 
 
+    const getProfile = async (profileId) => {
+        try {
+            const { data: profile, error } = await supabase
+                .from('profiles')
+                .select(`*, regions(region_name), genders(gender_name)`)
+                .eq('id', profileId)
+                .single();
+
+            if (error) throw error;
+
+            setProfileData({ profile: profile, loading: false, error: null });
+        } catch (error) {
+            setProfileData({ profile: null, loading: false, error: error.message });
+        }
+    };
 
     // Listen for auth changes on:
     // SIGNED_IN, SIGNED_OUT, TOKEN_REFRESHED, USER_UPDATED, USER_DELETED, PASSWORD_RECOVERY
 
     useEffect(() => {
-        supabase.auth.getSession().then(({ data: { session } }) => {
+
+        const fetchSession = async () => {
+            const { data: { session } } = await supabase.auth.getSession();
+            if (session) {
+                setSession(session);
+                getProfile(session.user.id);
+            } else {
+                setProfileData({ profile: null, loading: false, error: "No session available" });
+            }
+        };
+        fetchSession();
+        
+        // supabase.auth.getSession().then(({ data: { session } }) => {
+        //     setSession(session);
+        //     const profileId = session.user.id;
+        //     getProfile(profileId);
+        // })
+
+        const { data: { subscription } } = supabase.auth.onAuthStateChange((_event, session) => {
             setSession(session);
-            setLoading(false);
-        })
 
-        const {
-            data: { subscription },
-        } = supabase.auth.onAuthStateChange((_event, session) => {
-            setSession(session)
-            setLoading(false);
-            console.log(_event);
-            console.log(session);
-        })
+            if (session) {
+                getProfile(session.user.id);
+            } else {
+                setProfileData({ profile: null, loading: false, error: "No session available" });
+            }
+        });
 
- 
+        // const {
+        //     data: { subscription },
+        // } = supabase.auth.onAuthStateChange((_event, session) => {
+        //     setSession(session)
+        //     console.log(_event);
+        //     console.log(session);
+        // })
+
+
+
+
 
         return () => subscription.unsubscribe()
     }, [])
@@ -95,7 +133,7 @@ export function AuthProvider({ children }) {
 
     const value = {
         session,
-        loading,
+        profileData,
         auth_user_register,
         auth_user_log_in,
         auth_user_log_out

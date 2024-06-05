@@ -9,7 +9,6 @@ export default function MyAds() {
     const { session, loading: sessionLoading } = useAuth(); // Assume useAuth provides a loading state
     const [data, setData] = useState({ ads: null, loading: true, error: null });
 
-    console.log('MY ADS');
 
     useEffect(() => {
         if (sessionLoading) {
@@ -66,8 +65,7 @@ export default function MyAds() {
                         console.log(ad);
                         console.log(ad.uuid !== row_value)
                         return ad.uuid !== row_value
-                    })
-                    
+                    })  
                 }
 
             });
