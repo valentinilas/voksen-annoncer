@@ -7,8 +7,35 @@ import { ChevronLeftIcon, ChevronRightIcon } from "@heroicons/react/24/outline";
 
 export default function Spotlight() {
     const [data, setData] = useState({ ads: null, loading: true, error: null });
+    const CACHE_KEY = 'spotlight_ads_cache';
+    const CACHE_EXPIRATION = 10 * 60 * 1000; // 10 minutes in milliseconds
+
+    const getCachedAds = () => {
+        const cachedData = localStorage.getItem(CACHE_KEY);
+        if (!cachedData) return null;
+
+        const { ads, timestamp } = JSON.parse(cachedData);
+        const isExpired = Date.now() - timestamp > CACHE_EXPIRATION;
+
+        return isExpired ? null : ads;
+    };
+
+    const setCachedAds = (ads) => {
+        const cacheData = {
+            ads,
+            timestamp: Date.now()
+        };
+        localStorage.setItem(CACHE_KEY, JSON.stringify(cacheData));
+    };
 
     useEffect(() => {
+
+        const cachedAds = getCachedAds();
+        if (cachedAds) {
+            console.log('Using spotlight_ads_cache');
+            setData({ ads: cachedAds, loading: false, error: null });
+            return;
+        }
         async function getAdList() {
             console.log("FETCHING DATA FOR SPOTLIGHT");
             try {
@@ -21,6 +48,7 @@ export default function Spotlight() {
                 if (error) {
                     throw error;
                 }
+                setCachedAds(ads);
 
                 setData({ ads, loading: false, error: null });
             } catch (error) {
