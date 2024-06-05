@@ -10,6 +10,7 @@ export function useAuth() {
 
 export function AuthProvider({ children }) {
     const [session, setSession] = useState(null);
+    const [isLoadingSession, setIsLoadingSession] = useState(true);
     const [profileData, setProfileData] = useState({ profile: null, loading: true, error: null });
 
 
@@ -38,14 +39,16 @@ export function AuthProvider({ children }) {
         const fetchSession = async () => {
             const { data: { session } } = await supabase.auth.getSession();
             if (session) {
+
                 setSession(session);
                 getProfile(session.user.id);
             } else {
                 setProfileData({ profile: null, loading: false, error: "No session available" });
             }
+            setIsLoadingSession(false);
         };
         fetchSession();
-        
+
         // supabase.auth.getSession().then(({ data: { session } }) => {
         //     setSession(session);
         //     const profileId = session.user.id;
@@ -56,10 +59,12 @@ export function AuthProvider({ children }) {
             setSession(session);
 
             if (session) {
+
                 getProfile(session.user.id);
             } else {
                 setProfileData({ profile: null, loading: false, error: "No session available" });
             }
+            setIsLoadingSession(false)
         });
 
         // const {
@@ -134,6 +139,7 @@ export function AuthProvider({ children }) {
     const value = {
         session,
         profileData,
+        isLoadingSession,
         auth_user_register,
         auth_user_log_in,
         auth_user_log_out

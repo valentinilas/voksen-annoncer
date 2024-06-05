@@ -8,22 +8,28 @@ export default function Dashboard() {
     const year = new Date().getFullYear();
     return (
         <section className="container mx-auto bg-white p-5 mt-10 rounded-lg shadow-sm">
-            <h1 className="text-lg font-bold mb-4">Dashboard</h1>
+            <div className="flex gap-2 justify-between items-center  mb-4">
+                <h1 className="text-lg font-bold ">Dashboard</h1>
+
+                <div className="flex gap-2 justify-end">
+                    <Button variant="primary">Edit profile</Button>
+                    <Button variant="tertiary">Delete account</Button>
+                </div>
+            </div>
 
             <div className="grid grid-cols-12 gap-6">
-                <div className="col-span-4 border  p-6 rounded-md">
-                    <ProfileDetail />
+                <div className="col-span-4 ">
+                    <div className="border  p-6 rounded-md">
+                        <ProfileDetail />
+                    </div>
+
                 </div>
-                <div className="my-ads col-span-8  bg-stone-50 text-black p-6 rounded-md">
-                    <h4 className="text-xl mb-4">My ads</h4>
-                   <MyAds/>
+                <div className="my-ads col-span-8  text-black p-6 rounded-md">
+                    <MyAds />
                 </div>
             </div>
 
-            <div className="flex gap-2 justify-end mt-10 border-t pt-5">
-                <Button variant="primary">Edit profile</Button>
-                <Button variant="tertiary">Delete account</Button>
-            </div>
+
 
         </section>
     );

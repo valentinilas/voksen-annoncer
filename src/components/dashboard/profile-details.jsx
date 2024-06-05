@@ -40,19 +40,20 @@ export default function ProfileDetail() {
 
             {/* <h4 className="text-xl mb-4">Profile</h4> */}
 
-            <div>
+            <div class="text-center mb-5">
                 {profile.avatar_url ? <img
-                    className="rounded-full size-32 mx-auto mb-6"
+                    className="rounded-full size-32 mx-auto mb-2 "
                     src={profile.avatar_url} alt={`Avatar ${profile.username}`} />
                     : <div class="size-32 bg-cherry-100 flex items-center justify-center rounded-full mx-auto mb-6">
                         <UserIcon className="size-16 text-cherry-200" />
                     </div>}
+                    <span className="font-bold text-lg">{profile.username}</span>
             </div>
 
-            <p className={blockClasses}>
+            {/* <p className={blockClasses}>
                 <Label type="profile"><span className={labelClasses}>Username</span></Label>
                 <span>{profile.username}</span>
-            </p>
+            </p> */}
             <p className={blockClasses}>
                 <Label type="profile"><span className={labelClasses}>Age</span></Label>
                 <span>{age}</span>

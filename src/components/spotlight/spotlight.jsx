@@ -84,8 +84,8 @@ export default function Spotlight() {
             <NavLink to={`/ad/${uuid}`} className="embla__slide" key={uuid}>
                 <div className="shadow-sm border rounded-md m-2 p-2">
                     <img src={image_urls[0]} className="mb-2 rounded-md w-full object-cover aspect-square" alt={title} />
-                    <h5 className="font-bold">{title}</h5>
-                    <p>{description}</p>
+                    <h5 className="font-bold truncate text-sm">{title}</h5>
+                    <p className="truncate text-sm">{description}</p>
                 </div>
             </NavLink>
         );

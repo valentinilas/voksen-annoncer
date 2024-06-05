@@ -1,6 +1,6 @@
 export default function Label({ children, type, Icon, ...props }) {
     // Default
-    let classes = "rounded-lg font-normal flex gap-2 justify-items-center items-center bg-stone-100 text-stone-600 inline-flex py-1 px-4"
+    let classes = "rounded-lg font-normal flex gap-2 justify-items-center items-center bg-black/5 text-stone-600 inline-flex py-1 px-4 mb-5"
 
     // Profile
     if(type === 'profile'){

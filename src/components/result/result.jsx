@@ -12,25 +12,29 @@ export default function Result({data}) {
 
     const formattedDate = formatDate(created_at);
 
+    function truncateText(text, maxLength) {
+        if (text.length <= maxLength) {
+            return text;
+        }
+        return text.substring(0, maxLength) + '...';
+    }
+
     return (<div>
-        <div className="border-b my-6 py-6 ">
+        <div className="mb-4 border  shadow-sm px-5 py-10  rounded-md ">
             {/* Card main content */}
-            <div className="grid grid-cols-12 	">
+            <div className="grid grid-cols-12 gap-8	">
                 <div className="result-text col-span-9">
-                    <span className="text-stone-500"><Label>{formatDate(formattedDate)}</Label></span>
-                    <h3 className="font-bold text-xl">{title}</h3>
-                    <p>{description}</p>
+                    <Label>{formatDate(formattedDate)}</Label>
+                    <h3 className=" text-2xl mb-4">{title}</h3>
+                    <p>{truncateText(description, 350)}</p>
                 </div>
                 <div className="result-image col-span-3">
                     {image_urls.length > 0 ? <img src={image_urls[0]} className="mb-2 rounded-md w-full object-cover aspect-square" /> : null}
-                    {image_urls.length > 1 && <div className="result-thumbs flex gap-2">
-                        {image_urls.map(image_src => <img key={image_src} src={image_src + '?width=100&height=100'} className="mb-2 rounded-md w-full max-w-24 object-cover aspect-square" />)}
-                    </div>}
                 </div>
             </div>
 
             {/* Card Details */}
-            <div className="flex p-4 bg-white border  border-cherry-200 justify-between rounded-md items-center gap-4">
+            <div className="flex p-4 bg-white border  border-cherry-200 justify-between rounded-md items-center gap-4 mt-10">
                 <div> <Button to={`/ad/${uuid}`}>Details</Button></div>
                 <div className="flex items-center gap-4">
                     <span>Region: {regions.region_name}</span>
