@@ -13,8 +13,8 @@ import { calculateAge } from "../../util/calculate-age";
 
 
 export default function ProfileDetail() {
-    const { profileData} = useAuth();
-    const {profile, loading, error} = profileData;
+    const { profileData } = useAuth();
+    const { profile, loading, error } = profileData;
 
     if (loading) {
         return <p>Loading profile...</p>;
@@ -29,25 +29,25 @@ export default function ProfileDetail() {
     }
 
 
-   
+
     const age = calculateAge(new Date(profile.birthday).getFullYear())
 
 
     const blockClasses = 'mb-2 bg-stone-100 p-4 rounded-2xl';
-    const labelClasses = 'font-bold';
+    const labelClasses = 'font-bold mb-1';
     return (
         <div >
 
             {/* <h4 className="text-xl mb-4">Profile</h4> */}
 
-            <div class="text-center mb-5">
+            <div className="text-center mb-5">
                 {profile.avatar_url ? <img
                     className="rounded-full size-32 mx-auto mb-2 "
                     src={profile.avatar_url} alt={`Avatar ${profile.username}`} />
                     : <div class="size-32 bg-cherry-100 flex items-center justify-center rounded-full mx-auto mb-6">
                         <UserIcon className="size-16 text-cherry-200" />
                     </div>}
-                    <span className="font-bold text-lg">{profile.username}</span>
+                <span className="font-bold text-lg">{profile.username}</span>
             </div>
 
             {/* <p className={blockClasses}>
@@ -70,7 +70,7 @@ export default function ProfileDetail() {
                 <Label type="profile"><span className={labelClasses}>Gender</span></Label>
                 <span>{profile.genders && profile.genders.gender_name}</span>
             </p>
-            <h4 className="text-xl mb-4">Contact info</h4>
+            <h4 className="text-xl mb-4 mt-6">Contact info</h4>
 
             {profile.contact_email && <p className={blockClasses}>
                 <Label type="profile" Icon={EnvelopeIcon}><span className={labelClasses}>Email</span></Label>
