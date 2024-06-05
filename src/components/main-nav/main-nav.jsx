@@ -40,7 +40,7 @@ export default function MainNav() {
             <ul className="flex items-center">
                 <li><Button variant="text" to="/">Home</Button></li>
                 <li><Button variant="text" href="/">Support</Button></li>
-                {session && <li><Button variant="primary" Icon={PlusIcon} to="/new-ad">Create a new ad</Button></li>}
+                {session && <li></li>}
                 <li className="pl-6 ml-6 border-l border-cherry-200 flex gap-2">
                     {!session &&
                         <>
@@ -50,9 +50,10 @@ export default function MainNav() {
                     }
                     {session &&
                         <>
-
-                            <Button variant="secondary" Icon={UserIcon} to="/dashboard">{username}</Button>
+                           
+                            <Button variant="tertiary" Icon={UserIcon} to="/dashboard">{username}</Button>
                             <Button variant="tertiary" Icon={ArrowLeftStartOnRectangleIcon} onClick={handleLogOut}>Log out</Button>
+                            <Button variant="primary" Icon={PlusIcon} to="/new-ad">Create a new ad</Button>
                         </>
                     }
 

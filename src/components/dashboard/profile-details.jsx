@@ -9,6 +9,7 @@ import { EnvelopeIcon } from "@heroicons/react/24/outline";
 import { DevicePhoneMobileIcon } from "@heroicons/react/24/outline";
 import { UserIcon } from "@heroicons/react/24/outline";
 import Button from "../button/button";
+import ProfileField from "./profile-field";
 
 import { calculateAge } from "../../util/calculate-age";
 
@@ -31,65 +32,44 @@ export default function ProfileDetail() {
 
 
 
-    const age = calculateAge(new Date(profile.birthday).getFullYear())
+    const age = profile.birthday ? calculateAge(new Date(profile.birthday).getFullYear()) : '-'
 
+    const { username, regions = '-', bio = '-', genders = '-', contact_emai = '', contact_phone = '-', contact_email = '', contact_sms = '' } = profile;
 
     const blockClasses = 'mb-2 bg-stone-200 p-4 rounded-2xl ';
     const labelClasses = 'font-bold mb-1 ';
     return (
         <div className="h-full bg-stone-100  p-6 rounded-lg">
 
-            {/* <h4 className="text-xl mb-4">Profile</h4> */}
 
             <div className="text-center mb-5 ">
                 {profile.avatar_url ? <img
                     className="rounded-full border-4 border-cherry-600 size-32 mx-auto mb-2 "
-                    src={profile.avatar_url} alt={`Avatar ${profile.username}`} />
-                    : <div class="size-32 bg-cherry-100 flex items-center justify-center rounded-full mx-auto mb-6">
+                    src={profile.avatar_url} alt={`Avatar ${username}`} />
+                    : <div className="size-32 bg-cherry-100 flex items-center justify-center rounded-full mx-auto mb-6">
                         <UserIcon className="size-16 text-cherry-200" />
                     </div>}
-                <span className=" text-xl">{profile.username}</span>
+                <span className=" text-xl">{username}</span>
             </div>
 
-            {/* <p className={blockClasses}>
-                <Label type="profile"><span className={labelClasses}>Username</span></Label>
-                <span>{profile.username}</span>
-            </p> */}
-            <p className={blockClasses}>
-                <Label type="profile"><span className={labelClasses}>Age</span></Label>
-                <span>{age}</span>
-            </p>
-            <p className={blockClasses}>
-                <Label type="profile"><span className={labelClasses}>Location</span></Label>
-                <span>{profile.regions.region_name}</span>
-            </p>
-            <p className={blockClasses}>
-                <Label type="profile"><span className={labelClasses}>Bio</span></Label>
-                <span>{profile.bio}</span>
-            </p>
-            <p className={blockClasses}>
-                <Label type="profile"><span className={labelClasses}>Gender</span></Label>
-                <span>{profile.genders && profile.genders.gender_name}</span>
-            </p>
-            <h4 className="text-xl mb-4 mt-6 ">Contact info</h4>
-
-            {profile.contact_email && <p className={blockClasses}>
-                <Label type="profile" Icon={EnvelopeIcon}><span className={labelClasses}>Email</span></Label>
-                <span>{profile.contact_email}</span>
-            </p>}
-            {profile.contact_phone && <p className={blockClasses}>
-                <Label type="profile" Icon={DevicePhoneMobileIcon}><span className={labelClasses}>Phone</span></Label>
-                <span>{profile.contact_phone}</span>
-            </p>}
-            {profile.contact_sms && <p className={blockClasses}>
-                <Label type="profile" Icon={ChatBubbleLeftRightIcon}><span className={labelClasses}>SMS</span></Label>
-                <span>{profile.contact_sms}</span>
-            </p>}
-
-            <div className="flex gap-2 justify-center mt-6">
+            <div className="flex gap-2 justify-center my-6">
                 <Button variant="primary">Edit profile</Button>
                 <Button variant="tertiary">Delete account</Button>
             </div>
+
+
+            <ProfileField label="Age" value={age} />
+            <ProfileField label="Location" value={regions?.region_name ?? '-'} />
+            <ProfileField label="Bio" value={bio ?? '-'} />
+            <ProfileField label="Gender" value={genders?.gender_name ?? '-'} />
+
+            <h4 className="text-xl mb-4 mt-6">Contact info</h4>
+
+            <ProfileField label="Email" value={contact_email ?? '-'} icon={EnvelopeIcon} />
+            <ProfileField label="Phone" value={contact_phone ?? '-'} icon={DevicePhoneMobileIcon} />
+            <ProfileField label="SMS" value={contact_sms ?? '-'} icon={ChatBubbleLeftRightIcon} />
+
+
         </div>
     );
 }

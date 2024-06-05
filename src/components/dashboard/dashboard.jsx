@@ -7,7 +7,7 @@ import MyAds from "./my-ads";
 export default function Dashboard() {
     const year = new Date().getFullYear();
     return (
-        <section className="container mx-auto bg-white p-0 mt-10 rounded-lg shadow-sm">
+        <section className="container mx-auto  p-0 mt-10 rounded-lg ">
             {/* <div className="flex gap-2  justify-between items-center  mb-4">
                 <h1 className="text-lg font-bold ">Dashboard</h1>
 
@@ -24,7 +24,7 @@ export default function Dashboard() {
                     </div>
 
                 </div>
-                <div className="my-ads col-span-12 lg:col-span-8  text-black lg:p-6 rounded-md">
+                <div className="my-ads bg-white col-span-12 lg:col-span-8  text-black lg:p-6 rounded-md">
                     <MyAds />
                 </div>
             </div>
