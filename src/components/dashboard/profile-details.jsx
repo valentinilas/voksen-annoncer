@@ -34,7 +34,7 @@ export default function ProfileDetail() {
 
     const age = profile.birthday ? calculateAge(new Date(profile.birthday).getFullYear()) : '-'
 
-    const { username, regions = '-', bio = '-', genders = '-', contact_emai = '', contact_phone = '-', contact_email = '', contact_sms = '' } = profile;
+    const { username, regions, bio, genders, contact_emai, contact_phone, contact_email, contact_sms } = profile;
 
     const blockClasses = 'mb-2 bg-stone-200 p-4 rounded-2xl ';
     const labelClasses = 'font-bold mb-1 ';
