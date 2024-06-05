@@ -59,7 +59,7 @@ export default function AdDetail() {
                         <div className="result-text col-span-9">
                             <span className="text-stone-500"><Label>{formatDate(ad.created_at)}</Label></span>
                             <h3 className="font-bold text-xl">{ad.title}</h3>
-                            <p>{ad.description}</p>
+                            <div><pre>{ad.description}</pre></div>
                         </div>
                         <div className="result-image col-span-3">
                             <img src={ad.image_urls[0]} className="mb-2 rounded-md w-full object-cover aspect-square" alt="Ad Image" />

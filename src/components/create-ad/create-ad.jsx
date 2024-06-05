@@ -5,7 +5,6 @@ import Button from '../button/button';
 import { useNavigate } from 'react-router-dom';
 
 
-
 export default function CreateAd() {
 
 
@@ -133,6 +132,8 @@ export default function CreateAd() {
                         required
                     ></textarea>
                 </div>
+  
+               
                 <div className="mb-4">
                     <label className="block text-gray-700 text-sm font-bold mb-2" htmlFor="images">
                         Upload Images

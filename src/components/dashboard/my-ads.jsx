@@ -38,7 +38,9 @@ export default function MyAds() {
                 const { data: ads, error } = await supabase
                     .from('ads')
                     .select('*')
+                    
                     .eq('user_id', profileId)
+                    .order('created_at', { ascending: false });
 
                 if (error) throw error;
 

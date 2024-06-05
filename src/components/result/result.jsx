@@ -26,7 +26,7 @@ export default function Result({data}) {
                 <div className="result-text col-span-9">
                     <Label>{formatDate(formattedDate)}</Label>
                     <h3 className=" text-2xl mb-4">{title}</h3>
-                    <p>{truncateText(description, 350)}</p>
+                    <p><pre>{truncateText(description, 350)}</pre></p>
                 </div>
                 <div className="result-image col-span-3">
                     {image_urls.length > 0 ? <img src={image_urls[0]} className="mb-2 rounded-md w-full object-cover aspect-square" /> : null}
