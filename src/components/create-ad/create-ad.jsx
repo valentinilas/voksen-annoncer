@@ -99,7 +99,7 @@ export default function CreateAd() {
             fileInput.current.value = '';
             setSelectedRegion('');
           
-            navigate('/');
+            navigate('/dashboard');
         }
     };
 

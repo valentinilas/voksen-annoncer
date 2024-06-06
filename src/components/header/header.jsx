@@ -1,5 +1,5 @@
 import MainNav from "../main-nav/main-nav";
-import logo from '../../assets/va-logo.svg';
+import logo from '../../assets/va-logo-cherry.svg';
 
 export default function Header() {
     return (

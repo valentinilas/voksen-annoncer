@@ -42,7 +42,7 @@ export default function MyAd({ ad, deleteRow }) {
         <>
             <ConfirmationModal ref={dialog} onCancel={() => { hideModal() }} onConfirm={() => confirmDelete(uuid)} />
 
-            <li key={uuid} className="mb-4 border  shadow-sm px-5 py-10  transition-colors duration-700 rounded-md">
+            <li key={uuid} className="mb-4   shadow-sm px-5 py-10  transition-colors duration-700 rounded-md bg-white">
                 <div className="grid grid-cols-12 gap-8 ">
                     <div className="col-span-8">
                         <Label Icon={CalendarDaysIcon}>{formatDate(created_at)}</Label>
