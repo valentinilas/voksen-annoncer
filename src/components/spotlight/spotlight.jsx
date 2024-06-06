@@ -5,62 +5,14 @@ import EmblaCarousel from '../carousel/carousel';
 import { NavLink } from "react-router-dom";
 import { ChevronLeftIcon, ChevronRightIcon } from "@heroicons/react/24/outline";
 
+import useFetchSpotlightAdList from "../../hooks/useFetchSpotlightAdList";
+
 export default function Spotlight() {
-    const [data, setData] = useState({ ads: null, loading: true, error: null });
-    const CACHE_KEY = 'spotlight_ads_cache';
-    const CACHE_EXPIRATION = 10 * 60 * 1000; // 10 minutes in milliseconds
+    const { ads, loading, error } = useFetchSpotlightAdList();
 
-    const getCachedAds = () => {
-        const cachedData = localStorage.getItem(CACHE_KEY);
-        if (!cachedData) return null;
 
-        const { ads, timestamp } = JSON.parse(cachedData);
-        const isExpired = Date.now() - timestamp > CACHE_EXPIRATION;
 
-        return isExpired ? null : ads;
-    };
-
-    const setCachedAds = (ads) => {
-        const cacheData = {
-            ads,
-            timestamp: Date.now()
-        };
-        localStorage.setItem(CACHE_KEY, JSON.stringify(cacheData));
-    };
-
-    useEffect(() => {
-
-        const cachedAds = getCachedAds();
-        if (cachedAds) {
-            console.log('Using spotlight_ads_cache');
-            setData({ ads: cachedAds, loading: false, error: null });
-            return;
-        }
-        async function getAdList() {
-            console.log("FETCHING DATA FOR SPOTLIGHT");
-            try {
-                const { data: ads, error } = await supabase
-                    .from('ads')
-                    .select('uuid, title, description, image_urls')
-                    .order('created_at', { ascending: false })
-                    .range(0, 12);
-
-                if (error) {
-                    throw error;
-                }
-                setCachedAds(ads);
-
-                setData({ ads, loading: false, error: null });
-            } catch (error) {
-                console.error('Error fetching data:', error);
-                setData({ ads: null, loading: false, error: error.message });
-            }
-        }
-
-        getAdList();
-    }, []);
-
-    if (data.loading) {
+    if (loading) {
         return (
             <section className="container mx-auto bg-white mt-1 p-5 rounded-lg shadow-sm">
                 <p>Loading data...</p>
@@ -68,17 +20,17 @@ export default function Spotlight() {
         );
     }
 
-    if (data.error) {
+    if (error) {
         return (
             <section className="container mx-auto bg-white mt-1 p-5 rounded-lg shadow-sm">
-                <p>Error loading data: {data.error}</p>
+                <p>Error loading data: {error}</p>
             </section>
         );
     }
 
     const OPTIONS = { loop: false, align: 'start', containScroll: 'trimSnaps' };
 
-    const SLIDES = data.ads.map((ad) => {
+    const SLIDES = ads.map((ad) => {
         const { uuid, image_urls, title, description } = ad;
         return (
             <NavLink to={`/ad/${uuid}`} className="embla__slide" key={uuid}>
