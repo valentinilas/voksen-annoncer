@@ -139,6 +139,7 @@ export function AuthProvider({ children }) {
     const value = {
         session,
         profileData,
+        setProfileData,
         isLoadingSession,
         auth_user_register,
         auth_user_log_in,

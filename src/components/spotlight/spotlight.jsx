@@ -11,7 +11,6 @@ export default function Spotlight() {
     const { ads, loading, error } = useFetchSpotlightAdList();
 
 
-
     if (loading) {
         return (
             <section className="container mx-auto bg-white mt-1 p-5 rounded-lg shadow-sm">

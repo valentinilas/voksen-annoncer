@@ -4,35 +4,21 @@ import Button from '../button/button';
 
 import { useNavigate } from 'react-router-dom';
 
+import useFetchRegions from '../../hooks/useFetchRegions';
 
 export default function CreateAd() {
 
-
+    const { regions, loading: regionsLoading, error: regionsError } = useFetchRegions();
 
     const [title, setTitle] = useState('');
     const [description, setDescription] = useState('');
     const [images, setImages] = useState([]);
-    const [regions, setRegions] = useState([]);
     const [selectedRegion, setSelectedRegion] = useState('');
     const fileInput = useRef(null);
 
     const navigate = useNavigate();
 
 
-    useEffect(() => {
-        fetchRegions();
-    }, []);
-
-    const fetchRegions = async () => {
-        let { data, error } = await supabase
-            .from('regions')
-            .select('*');
-        if (error) {
-            console.error('Error fetching regions:', error);
-        } else {
-            setRegions(data);
-        }
-    };
 
     const handleImageUpload = async (file) => {
         const fileExt = file.name.split('.').pop();
@@ -98,7 +84,7 @@ export default function CreateAd() {
             setImages([]);
             fileInput.current.value = '';
             setSelectedRegion('');
-          
+
             navigate('/dashboard');
         }
     };
@@ -132,14 +118,14 @@ export default function CreateAd() {
                         required
                     ></textarea>
                 </div>
-  
-               
+
+
                 <div className="mb-4">
                     <label className="block text-gray-700 text-sm font-bold mb-2" htmlFor="images">
                         Upload Images
                     </label>
                     <input
-                    ref={fileInput}
+                        ref={fileInput}
                         id="images"
                         type="file"
                         multiple
@@ -151,20 +137,26 @@ export default function CreateAd() {
                     <label className="block text-gray-700 text-sm font-bold mb-2" htmlFor="region">
                         Region
                     </label>
-                    <select
-                        id="region"
-                        className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
-                        value={selectedRegion}
-                        onChange={(e) => setSelectedRegion(e.target.value)}
-                        required
-                    >
-                        <option value="">Select a region</option>
-                        {regions.map((region) => (
-                            <option key={region.id} value={region.id}>
-                                {region.region_name}
-                            </option>
-                        ))}
-                    </select>
+                    {regionsLoading ? (
+                        <p>Loading regions...</p>
+                    ) : regionsError ? (
+                        <p>Error loading regions</p>
+                    ) : (
+                        <select
+                            id="region"
+                            className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+                            value={selectedRegion}
+                            onChange={(e) => setSelectedRegion(e.target.value)}
+                            required
+                        >
+                            <option value="">Select a region</option>
+                            {regions?.map((region) => (
+                                <option key={region.id} value={region.id}>
+                                    {region.region_name}
+                                </option>
+                            ))}
+                        </select>
+                    )}
                 </div>
                 <div className="flex items-center justify-between">
                     <Button type="submit" value="Submit">Create Ad</Button>
