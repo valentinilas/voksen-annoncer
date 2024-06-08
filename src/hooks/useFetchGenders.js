@@ -27,12 +27,12 @@ const useFetchGenders = () => {
     useEffect(() => {
         const cachedGenders = getCachedGenders();
         if (cachedGenders) {
-            console.log('Genders: Loading from cache');
+            // console.log('Genders: Loading from cache');
             setData({ genders: cachedGenders, loading: false, error: null });
             return;
         }
         const fetchGenders = async () => {
-            console.log('Genders: Loading from live');
+            // console.log('Genders: Loading from live');
             try {
                 let { data, error } = await supabase
                 .from('genders')

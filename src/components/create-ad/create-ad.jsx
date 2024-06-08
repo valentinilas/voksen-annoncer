@@ -1,24 +1,19 @@
-import React, { useState, useEffect, useRef } from 'react';
+import React, { useState, useRef } from 'react';
 import { supabase } from '../../lib/supabase';
 import Button from '../button/button';
-
 import { useNavigate } from 'react-router-dom';
-
 import useFetchRegions from '../../hooks/useFetchRegions';
 
 export default function CreateAd() {
-
     const { regions, loading: regionsLoading, error: regionsError } = useFetchRegions();
+    const [uploading, setUploading] = useState(false); // New loading state
 
     const [title, setTitle] = useState('');
     const [description, setDescription] = useState('');
     const [images, setImages] = useState([]);
     const [selectedRegion, setSelectedRegion] = useState('');
     const fileInput = useRef(null);
-
     const navigate = useNavigate();
-
-
 
     const handleImageUpload = async (file) => {
         const fileExt = file.name.split('.').pop();
@@ -37,56 +32,74 @@ export default function CreateAd() {
         return filePath;
     };
 
-
-
-    const getPublicUrl = (filePath) => {
-        const { data } = supabase
-            .storage
-            .from('voksen-annoncer')
-            .getPublicUrl(filePath)
+    const getPublicUrl = async (filePath) => {
+        const { data, error } = await supabase.storage.from('voksen-annoncer').getPublicUrl(filePath);
+        if (error) {
+            console.error('Error getting public URL:', error);
+            return null;
+        }
         return data.publicUrl;
     };
 
     const handleSubmit = async (event) => {
-        console.log('submit');
-        console.log(images);
         event.preventDefault();
+        setUploading(true); // Start loading
 
         // Upload files and get their URLs
         const imageUrls = [];
         for (let i = 0; i < images.length; i++) {
             const filePath = await handleImageUpload(images[i]);
             if (filePath) {
-                console.log('filePath', filePath);
-                const publicUrl = getPublicUrl(filePath);
+                const publicUrl = await getPublicUrl(filePath);
                 if (publicUrl) {
                     imageUrls.push(publicUrl);
                 }
             }
         }
 
-        console.log(imageUrls);
-
         // Save the ad details to the database
-        const { data, error } = await supabase
+        const { data: adData, error: adError } = await supabase
             .from('ads')
-            .insert([
-                { title, description, region_id: selectedRegion, image_urls: imageUrls }
-            ]);
+            .insert({
+                title,
+                description,
+                region_id: selectedRegion,
+            })
+            .select();
 
-        if (error) {
-            console.error('Error creating ad:', error);
-        } else {
-            console.log('Ad created successfully:', data);
-            // Reset the form fields
-            setTitle('');
-            setDescription('');
-            setImages([]);
-            fileInput.current.value = '';
-            setSelectedRegion('');
-
-            navigate('/dashboard');
+        if (adError) {
+            console.error('Error creating ad:', adError);
+            setUploading(false); 
+            return;
         }
+        const adId = adData[0].uuid;  
+
+        // Insert image URLs into the ad_images table
+        const { error: imageError } = await supabase
+            .from('ad_images')
+            .insert(
+                imageUrls.map((imageUrl) => ({
+                    ad_id: adId,
+                    image_url: imageUrl,
+                }))
+            );
+
+        if (imageError) {
+            console.error('Error inserting image URLs:', imageError);
+            setUploading(false); // End loading on error
+
+            return;
+        }
+
+        // Reset the form fields
+        setTitle('');
+        setDescription('');
+        setImages([]);
+        fileInput.current.value = '';
+        setSelectedRegion('');
+        setUploading(false); // End loading on success
+
+        navigate('/dashboard');
     };
 
     return (
@@ -118,8 +131,6 @@ export default function CreateAd() {
                         required
                     ></textarea>
                 </div>
-
-
                 <div className="mb-4">
                     <label className="block text-gray-700 text-sm font-bold mb-2" htmlFor="images">
                         Upload Images
@@ -130,7 +141,7 @@ export default function CreateAd() {
                         type="file"
                         multiple
                         className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
-                        onChange={(e) => setImages(e.target.files)}
+                        onChange={(e) => setImages(Array.from(e.target.files))}
                     />
                 </div>
                 <div className="mb-4">
@@ -159,8 +170,9 @@ export default function CreateAd() {
                     )}
                 </div>
                 <div className="flex items-center justify-between">
-                    <Button type="submit" value="Submit">Create Ad</Button>
+                    <Button type="submit" disabled={uploading}>{uploading ? 'Uploading...' : 'Create Ad'}</Button>
                 </div>
+                {uploading && <p>Uploading images, please wait...</p>}
             </form>
         </div>
     );

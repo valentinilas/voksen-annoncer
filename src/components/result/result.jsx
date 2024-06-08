@@ -5,9 +5,9 @@ import { NavLink } from "react-router-dom";
 
 
 
-export default function Result({data}) {
+export default function Result({ data }) {
 
-    const { uuid = "", title = "", created_at = null, description = "", image_urls = [], regions = "" } = data;
+    const { uuid = "", title = "", created_at = null, description = "", ad_images = [], regions = "" } = data;
 
 
     const formattedDate = formatDate(created_at);
@@ -29,7 +29,7 @@ export default function Result({data}) {
                     <div><pre>{truncateText(description, 350)}</pre></div>
                 </div>
                 <div className="result-image col-span-3">
-                    {image_urls.length > 0 ? <img src={image_urls[0]} className="mb-2 rounded-md w-full object-cover aspect-square" /> : null}
+                    {ad_images.length > 0 ? <img src={ad_images[0].image_url} className="mb-2 rounded-md w-full object-cover aspect-square" /> : null}
                 </div>
             </div>
 
@@ -42,6 +42,8 @@ export default function Result({data}) {
                     <span>Service: Massage</span>
                 </div>
             </div>
+
+           
         </div>
     </div>)
 }

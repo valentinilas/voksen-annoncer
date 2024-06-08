@@ -36,7 +36,7 @@ export default function MyAd({ ad, deleteRow }) {
         return text.substring(0, maxLength) + '...';
     }
 
-    const { uuid, title, description, image_urls, created_at } = ad;
+    const { uuid, title, description, ad_images, created_at } = ad;
 
     return (
         <>
@@ -50,7 +50,7 @@ export default function MyAd({ ad, deleteRow }) {
                         <p className="text-ellipsis overflow-hidden">{truncateText(description, 300)}</p>
                     </div>
                     <div className="col-span-4">
-                        <img className="rounded-md w-full object-cover aspect-square" src={image_urls[0]} alt="" />
+                        <img className="rounded-md w-full object-cover aspect-square" src={ad_images[0]?.image_url} alt="" />
                     </div>
 
                 </div>

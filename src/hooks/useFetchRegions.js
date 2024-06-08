@@ -27,12 +27,12 @@ const useFetchRegions = () => {
     useEffect(() => {
         const cachedRegions = getCachedRegions();
         if (cachedRegions) {
-            console.log('Regions: Loading from cache');
+            // console.log('Regions: Loading from cache');
             setData({ regions: cachedRegions, loading: false, error: null });
             return;
         }
         const fetchRegions = async () => {
-            console.log('Regions: Loading from live');
+            // console.log('Regions: Loading from live');
             try {
                 let { data, error } = await supabase
                 .from('regions')

@@ -25,7 +25,7 @@ const useFetchAuthUserAdList = () => {
             try {
                 const { data: ads, error } = await supabase
                     .from('ads')
-                    .select('*')
+                    .select('*, ad_images (image_url)')
                     .eq('user_id', profileId)
                     .order('created_at', { ascending: false });
 

@@ -37,9 +37,10 @@ const useFetchSpotlightAdList = () => {
             try {
                 const { data: ads, error } = await supabase
                     .from('ads')
-                    .select('uuid, title, description, image_urls')
+                    .select('uuid, title, description, ad_images (image_url)')
                     .order('created_at', { ascending: false })
                     .range(0, 12);
+
 
                 if (error) {
                     throw error;
