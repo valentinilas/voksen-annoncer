@@ -3,7 +3,15 @@ import { useForm } from "react-hook-form";
 import { supabase } from "../../lib/supabase";
 import { useAuth } from "../../lib/auth-context";
 import Button from "../button/button";
-import { ChatBubbleLeftRightIcon, EnvelopeIcon, DevicePhoneMobileIcon } from "@heroicons/react/24/outline";
+import {
+    ChatBubbleLeftRightIcon,
+    EnvelopeIcon,
+    DevicePhoneMobileIcon,
+    MapPinIcon, UserCircleIcon,
+    ChatBubbleBottomCenterTextIcon,
+    SparklesIcon
+} from "@heroicons/react/24/outline";
+
 import useFetchRegions from "../../hooks/useFetchRegions";
 import useFetchGenders from "../../hooks/useFetchGenders";
 import ProfileFieldInput from "./profile-field-input";
@@ -25,7 +33,7 @@ export default function ProfileDetail() {
         if (profile) {
             fieldsToLoad.forEach(key => {
                 if (profile[key] !== undefined) {
-                    setValue(key, profile[key]); 
+                    setValue(key, profile[key]);
                 }
             });
         }
@@ -100,9 +108,10 @@ export default function ProfileDetail() {
                 name="username"
                 label="Username"
                 editing={editing}
+                icon={UserCircleIcon}
                 placeholder="-"
                 fieldError={errors.username}
-                defaultValue={profile.username} 
+                defaultValue={profile.username}
                 {...register("username", {
                     required: "Username is required",
                     maxLength: {
@@ -110,31 +119,34 @@ export default function ProfileDetail() {
                         message: "Username must be 12 characters or less"
                     },
                     pattern: {
-                        value:/^[a-zA-Z0-9]+$/,
+                        value: /^[a-zA-Z0-9]+$/,
                         message: "Username must contain only letters and numbers"
-                    } 
+                    }
                 })}
             />
 
             <ProfileFieldInput
                 name="birthday"
                 label="Birthday"
+                icon={SparklesIcon}
                 type="date"
                 editing={editing}
                 max={getMaxDate()}
                 placeholder="-"
-                defaultValue={profile.birthday} 
+                defaultValue={profile.birthday}
                 fieldError={errors.birthday}
                 {...register("birthday")}
             />
 
+
             <ProfileFieldInput
                 name="bio"
                 label="Bio"
+                icon={ChatBubbleBottomCenterTextIcon}
                 editing={editing}
                 placeholder="-"
                 fieldError={errors.bio}
-                defaultValue={profile.bio} 
+                defaultValue={profile.bio}
                 {...register("bio", {
                     maxLength: {
                         value: 160,
@@ -143,30 +155,33 @@ export default function ProfileDetail() {
                 })}
             />
 
+
             <ProfileFieldSelect
                 name="gender_id"
                 label="Gender"
+                icon={UserCircleIcon}
                 editing={editing}
                 options={genders}
                 loading={gendersLoading}
                 error={gendersError}
                 fieldError={errors.gender_id}
-                defaultValue={profile.gender_id} 
+                defaultValue={profile.gender_id}
                 labelKey="gender_name"
-                {...register("gender_id", { required: "Gender is required"})}
+                {...register("gender_id", { required: "Gender is required" })}
             />
 
             <ProfileFieldSelect
                 name="region_id"
                 label="Location"
+                icon={MapPinIcon}
                 editing={editing}
                 options={regions}
                 loading={regionsLoading}
                 error={regionsError}
-                defaultValue={profile.region_id} 
+                defaultValue={profile.region_id}
                 fieldError={errors.region_id}
                 labelKey='region_name'
-                {...register("region_id", { required: "Region is required"})}
+                {...register("region_id", { required: "Region is required" })}
             />
 
             <h4 className="text-xl mb-4 mt-6">Contact info</h4>
@@ -178,7 +193,7 @@ export default function ProfileDetail() {
                 icon={EnvelopeIcon}
                 editing={editing}
                 fieldError={errors.contact_email}
-                defaultValue={profile.contact_email} 
+                defaultValue={profile.contact_email}
                 {...register("contact_email", {
                     required: "Email is required",
                     pattern: {
@@ -195,12 +210,12 @@ export default function ProfileDetail() {
                 icon={DevicePhoneMobileIcon}
                 editing={editing}
                 fieldError={errors.contact_phone}
-                defaultValue={profile.contact_phone} 
+                defaultValue={profile.contact_phone}
                 {...register("contact_phone", {
                     pattern: {
-                        value:/^[+]*[(]{0,1}[0-9]{1,4}[)]{0,1}[-\s\./0-9]*$/,
-                        message:"Invalid phone number"
-                    } 
+                        value: /^[+]*[(]{0,1}[0-9]{1,4}[)]{0,1}[-\s\./0-9]*$/,
+                        message: "Invalid phone number"
+                    }
                 })}
             />
 
@@ -211,12 +226,12 @@ export default function ProfileDetail() {
                 icon={ChatBubbleLeftRightIcon}
                 editing={editing}
                 fieldError={errors.contact_sms}
-                defaultValue={profile.contact_sms} 
+                defaultValue={profile.contact_sms}
                 {...register("contact_sms", {
                     pattern: {
-                        value:/^[+]*[(]{0,1}[0-9]{1,4}[)]{0,1}[-\s\./0-9]*$/,
-                        message:"Invalid phone number"
-                    } 
+                        value: /^[+]*[(]{0,1}[0-9]{1,4}[)]{0,1}[-\s\./0-9]*$/,
+                        message: "Invalid phone number"
+                    }
                 })}
             />
         </div>

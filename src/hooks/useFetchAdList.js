@@ -38,7 +38,7 @@ const useFetchAdList = () => {
             try {
                 const { data: ads, error } = await supabase
                     .from('ads')
-                    .select('*, regions (region_name), profiles(username), ad_images(image_url)')
+                    .select('*, regions (region_name), profiles(username), ad_images(uuid, image_url, image_width, image_height)')
                     .order('created_at', { ascending: false });
 
                 if (error) {

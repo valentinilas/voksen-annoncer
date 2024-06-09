@@ -20,6 +20,16 @@ export default function CreateAd() {
         const fileName = `${Date.now()}.${fileExt}`;
         const filePath = `ad-images/${fileName}`;
 
+
+        const image = new Image();
+        image.src = URL.createObjectURL(file);
+        await new Promise((resolve) => {
+            image.onload = resolve;
+        });
+
+        const width = image.width;
+        const height = image.height;
+
         let { error } = await supabase.storage
             .from('voksen-annoncer')
             .upload(filePath, file);
@@ -29,7 +39,7 @@ export default function CreateAd() {
             return null;
         }
 
-        return filePath;
+        return { filePath, width, height };
     };
 
     const getPublicUrl = async (filePath) => {
@@ -46,14 +56,18 @@ export default function CreateAd() {
         event.preventDefault();
         setUploading(true); // Start loading
 
-        // Upload files and get their URLs
-        const imageUrls = [];
+        // Upload files and get their URLs along with dimensions
+        const imageDetails = [];
         for (let i = 0; i < images.length; i++) {
-            const filePath = await handleImageUpload(images[i]);
-            if (filePath) {
-                const publicUrl = await getPublicUrl(filePath);
+            const uploadResult = await handleImageUpload(images[i]);
+            if (uploadResult) {
+                const publicUrl = await getPublicUrl(uploadResult.filePath);
                 if (publicUrl) {
-                    imageUrls.push(publicUrl);
+                    imageDetails.push({
+                        image_url: publicUrl,
+                        width: uploadResult.width,
+                        height: uploadResult.height
+                    });
                 }
             }
         }
@@ -70,18 +84,20 @@ export default function CreateAd() {
 
         if (adError) {
             console.error('Error creating ad:', adError);
-            setUploading(false); 
+            setUploading(false);
             return;
         }
-        const adId = adData[0].uuid;  
+        const adId = adData[0].uuid;
 
         // Insert image URLs into the ad_images table
         const { error: imageError } = await supabase
             .from('ad_images')
             .insert(
-                imageUrls.map((imageUrl) => ({
+                imageDetails.map((imageDetail) => ({
                     ad_id: adId,
-                    image_url: imageUrl,
+                    image_url: imageDetail.image_url,
+                    image_width: imageDetail.width,
+                    image_height: imageDetail.height
                 }))
             );
 
