@@ -38,6 +38,7 @@ export default function CreateAd() {
             console.error('Error getting public URL:', error);
             return null;
         }
+        console.log(data.publicUrl)
         return data.publicUrl;
     };
 

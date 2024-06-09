@@ -4,7 +4,11 @@ import { useEffect, useState } from "react";
 import { formatDate } from "../../util/format-date";
 import Label from "../label/label";
 
+import { CalendarDaysIcon } from "@heroicons/react/24/outline";
+
+
 import useFetchSingleAd from "../../hooks/useFetchSingleAd";
+import AdProfile from "./ad-profile";
 
 export default function AdDetail() {
   
@@ -29,22 +33,18 @@ export default function AdDetail() {
     }
 
     return (
-        <section className="container mx-auto bg-white p-5 mt-10 rounded-lg shadow-sm">
-            <div>
-                <div className="border-b my-6 py-6">
+        <section className="container mx-auto   mt-10 rounded-lg ">
+            <div className="grid grid-cols-12 gap-6">
+                {/* Ad detail */}
+                <div className="bg-white shadow-sm rounded-md p-5 col-span-12 lg:col-span-8">
                     {/* Card main content */}
-                    <div className="grid grid-cols-12">
-                        <div className="result-text col-span-9">
-                            <span className="text-stone-500"><Label>{formatDate(ad.created_at)}</Label></span>
-                            <span className="text-stone-500"><Label>Created by {ad.profiles.username}</Label></span>
-                            <h3 className="font-bold text-xl">{ad.title}</h3>
-                            <div><pre>{ad.description}</pre></div>
+                    <div className="">
+                        <div className="result-text">
+                            <span className="text-stone-500"><Label Icon={CalendarDaysIcon}>{formatDate(ad.created_at)}</Label></span>
+                            <h3 className="font-bold text-2xl mb-4">{ad.title}</h3>
+                            <div><pre className="whitespace-pre-wrap">{ad.description}</pre></div>
                         </div>
-                        <div className="result-image col-span-3">
-                            <img src={ad.ad_images[0].image_url} className="mb-2 rounded-md w-full object-cover aspect-square" alt="Ad Image" />
-
-                          
-                        </div>
+                       
                     </div>
 
                     {/* Card Details */}
@@ -62,7 +62,12 @@ export default function AdDetail() {
                     </div>)}
 
                 </div>
+                <div className="p-5 col-span-12 lg:col-span-4">
+                    <AdProfile profileData={ad.profiles}/>
+                </div>
+                {/* Profile */}
             </div>
         </section>
     );
 }
+

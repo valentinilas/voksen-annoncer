@@ -3,6 +3,8 @@ import { useState, useRef, useEffect } from "react";
 import { UserIcon } from "@heroicons/react/16/solid";
 
 import { useAuth } from "../../lib/auth-context";
+import { cdnUrl } from "../../util/cdn-url";
+
 
 export default function Avatar() {
     const fileInputRef = useRef(null);
@@ -152,7 +154,7 @@ export default function Avatar() {
             <img
                 onClick={handleProfileImageClick}
                 className="rounded-full border-4 border-cherry-600 size-32 mx-auto mb-2 hover:border-white transition-colors cursor-pointer"
-                src={profile?.avatar_url}
+                src={cdnUrl(profile?.avatar_url,300,300)}
                 alt={`Avatar ${profile?.username}`}
             />
         ) : (

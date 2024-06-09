@@ -2,7 +2,7 @@ import Button from "../button/button";
 import Label from "../label/label";
 import { formatDate } from "../../util/format-date";
 import { NavLink } from "react-router-dom";
-
+import { cdnUrl } from "../../util/cdn-url";
 
 
 export default function Result({ data }) {
@@ -26,7 +26,7 @@ export default function Result({ data }) {
                 <div className="result-text col-span-9">
                     <Label>{formatDate(formattedDate)}</Label>
                     <h3 className=" text-2xl mb-4">{title}</h3>
-                    <div><pre>{truncateText(description, 350)}</pre></div>
+                    <div>{truncateText(description, 350)}</div>
                 </div>
                 <div className="result-image col-span-3">
                     {ad_images.length > 0 ? <img src={ad_images[0].image_url} className="mb-2 rounded-md w-full object-cover aspect-square" /> : null}

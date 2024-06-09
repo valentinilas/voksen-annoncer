@@ -4,6 +4,7 @@ import Button from "../button/button";
 import EmblaCarousel from '../carousel/carousel';
 import { NavLink } from "react-router-dom";
 import { ChevronLeftIcon, ChevronRightIcon } from "@heroicons/react/24/outline";
+import { cdnUrl } from "../../util/cdn-url";
 
 import useFetchSpotlightAdList from "../../hooks/useFetchSpotlightAdList";
 
