@@ -14,6 +14,7 @@ import useFetchAuthUserAdList from "../../hooks/useFetchAuthUserAdList";
 
 
 export default function MyAds() {
+
     const { data, setData } = useFetchAuthUserAdList();
     const { ads, loading, error } = data;
 

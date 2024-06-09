@@ -21,7 +21,7 @@ import SignUp from './components/sign-up/sign-up';
 import CreateAd from './components/create-ad/create-ad';
 import AdDetail from './components/ad-detail/ad-detail';
 import Dashboard from './components/dashboard/dashboard';
-
+import SignUpWelcome from './components/sign-up/sign-up-welcome';
 
 
 
@@ -39,6 +39,7 @@ function App() {
         { path: '/new-ad', element: <ProtectedRoute><CreateAd /></ProtectedRoute> },
         { path: '/sign-up', element: <SignUp /> },
         { path: '/sign-in', element: <SignIn /> },
+        { path: '/welcome', element: <SignUpWelcome /> },
         { path: '/ad/:adId', element: <AdDetail /> },
       ]
     },

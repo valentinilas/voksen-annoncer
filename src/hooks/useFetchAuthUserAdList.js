@@ -16,6 +16,7 @@ const useFetchAuthUserAdList = () => {
 
 
         const profileId = profile?.id;
+
         if (!profileId) {
             setData({ ads: null, loading: false, error: 'No session available' });
             return;
@@ -38,7 +39,7 @@ const useFetchAuthUserAdList = () => {
         };
 
         fetchUserAds();
-    }, [profileLoading]);
+    }, [profile, setData]);
 
     return { data, setData };
 };

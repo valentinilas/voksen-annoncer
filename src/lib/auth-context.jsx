@@ -31,8 +31,7 @@ export function AuthProvider({ children }) {
         }
     };
 
-    // Listen for auth changes on:
-    // SIGNED_IN, SIGNED_OUT, TOKEN_REFRESHED, USER_UPDATED, USER_DELETED, PASSWORD_RECOVERY
+
 
     useEffect(() => {
 
@@ -49,16 +48,12 @@ export function AuthProvider({ children }) {
         };
         fetchSession();
 
-        // supabase.auth.getSession().then(({ data: { session } }) => {
-        //     setSession(session);
-        //     const profileId = session.user.id;
-        //     getProfile(profileId);
-        // })
-
+        // Listen for auth changes on:
+        // SIGNED_IN, SIGNED_OUT, TOKEN_REFRESHED, USER_UPDATED, USER_DELETED, PASSWORD_RECOVERY
         const { data: { subscription } } = supabase.auth.onAuthStateChange((_event, session) => {
             setSession(session);
-
             if (session) {
+    
 
                 getProfile(session.user.id);
             } else {
@@ -66,17 +61,6 @@ export function AuthProvider({ children }) {
             }
             setIsLoadingSession(false)
         });
-
-        // const {
-        //     data: { subscription },
-        // } = supabase.auth.onAuthStateChange((_event, session) => {
-        //     setSession(session)
-        //     console.log(_event);
-        //     console.log(session);
-        // })
-
-
-
 
 
         return () => subscription.unsubscribe()
@@ -96,11 +80,12 @@ export function AuthProvider({ children }) {
 
             if (error) {
                 console.error('Error signing up:', error.message);
-                return;
+                throw new Error(error.message);  // Throw the error
             }
 
         } catch (error) {
             console.error('Signing up:', error);
+            throw error;  // Re-throw the error
         }
 
     }
@@ -114,11 +99,13 @@ export function AuthProvider({ children }) {
 
             if (error) {
                 console.error('Error logging in:', error.message);
-                return;
+                throw new Error(error.message);  // Throw the error
             }
 
         } catch (error) {
             console.error('Unexpected error logging in:', error);
+            throw error;  // Re-throw the error
+
         }
 
     }
