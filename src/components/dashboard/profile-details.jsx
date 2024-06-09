@@ -1,99 +1,69 @@
-import { useEffect, useState, useCallback, useRef } from "react";
+import { useEffect, useState } from "react";
+import { useForm } from "react-hook-form";
 import { supabase } from "../../lib/supabase";
 import { useAuth } from "../../lib/auth-context";
 import Button from "../button/button";
-import { calculateAge } from "../../util/calculate-age";
-import { UserIcon, ChatBubbleLeftRightIcon, EnvelopeIcon, DevicePhoneMobileIcon } from "@heroicons/react/24/outline";
-
+import { ChatBubbleLeftRightIcon, EnvelopeIcon, DevicePhoneMobileIcon } from "@heroicons/react/24/outline";
 import useFetchRegions from "../../hooks/useFetchRegions";
 import useFetchGenders from "../../hooks/useFetchGenders";
-
 import ProfileFieldInput from "./profile-field-input";
 import ProfileFieldSelect from "./profile-field-select";
 import Avatar from "./profile-avatar";
 
 export default function ProfileDetail() {
     const { profileData, setProfileData } = useAuth();
-
-    // Data
     const { profile, loading: profileLoading, error: profileError } = profileData;
     const { regions, loading: regionsLoading, error: regionsError } = useFetchRegions();
     const { genders, loading: gendersLoading, error: gendersError } = useFetchGenders();
 
-    // Form State
     const [editing, setEditing] = useState(false);
-    const [formData, setFormData] = useState({});
+    const { register, handleSubmit, setValue, formState: { errors } } = useForm();
 
-    useEffect(() => {
-    }, [formData]);
+    const fieldsToLoad = ["username", "birthday", "bio", "gender_id", "region_id", "contact_email", "contact_phone", "contact_sms"];
 
     useEffect(() => {
         if (profile) {
-
-            setFormData({
-                // keys must be database field names
-                username: profile.username,
-                region_id: profile.region_id,
-                bio: profile.bio,
-                gender_id: profile.gender_id,
-                contact_email: profile.contact_email,
-                contact_phone: profile.contact_phone,
-                contact_sms: profile.contact_sms,
-                // avatar_url: profile.avatar_url,
-                birthday: profile.birthday
+            fieldsToLoad.forEach(key => {
+                if (profile[key] !== undefined) {
+                    setValue(key, profile[key]); 
+                }
             });
-            
         }
-        
-    }, [profile]);
+    }, [profile, setValue]);
 
-
-
-    // Handle Profile Update
-    const handleChange = useCallback((e) => {
-        const { name, value } = e.target;
-        setFormData((prevFormData) => ({ ...prevFormData, [name]: value }));
-    }, []);
-
-    const handleSave = useCallback(async () => {
+    const onSubmit = async (data) => {
+        console.log(data);
         if (!profile) {
             console.error("Profile is not defined");
             return;
         }
         try {
-            const { data, error } = await supabase
+            const { data: updatedData, error } = await supabase
                 .from('profiles')
-                .update(formData) // Use the latest formData state
+                .update(data)
                 .eq('id', profile.id)
                 .select();
-    
+
             if (error) {
                 throw error;
             }
-           
-            await setProfileData((previousData) => {
-                return {
-                    profile: { ...previousData.profile, ...formData }, // Also use the latest formData state
-                    loading: false,
-                    error: null
-                }
-            });
-    
+
+            setProfileData((previousData) => ({
+                profile: { ...previousData.profile, ...data },
+                loading: false,
+                error: null,
+            }));
+
             setEditing(false);
-    
         } catch (error) {
             console.error("Error updating profile:", error);
         }
-    }, [formData, profile, setProfileData]);
-    
+    };
 
-    
-
-    // const age = profile.birthday ? calculateAge(new Date(profile.birthday).getFullYear()) : '';
     const getMaxDate = () => {
         const today = new Date();
         today.setFullYear(today.getFullYear() - 18);
-        return today.toISOString().split('T')[0]; // Get the date 18 years ago in YYYY-MM-DD format
+        return today.toISOString().split('T')[0];
     };
 
     if (profileLoading || regionsLoading || gendersLoading) {
@@ -110,13 +80,12 @@ export default function ProfileDetail() {
 
     return (
         <div className="h-full bg-stone-100 p-6 rounded-lg">
-           
-            <Avatar/>
+            <Avatar />
 
             <div className="flex gap-2 justify-center my-6">
                 {editing ? (
                     <>
-                        <Button variant="primary" onClick={handleSave}>Save</Button>
+                        <Button variant="primary" onClick={handleSubmit(onSubmit)}>Save</Button>
                         <Button variant="secondary" onClick={() => setEditing(false)}>Cancel</Button>
                     </>
                 ) : (
@@ -126,56 +95,79 @@ export default function ProfileDetail() {
                     </>
                 )}
             </div>
+
             <ProfileFieldInput
                 name="username"
                 label="Username"
-                onChange={handleChange}
-                value={formData.username}
                 editing={editing}
                 placeholder="-"
+                fieldError={errors.username}
+                defaultValue={profile.username} 
+                {...register("username", {
+                    required: "Username is required",
+                    maxLength: {
+                        value: 12,
+                        message: "Username must be 12 characters or less"
+                    },
+                    pattern: {
+                        value:/^[a-zA-Z0-9]+$/,
+                        message: "Username must contain only letters and numbers"
+                    } 
+                })}
             />
 
             <ProfileFieldInput
                 name="birthday"
                 label="Birthday"
                 type="date"
-                onChange={handleChange}
-                value={formData.birthday}
                 editing={editing}
                 max={getMaxDate()}
                 placeholder="-"
+                defaultValue={profile.birthday} 
+                fieldError={errors.birthday}
+                {...register("birthday")}
             />
+
             <ProfileFieldInput
                 name="bio"
                 label="Bio"
-                onChange={handleChange}
-                value={formData.bio}
                 editing={editing}
                 placeholder="-"
+                fieldError={errors.bio}
+                defaultValue={profile.bio} 
+                {...register("bio", {
+                    maxLength: {
+                        value: 160,
+                        message: "Bio must be 160 characters or less"
+                    }
+                })}
             />
+
             <ProfileFieldSelect
                 name="gender_id"
                 label="Gender"
-                value={formData.gender_id}
                 editing={editing}
-                onChange={handleChange}
                 options={genders}
                 loading={gendersLoading}
                 error={gendersError}
+                fieldError={errors.gender_id}
+                defaultValue={profile.gender_id} 
                 labelKey="gender_name"
+                {...register("gender_id", { required: "Gender is required"})}
             />
+
             <ProfileFieldSelect
                 name="region_id"
                 label="Location"
-                value={formData.region_id}
                 editing={editing}
-                onChange={handleChange}
                 options={regions}
                 loading={regionsLoading}
                 error={regionsError}
+                defaultValue={profile.region_id} 
+                fieldError={errors.region_id}
                 labelKey='region_name'
+                {...register("region_id", { required: "Region is required"})}
             />
-
 
             <h4 className="text-xl mb-4 mt-6">Contact info</h4>
 
@@ -184,18 +176,32 @@ export default function ProfileDetail() {
                 label="E-mail"
                 placeholder="-"
                 icon={EnvelopeIcon}
-                onChange={handleChange}
-                value={formData.contact_email}
                 editing={editing}
+                fieldError={errors.contact_email}
+                defaultValue={profile.contact_email} 
+                {...register("contact_email", {
+                    required: "Email is required",
+                    pattern: {
+                        value: /\S+@\S+\.\S+/,
+                        message: "Invalid email address"
+                    }
+                })}
             />
+
             <ProfileFieldInput
                 name="contact_phone"
                 label="Phone"
                 placeholder="-"
                 icon={DevicePhoneMobileIcon}
-                onChange={handleChange}
-                value={formData.contact_phone}
                 editing={editing}
+                fieldError={errors.contact_phone}
+                defaultValue={profile.contact_phone} 
+                {...register("contact_phone", {
+                    pattern: {
+                        value:/^[+]*[(]{0,1}[0-9]{1,4}[)]{0,1}[-\s\./0-9]*$/,
+                        message:"Invalid phone number"
+                    } 
+                })}
             />
 
             <ProfileFieldInput
@@ -203,12 +209,16 @@ export default function ProfileDetail() {
                 label="SMS"
                 placeholder="-"
                 icon={ChatBubbleLeftRightIcon}
-                onChange={handleChange}
-                value={formData.contact_sms}
                 editing={editing}
+                fieldError={errors.contact_sms}
+                defaultValue={profile.contact_sms} 
+                {...register("contact_sms", {
+                    pattern: {
+                        value:/^[+]*[(]{0,1}[0-9]{1,4}[)]{0,1}[-\s\./0-9]*$/,
+                        message:"Invalid phone number"
+                    } 
+                })}
             />
-
-
         </div>
     );
 }
