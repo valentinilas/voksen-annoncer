@@ -29,7 +29,7 @@ export default function SimpleGallery(props) {
                     target="_blank"
                     rel="noreferrer"
                 >
-                    <img className="rounded-md w-full object-cover aspect-square" src={image.thumbnailURL} alt="" />
+                    <img className="rounded-md w-full object-cover aspect-square border-solid border-2 border-transparent hover:border-cherry-600 transition-colors" src={image.thumbnailURL} alt="" />
                 </a>
             ))}
         </div>

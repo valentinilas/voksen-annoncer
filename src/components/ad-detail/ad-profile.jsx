@@ -4,9 +4,12 @@ import { calculateAge } from "../../util/calculate-age";
 import { cdnUrl } from "../../util/cdn-url";
 
 import { ChatBubbleLeftRightIcon, EnvelopeIcon, DevicePhoneMobileIcon, MapPinIcon, UserCircleIcon, ChatBubbleBottomCenterTextIcon, SparklesIcon } from "@heroicons/react/24/outline";
+import { useAuth } from "../../lib/auth-context";
 
 
 export default function AdProfile({ profileData }) {
+
+    const { session } = useAuth();
 
     const { avatar_url, username, bio, birthday, regions, genders, contact_email, contact_phone, contact_sms } = profileData;
     const age = birthday ? calculateAge(new Date(birthday).getFullYear()) : '-';
@@ -18,7 +21,7 @@ export default function AdProfile({ profileData }) {
                 <div className="text-center mb-6">
                     <img
                         className="rounded-full border-4 border-cherry-600 size-32 mx-auto mb-2"
-                        src={cdnUrl(avatar_url,300,300)}
+                        src={cdnUrl(avatar_url, 300, 300)}
                         alt={`Avatar ${username}`}
                     />
                     <Label type="profile" className="justify-center" Icon={UserIcon}>
@@ -55,24 +58,30 @@ export default function AdProfile({ profileData }) {
             </p>
             <h4 className="text-xl mb-4 mt-6">Contact info</h4>
 
-            <p className="mb-2 bg-stone-200 p-4 rounded-2xl">
-                <Label type="profile" Icon={EnvelopeIcon}>
-                    <span className="font-bold mb-1">E-mail</span>
-                </Label>
-                <span>{contact_email}</span>
-            </p>
-            <p className="mb-2 bg-stone-200 p-4 rounded-2xl">
-                <Label type="profile" Icon={DevicePhoneMobileIcon}>
-                    <span className="font-bold mb-1">Phone</span>
-                </Label>
-                <span>{contact_phone}</span>
-            </p>
-            <p className="mb-2 bg-stone-200 p-4 rounded-2xl">
-                <Label type="profile" Icon={ChatBubbleLeftRightIcon}>
-                    <span className="font-bold mb-1">SMS</span>
-                </Label>
-                <span>{contact_sms}</span>
-            </p>
+            {session ? ( // Check if the user is logged in
+                <>
+
+                    <p className="mb-2 bg-stone-200 p-4 rounded-2xl">
+                        <Label type="profile" Icon={EnvelopeIcon}>
+                            <span className="font-bold mb-1">E-mail</span>
+                        </Label>
+                        <span>{contact_email}</span>
+                    </p>
+                    <p className="mb-2 bg-stone-200 p-4 rounded-2xl">
+                        <Label type="profile" Icon={DevicePhoneMobileIcon}>
+                            <span className="font-bold mb-1">Phone</span>
+                        </Label>
+                        <span>{contact_phone}</span>
+                    </p>
+                    <p className="mb-2 bg-stone-200 p-4 rounded-2xl">
+                        <Label type="profile" Icon={ChatBubbleLeftRightIcon}>
+                            <span className="font-bold mb-1">SMS</span>
+                        </Label>
+                        <span>{contact_sms}</span>
+                    </p>
+                </>) : (
+                <p className="text-stone-600 text-md">You must be logged in to see the contact information.</p>
+            )}
 
         </>
     )

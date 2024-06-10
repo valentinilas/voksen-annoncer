@@ -7,6 +7,7 @@ import Label from "../label/label";
 import { CalendarDaysIcon } from "@heroicons/react/24/outline";
 
 
+
 import useFetchSingleAd from "../../hooks/useFetchSingleAd";
 import AdProfile from "./ad-profile";
 
@@ -14,6 +15,8 @@ import SimpleGallery from "./ad-gallery";
 import Spotlight from "../spotlight/spotlight";
 
 export default function AdDetail() {
+
+
 
     const { adId } = useParams();
     const { ad, loading, error } = useFetchSingleAd(adId);
@@ -58,7 +61,7 @@ export default function AdDetail() {
                         <div className="result-text">
                             <span className="text-stone-500"><Label Icon={CalendarDaysIcon}>{formatDate(ad.created_at)}</Label></span>
                             <h3 className="font-bold text-2xl mb-4">{ad.title}</h3>
-                            <div><pre className="whitespace-pre-wrap">{ad.description}</pre></div>
+                            <div><pre className="font-sans whitespace-pre-wrap">{ad.description}</pre></div>
                         </div>
 
                     </div>
@@ -77,7 +80,7 @@ export default function AdDetail() {
                         })}
                     </div>)} */}
 
-                    <SimpleGallery
+                   {galleryImages.length > 0 ? <SimpleGallery
                         galleryID="my-test-gallery"
                         images={galleryImages}
                         // images={[
@@ -90,7 +93,7 @@ export default function AdDetail() {
                         //         height: 2500,
                         //     },
                         // ]}
-                    />
+                    /> : null}
 
                 </div>
                 <div className="p-5 col-span-12 lg:col-span-4">

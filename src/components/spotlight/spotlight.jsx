@@ -34,7 +34,7 @@ export default function Spotlight() {
         const { uuid, ad_images, title, description } = ad;
         return (
             <NavLink to={`/ad/${uuid}`} className="embla__slide" key={uuid}>
-                <div className="shadow-sm border rounded-md m-2 p-2">
+                <div className="shadow-sm border rounded-md m-2 p-2 border-solid border-2 border-transparent hover:border-cherry-600 transition-colors">
                     <img src={ad_images[0]?.image_url} className="mb-2 rounded-md w-full object-cover aspect-square" alt={title} />
                     <h5 className="font-bold truncate text-sm">{title}</h5>
                     <p className="truncate text-sm">{description}</p>
