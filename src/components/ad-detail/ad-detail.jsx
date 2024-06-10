@@ -11,6 +11,7 @@ import useFetchSingleAd from "../../hooks/useFetchSingleAd";
 import AdProfile from "./ad-profile";
 
 import SimpleGallery from "./ad-gallery";
+import Spotlight from "../spotlight/spotlight";
 
 export default function AdDetail() {
 
@@ -44,9 +45,10 @@ export default function AdDetail() {
             height:image.image_height
         }
     })
-    console.log(galleryImages);
+    // console.log(galleryImages);
 
     return (
+        <>
         <section className="container mx-auto   mt-10 rounded-lg ">
             <div className="grid grid-cols-12 gap-6">
                 {/* Ad detail */}
@@ -97,6 +99,8 @@ export default function AdDetail() {
                 {/* Profile */}
             </div>
         </section>
+        <Spotlight/>
+        </>
     );
 }
 

@@ -13,7 +13,6 @@ const useFetchSingleAd = (uuid) => {
                     .select('*, regions (region_name), profiles(*, genders (gender_name), regions (region_name)), ad_images(uuid, image_url, image_width, image_height)')
                     .eq('uuid', uuid)
                     .maybeSingle();
-                console.log(ad);
 
                 if (error) {
                     throw error;
