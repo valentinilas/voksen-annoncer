@@ -63,7 +63,7 @@ export default function MyAds() {
 
     if (!ads.length) {
         return <div className="mb-4 border-dashed border-2 border-cherry-500  shadow-sm px-5 py-10  rounded-md lg:h-full	 flex flex-col items-center justify-center">
-            <h3 className="text-md mb-6">You don't have any ads created</h3>
+            <h3 className="text-md mb-6 dark:text-zinc-200">You don't have any ads created</h3>
             <Button to="/new-ad">Create ad</Button>
         </div>;
     }
