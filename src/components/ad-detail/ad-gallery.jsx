@@ -2,6 +2,8 @@ import { useEffect } from 'react';
 import PhotoSwipeLightbox from 'photoswipe/lightbox';
 import 'photoswipe/style.css';
 
+import {MagnifyingGlassPlusIcon} from "@heroicons/react/24/outline";
+
 export default function SimpleGallery(props) {
     useEffect(() => {
         let lightbox = new PhotoSwipeLightbox({
@@ -21,7 +23,7 @@ export default function SimpleGallery(props) {
         <div className="pswp-gallery grid md:grid-cols-2 lg:grid-cols-4 2xl:grid-cols-4 gap-4 mt-10" id={props.galleryID}>
             {props.images.map((image, index) => (
                 <a
-                    className=""
+                    className="relative group"
                     href={image.largeURL}
                     data-pswp-width={image.width}
                     data-pswp-height={image.height}
@@ -29,7 +31,8 @@ export default function SimpleGallery(props) {
                     target="_blank"
                     rel="noreferrer"
                 >
-                    <img className="rounded-md w-full object-cover aspect-square border-solid border-2 border-transparent hover:border-cherry-600 transition-colors" src={image.thumbnailURL} alt="" />
+                    <MagnifyingGlassPlusIcon className="opacity-0 group-hover:opacity-100 size-8 text-white absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2"/>
+                    <img className="rounded-2xl  w-full object-cover aspect-square border-solid border-2 border-transparent group-hover:border-cherry-600 transition-colors" src={image.thumbnailURL} alt="" />
                 </a>
             ))}
         </div>

@@ -9,7 +9,7 @@ import { useNavigate } from "react-router-dom";
 
 import { useAuth } from "../../lib/auth-context";
 
-
+import ThemeToggle from "./theme-toggle";
 
 export default function MainNav() {
 
@@ -26,6 +26,7 @@ export default function MainNav() {
 
 
     const navigate = useNavigate();
+
     const handleLogOut = async () => {
         try {
             await auth_user_log_out();
@@ -38,9 +39,10 @@ export default function MainNav() {
     return (
         <nav>
             <ul className="flex items-center">
+               
                 <li><Button variant="text" to="/">Home</Button></li>
                 <li><Button variant="text" href="/">Support</Button></li>
-                {session && <li></li>}
+                <li><ThemeToggle/></li>
                 <li className="pl-6 ml-6 border-l border-cherry-200 flex gap-2">
                     {!session &&
                         <>

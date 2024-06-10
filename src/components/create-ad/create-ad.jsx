@@ -140,17 +140,17 @@ export default function CreateAd() {
     };
 
     return (
-        <div className="container mx-auto bg-white mt-10 p-5 rounded-lg shadow-sm sm:max-w-sm">
-            <h2 className="text-2xl font-bold mb-4">Create Ad</h2>
+        <div className="container mx-auto dark:bg-zinc-900 bg-white mt-10 p-5 rounded-lg shadow-sm sm:max-w-sm">
+            <h2 className="text-2xl font-bold mb-4 dark:text-zinc-400">Create Ad</h2>
             <form onSubmit={handleSubmit(onSubmit)}>
                 <div className="mb-4">
-                    <label className="block text-gray-700 text-sm font-bold mb-2" htmlFor="title">
+                    <label className="block text-gray-700 dark:text-zinc-200 text-sm font-bold mb-2" htmlFor="title">
                         Title
                     </label>
                     <input
                         id="title"
                         type="text"
-                        className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+                        className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 dark:bg-zinc-800 dark:text-zinc-200 dark:border-zinc-600 leading-tight focus:outline-none focus:shadow-outline"
                         {...register("title", {
                             required: "Title is required",
                             maxLength: {
@@ -163,13 +163,13 @@ export default function CreateAd() {
 
                 </div>
                 <div className="mb-4">
-                    <label className="block text-gray-700 text-sm font-bold mb-2" htmlFor="description">
+                    <label className="block text-gray-700 dark:text-zinc-200 text-sm font-bold mb-2" htmlFor="description">
                         Description
                     </label>
                     <textarea
                         id="description"
                         rows="5"
-                        className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+                        className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 dark:bg-zinc-800 dark:text-zinc-200 dark:border-zinc-600 leading-tight focus:outline-none focus:shadow-outline"
                         {...register("description", {
                             required: "Description is required",
                         })}
@@ -178,7 +178,7 @@ export default function CreateAd() {
 
                 </div>
                 <div className="mb-4">
-                    <label className="block text-gray-700 text-sm font-bold mb-2" htmlFor="images">
+                    <label className="block text-gray-700 dark:text-zinc-200 text-sm font-bold mb-2" htmlFor="images">
                         Upload Images
                     </label>
                     <input
@@ -186,7 +186,7 @@ export default function CreateAd() {
                         id="images"
                         type="file"
                         multiple
-                        className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+                        className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 dark:bg-zinc-800 dark:text-zinc-200 dark:border-zinc-600 leading-tight focus:outline-none focus:shadow-outline"
                         onChange={handleFileChange}
                     />
                     {imageError && <p className="text-red-500 text-sm">{imageError}</p>}
@@ -194,17 +194,17 @@ export default function CreateAd() {
 
                 </div>
                 <div className="mb-4">
-                    <label className="block text-gray-700 text-sm font-bold mb-2" htmlFor="region">
+                    <label className="block text-gray-700 dark:text-zinc-200 text-sm font-bold mb-2" htmlFor="region">
                         Region
                     </label>
                     {regionsLoading ? (
-                        <p>Loading regions...</p>
+                        <p className="dark:text-zinc-200">Loading regions...</p>
                     ) : regionsError ? (
-                        <p>Error loading regions</p>
+                        <p className="dark:text-zinc-200">Error loading regions</p>
                     ) : (
                         <select
                             id="region"
-                            className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+                            className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 dark:bg-zinc-800 dark:text-zinc-200 dark:border-zinc-600 leading-tight focus:outline-none focus:shadow-outline"
                             {...register("region_id", {
                                 required: "Please select a region",
                             })}

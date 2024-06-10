@@ -14,7 +14,7 @@ export default function Spotlight() {
 
     if (loading) {
         return (
-            <section className="container mx-auto bg-white mt-1 p-5 rounded-lg shadow-sm">
+            <section className="container mx-auto bg-white dark:bg-zinc-900 mt-1 p-5 rounded-lg shadow-sm">
                 <p>Loading data...</p>
             </section>
         );
@@ -22,7 +22,7 @@ export default function Spotlight() {
 
     if (error) {
         return (
-            <section className="container mx-auto bg-white mt-1 p-5 rounded-lg shadow-sm">
+            <section className="container mx-auto bg-white dark:bg-zinc-900  mt-1 p-5 rounded-lg shadow-sm">
                 <p>Error loading data: {error}</p>
             </section>
         );
@@ -34,7 +34,7 @@ export default function Spotlight() {
         const { uuid, ad_images, title, description } = ad;
         return (
             <NavLink to={`/ad/${uuid}`} className="embla__slide" key={uuid}>
-                <div className="shadow-sm border rounded-md m-2 p-2 border-solid border-2 border-transparent hover:border-cherry-600 transition-colors">
+                <div className="shadow-sm bg-white dark:bg-zinc-800 dark:border-zinc-700 text-black dark:text-zinc-200  rounded-md m-2 p-2 border-solid border-2 border-stone-100 hover:border-cherry-600 transition-colors">
                     <img src={ad_images[0]?.image_url} className="mb-2 rounded-md w-full object-cover aspect-square" alt={title} />
                     <h5 className="font-bold truncate text-sm">{title}</h5>
                     <p className="truncate text-sm">{description}</p>
@@ -44,9 +44,9 @@ export default function Spotlight() {
     });
 
     return (
-        <section className="container mx-auto bg-white p-5 mt-10 rounded-lg shadow-sm">
+        <section className="container mx-auto bg-white dark:bg-zinc-900 transition-colors p-5 mt-10 rounded-lg shadow-sm">
             <div className="flex justify-between items-center mb-4">
-                <h3 className="text-lg font-bold">Spotlight</h3>
+                <h3 className="text-lg font-bold dark:text-zinc-200">Spotlight</h3>
                 <Button variant="secondary" size="s" onClick={() => alert('Sign up!')}>Get promoted</Button>
             </div>
 

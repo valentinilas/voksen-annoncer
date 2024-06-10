@@ -87,7 +87,7 @@ export default function ProfileDetail() {
     }
 
     return (
-        <div className="h-full bg-stone-100 p-6 rounded-lg">
+        <div className="h-full bg-stone-100 dark:bg-zinc-950 p-6 rounded-lg">
             <Avatar />
 
             <div className="flex gap-2 justify-center my-6">
@@ -184,7 +184,7 @@ export default function ProfileDetail() {
                 {...register("region_id", { required: "Region is required" })}
             />
 
-            <h4 className="text-xl mb-4 mt-6">Contact info</h4>
+            <h4 className="text-xl mb-4 mt-6 dark:text-zinc-400">Contact info</h4>
 
             <ProfileFieldInput
                 name="contact_email"

@@ -27,14 +27,14 @@ export default function SignIn() {
     };
 
     return (
-        <div className="container mx-auto bg-white mt-10 p-5 rounded-lg shadow-sm sm:max-w-sm">
+        <div className="container mx-auto dark:bg-zinc-900 bg-white mt-10 p-5 rounded-lg shadow-sm sm:max-w-sm">
             <div className="sm:mx-auto sm:w-full sm:max-w-sm">
-                <h2 className="text-2xl font-bold mb-10 text-center">Sign in</h2>
+                <h2 className="text-2xl font-bold mb-10 text-center dark:text-zinc-400">Sign in</h2>
                 <form onSubmit={handleSubmit(onSubmit)}>
                     <div className="mt-4">
-                        <label htmlFor="email" className="block text-gray-700 text-sm font-bold mb-2">Email:</label>
+                        <label htmlFor="email" className="block text-gray-700  dark:text-zinc-200 text-sm font-bold mb-2">Email:</label>
                         <input
-                            className={`shadow-sm appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline ${errors.email ? 'border-red-500' : ''}`}
+                            className={`shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 dark:bg-zinc-800 dark:text-zinc-200 dark:border-zinc-600 leading-tight focus:outline-none focus:shadow-outline ${errors.email ? 'border-red-500' : ''}`}
                             type="email"
                             id="email"
                             {...register("email", {
@@ -49,13 +49,13 @@ export default function SignIn() {
                     </div>
                     <div className="mt-4">
                         <div className="flex items-center justify-between mb-2">
-                            <label htmlFor="password" className="block text-gray-700 text-sm font-bold ">Password</label>
+                            <label htmlFor="password" className="block text-gray-700 dark:text-zinc-200 text-sm font-bold ">Password</label>
                             <div className="text-sm">
                                 <a href="#" className="font-semibold text-cherry-600 hover:text-cherry-700">Forgot password?</a>
                             </div>
                         </div>
                         <input
-                            className={`shadow-sm appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline ${errors.password ? 'border-red-500' : ''}`}
+                            className={`shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 dark:bg-zinc-800 dark:text-zinc-200 dark:border-zinc-600 leading-tight focus:outline-none focus:shadow-outline ${errors.password ? 'border-red-500' : ''}`}
                             type="password"
                             id="password"
                             {...register("password", { required: "Password is required" })}
@@ -67,7 +67,7 @@ export default function SignIn() {
                     <Button type="submit" className="mt-6 w-full justify-center">Login</Button>
                 </form>
                 <p className="mt-10 text-center text-sm text-gray-500">
-                    <span className="mr-1">Don't have an account?</span>
+                    <span className="mr-1 dark:text-zinc-400">Don't have an account?</span>
                     <NavLink to="/sign-up" className="font-semibold leading-6 text-cherry-600 hover:text-cherry-700">Sign up</NavLink>
                 </p>
             </div>

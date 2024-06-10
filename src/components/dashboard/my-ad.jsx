@@ -3,11 +3,12 @@ import { supabase } from "../../lib/supabase";
 import { formatDate } from "../../util/format-date";
 import Button from "../button/button";
 import { useRef } from "react";
-
+import { NavLink } from "react-router-dom";
 import Label from "../label/label";
 import { CalendarDaysIcon } from "@heroicons/react/24/outline";
 
 import ConfirmationModal from "../modal/confirmation-modal";
+import DefaultImage from "../default-image/default-image";
 
 export default function MyAd({ ad, deleteRow }) {
 
@@ -42,15 +43,16 @@ export default function MyAd({ ad, deleteRow }) {
         <>
             <ConfirmationModal ref={dialog} onCancel={() => { hideModal() }} onConfirm={() => confirmDelete(uuid)} />
 
-            <li key={uuid} className="mb-4   shadow-sm px-5 py-10  transition-colors duration-700 rounded-md bg-white">
+            <li key={uuid} className="mb-4   shadow-sm px-5 py-10  transition-colors duration-700 rounded-md bg-white dark:bg-zinc-800">
                 <div className="grid grid-cols-12 gap-8 ">
-                    <div className="col-span-8">
+                    <div className="col-span-8 dark:text-zinc-200">
                         <Label Icon={CalendarDaysIcon}>{formatDate(created_at)}</Label>
                         <h4 className="font-bold text-lg mb-4 truncate">{title}</h4>
                         <p className="text-ellipsis overflow-hidden">{truncateText(description, 300)}</p>
                     </div>
                     <div className="col-span-4">
-                        <img className="rounded-md w-full object-cover aspect-square" src={ad_images[0]?.image_url} alt="" />
+                        
+                        <NavLink to={`/ad/${uuid}`}>{ad_images.length > 0 ? <img src={ad_images[0].image_url} className="mb-2 rounded-md w-full object-cover aspect-square border-solid border-2 border-stone-100 hover:border-cherry-600 transition-colors" /> : <DefaultImage />}</NavLink>
                     </div>
 
                 </div>

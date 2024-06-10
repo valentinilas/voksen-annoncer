@@ -4,6 +4,7 @@ import { formatDate } from "../../util/format-date";
 import { NavLink } from "react-router-dom";
 import { cdnUrl } from "../../util/cdn-url";
 
+import DefaultImage from "../default-image/default-image";
 
 export default function Result({ data }) {
 
@@ -20,26 +21,27 @@ export default function Result({ data }) {
     }
 
     return (<div>
-        <div className="mb-4 border  shadow-sm px-5 py-10  rounded-md ">
+        <div className="mb-4 border dark:border-zinc-700  shadow-sm px-5 py-10  rounded-md bg-white dark:bg-zinc-800 ">
             {/* Card main content */}
-            <div className="grid grid-cols-12 gap-8	">
-                <div className="result-text col-span-9">
+            <div className="grid grid-cols-12 gap-10">
+                <div className="result-text col-span-10 text-black dark:text-zinc-200">
                     <Label>{formatDate(formattedDate)}</Label>
+                    <NavLink to={`/ad/${uuid}`}>
                     <h3 className=" text-2xl mb-4">{title}</h3>
                     <div>{truncateText(description, 350)}</div>
+                    </NavLink>
                 </div>
-                <div className="result-image col-span-3">
-                    {ad_images.length > 0 ? <img src={ad_images[0].image_url} className="mb-2 rounded-md w-full object-cover aspect-square" /> : null}
+                <div className="result-image col-span-2">
+                    <NavLink to={`/ad/${uuid}`}>{ad_images.length > 0 ? <img src={ad_images[0].image_url} className="mb-2 rounded-md w-full object-cover aspect-square border-solid border-2 border-stone-100 hover:border-cherry-600 transition-colors" /> : <DefaultImage/>}</NavLink>
                 </div>
             </div>
 
             {/* Card Details */}
-            <div className="flex p-4 bg-white border  border-cherry-200 justify-between rounded-md items-center gap-4 mt-10">
+            <div className="flex p-4 bg-white border  border-cherry-200 dark:border-zinc-600 dark:bg-zinc-700 justify-between rounded-md items-center gap-4 mt-10">
                 <div> <Button to={`/ad/${uuid}`}>Details</Button></div>
                 <div className="flex items-center gap-4">
                     <span>Region: {regions.region_name}</span>
                     <span>Age: 24</span>
-                    <span>Service: Massage</span>
                 </div>
             </div>
 

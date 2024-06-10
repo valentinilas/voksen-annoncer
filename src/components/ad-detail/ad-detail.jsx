@@ -55,11 +55,11 @@ export default function AdDetail() {
         <section className="container mx-auto   mt-10 rounded-lg ">
             <div className="grid grid-cols-12 gap-6">
                 {/* Ad detail */}
-                <div className="bg-white shadow-sm rounded-md p-5 col-span-12 lg:col-span-8">
+                <div className="bg-white dark:bg-zinc-900 shadow-sm rounded-md p-5 col-span-12 lg:col-span-8">
                     {/* Card main content */}
                     <div className="">
-                        <div className="result-text">
-                            <span className="text-stone-500"><Label Icon={CalendarDaysIcon}>{formatDate(ad.created_at)}</Label></span>
+                        <div className="result-text dark:text-zinc-200">
+                         <Label Icon={CalendarDaysIcon}>{formatDate(ad.created_at)}</Label>
                             <h3 className="font-bold text-2xl mb-4">{ad.title}</h3>
                             <div><pre className="font-sans whitespace-pre-wrap">{ad.description}</pre></div>
                         </div>

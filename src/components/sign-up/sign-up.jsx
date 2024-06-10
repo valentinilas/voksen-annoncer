@@ -37,14 +37,14 @@ export default function SignUp() {
     return (
 
 
-        <div className="container mx-auto bg-white mt-10 p-5 rounded-lg shadow-sm sm:max-w-sm">
+        <div className="container mx-auto dark:bg-zinc-900 bg-white mt-10 p-5 rounded-lg shadow-sm sm:max-w-sm">
             <div className="sm:mx-auto sm:w-full sm:max-w-sm ">
-                <h2 className="text-2xl font-bold mb-10 text-center">Register</h2>
+                <h2 className="text-2xl font-bold mb-10 text-center dark:text-zinc-400">Register</h2>
                 <form onSubmit={handleSubmit(onSubmit)}>
                 <div className="mt-4">
-                        <label htmlFor="username" className="block text-gray-700 text-sm font-bold mb-2">Username:</label>
+                        <label htmlFor="username" className="block text-gray-700 dark:text-zinc-200 text-sm font-bold mb-2">Username:</label>
                         <input
-                            className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+                            className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 dark:bg-zinc-800 dark:text-zinc-200 dark:border-zinc-600 leading-tight focus:outline-none focus:shadow-outline"
                             type="text"
                             id="username"
                             {...register("username", {
@@ -62,9 +62,9 @@ export default function SignUp() {
                         {errors.username && <span className="text-red-500 text-sm">{errors.username.message}</span>}
                     </div>
                     <div className="mt-4">
-                        <label htmlFor="email" className="block text-gray-700 text-sm font-bold mb-2">Email:</label>
+                        <label htmlFor="email" className="block text-gray-700 dark:text-zinc-200 text-sm font-bold mb-2">Email:</label>
                         <input
-                            className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+                            className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 dark:bg-zinc-800 dark:text-zinc-200 dark:border-zinc-600 leading-tight focus:outline-none focus:shadow-outline"
                             type="email"
                             id="email"
                             {...register("email", {
@@ -78,10 +78,10 @@ export default function SignUp() {
                         {errors.email && <span className="text-red-500 text-sm">{errors.email.message}</span>}
                     </div>
                     <div className="mt-4">
-                        <label htmlFor="password" className="block text-gray-700 text-sm font-bold mb-2">Password:</label>
+                        <label htmlFor="password" className="block text-gray-700 dark:text-zinc-200 text-sm font-bold mb-2">Password:</label>
 
                         <input
-                            className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+                            className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 dark:bg-zinc-800 dark:text-zinc-200 dark:border-zinc-600 leading-tight focus:outline-none focus:shadow-outline"
                             type="password"
                             id="password"
                             {...register("password", { required: "Password is required" })}

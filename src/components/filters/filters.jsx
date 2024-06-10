@@ -51,7 +51,7 @@ export default function Filters() {
     console.log('Dropdown 2:', dropdown2);
   };
   return (
-    <section className="container mx-auto bg-white p-5 mt-10 rounded-lg shadow-sm">
+    <section className="container mx-auto bg-white dark:bg-zinc-900 p-5 mt-10 rounded-lg shadow-sm">
       <div className="flex gap-4 items-center justify-center">
         <div className="filter-group ">
           <select

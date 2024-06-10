@@ -53,11 +53,11 @@ export default function MyAds() {
 
 
     if (loading) {
-        return <p>Loading ads...</p>;
+        return <p className="dark:text-zinc-200">Loading ads...</p>;
     }
 
     if (error) {
-        return <p>Error loading ads: {error}</p>;
+        return <p className="dark:text-zinc-200">Error loading ads: {error}</p>;
     }
 
 
@@ -70,7 +70,7 @@ export default function MyAds() {
 
     return (
         <>
-            <h4 className="text-xl mb-4">My ads ({ads.length})</h4>
+            <h4 className="text-xl mb-4 dark:text-zinc-400">My ads ({ads.length})</h4>
 
             <ol>
                 {ads.map((ad, index) => {
