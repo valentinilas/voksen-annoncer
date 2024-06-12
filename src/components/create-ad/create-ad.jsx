@@ -3,10 +3,14 @@ import { supabase } from '../../lib/supabase';
 import Button from '../button/button';
 import { useNavigate } from 'react-router-dom';
 import useFetchRegions from '../../hooks/useFetchRegions';
+import useFetchCategories from '../../hooks/useFetchCategories';
 import { useForm } from 'react-hook-form';
 
 export default function CreateAd() {
     const { regions, loading: regionsLoading, error: regionsError } = useFetchRegions();
+    const { categories, loading: categoriesLoading, error: categoriesError } = useFetchCategories();
+    const [selectedMainCategory, setSelectedMainCategory] = useState(''); // New state for main category
+    console.log('categories', categories);
     const [uploading, setUploading] = useState(false); // New loading state
 
     const { register, handleSubmit, setError, formState: { errors } } = useForm();
@@ -53,6 +57,7 @@ export default function CreateAd() {
     };
 
     const onSubmit = async (data) => {
+        console.log(data);
         setUploading(true); // Start loading
 
         // Upload files and get their URLs along with dimensions
@@ -78,6 +83,8 @@ export default function CreateAd() {
                 title: data.title,
                 description: data.description,
                 region_id: data.region_id,
+                category_id: data.category_id,
+                sub_category_id: data.sub_category_id
             })
             .select();
 
@@ -121,7 +128,7 @@ export default function CreateAd() {
             fileInput.current.value = ''; // Clear the file input
             return;
         }
-        
+
         for (let file of selectedFiles) {
             if (!file.type.startsWith('image/')) {
                 setImageError('Only image files are allowed.');
@@ -138,6 +145,12 @@ export default function CreateAd() {
         setImageError('');
         setImages(selectedFiles);
     };
+
+    const handleMainCategoryChange = (e) => {
+        setSelectedMainCategory(e.target.value);
+    };
+
+    console.log(selectedMainCategory)
 
     return (
         <div className="container mx-auto dark:bg-zinc-900 bg-white mt-10 p-5 rounded-lg shadow-sm sm:max-w-sm">
@@ -221,6 +234,64 @@ export default function CreateAd() {
                     {errors.region_id && <p className="text-red-500 text-sm">{errors.region_id.message}</p>}
 
                 </div>
+
+                <div className="mb-4">
+                    <label className="block text-gray-700 dark:text-zinc-200 text-sm font-bold mb-2" htmlFor="region">
+                        Region
+                    </label>
+                    {categoriesLoading ? (
+                        <p className="dark:text-zinc-200">Loading categories...</p>
+                    ) : categoriesError ? (
+                        <p className="dark:text-zinc-200">Error loading categories</p>
+                    ) : (
+                        <select
+                            id="category"
+                            className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 dark:bg-zinc-800 dark:text-zinc-200 dark:border-zinc-600 leading-tight focus:outline-none focus:shadow-outline"
+                            {...register("category_id", {
+                                required: "Please select a category",
+                            })}
+                            onChange={handleMainCategoryChange}
+                        >
+                            <option value="">Select a category</option>
+                            {categories?.map((category) =>
+                                
+                                    <option key={category.category_id} value={category.category_id}>
+                                        {category.category_name}
+                                    </option>
+                               
+                            )}
+                        </select>
+
+                    )}
+                    {errors.category_id && <p className="text-red-500 text-sm">{errors.category_id.message}</p>}
+
+                </div>
+                {selectedMainCategory && (
+                    <div className="mb-4">
+                        <label className="block text-gray-700 dark:text-zinc-200 text-sm font-bold mb-2" htmlFor="sub-category">
+                            Sub-Category
+                        </label>
+                        <select
+                            id="sub-category"
+                            className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 dark:bg-zinc-800 dark:text-zinc-200 dark:border-zinc-600 leading-tight focus:outline-none focus:shadow-outline"
+                            {...register("sub_category_id", {
+                                required: "Please select a sub-category",
+                            })}
+                        >
+                            <option value="">Select a sub-category</option>
+                            {categories
+                            ?.filter(category => category.category_id === Number(selectedMainCategory))
+                            .flatMap(category => category.ad_sub_categories)
+                            .map((subCategory) => (
+                                <option key={subCategory.sub_category_id} value={subCategory.sub_category_id}>
+                                    {subCategory.sub_category_name}
+                                </option>
+                            ))}
+                        </select>
+                        {errors.sub_category_id && <p className="text-red-500 text-sm">{errors.sub_category_id.message}</p>}
+                    </div>
+                )}
+
                 <div className="flex items-center justify-between">
                     <Button type="submit" disabled={uploading}>{uploading ? 'Uploading...' : 'Create Ad'}</Button>
                 </div>
