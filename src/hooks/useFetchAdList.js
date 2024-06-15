@@ -38,6 +38,7 @@ const useFetchAdList = (selectedCategory, selectedSubCategory, selectedRegion, s
                 .from('ads')
                 .select(`
                     *,
+                     regions (region_name),
                     ad_images (uuid, image_url, image_width, image_height),
                     ad_categories (
                         category_id,
@@ -47,7 +48,7 @@ const useFetchAdList = (selectedCategory, selectedSubCategory, selectedRegion, s
                         sub_category_id,
                         sub_category_name
                     )
-                    regions(region_name),
+                   
                     profiles(username)
                     
                 `)

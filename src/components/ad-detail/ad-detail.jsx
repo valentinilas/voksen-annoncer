@@ -1,10 +1,9 @@
 import { useParams } from "react-router-dom";
-import { supabase } from "../../lib/supabase";
-import { useEffect, useState } from "react";
 import { formatDate } from "../../util/format-date";
 import Label from "../label/label";
 
-import { CalendarDaysIcon } from "@heroicons/react/24/outline";
+import { CalendarDaysIcon, TagIcon, MapPinIcon } from "@heroicons/react/24/outline";
+
 
 
 
@@ -48,7 +47,6 @@ export default function AdDetail() {
             height: image.image_height
         }
     })
-    // console.log(galleryImages);
 
     return (
         <>
@@ -59,12 +57,10 @@ export default function AdDetail() {
                         {/* Card main content */}
                         <div className="">
                             <div className="result-text dark:text-zinc-200 ">
-                                <div className="border-b dark:border-zinc-950 flex justify-between">
-                                    <div>
-                                        <span className="py-2 px-4 dark:bg-zinc-950 rounded-full text-sm	">{ad.ad_categories?.category_name} / {ad.ad_sub_categories?.sub_category_name}</span>
-                                        
-                                       
-                                       
+                                <div className="border-b dark:border-zinc-950 flex justify-between pb-5 mb-10">
+                                    <div className="flex gap-2">
+                                        <Label Icon={MapPinIcon}>{ad.regions?.region_name}</Label>
+                                        <Label Icon={TagIcon}>{ad.ad_categories?.category_name} / {ad.ad_sub_categories?.sub_category_name}</Label>
                                     </div>
                                     <Label Icon={CalendarDaysIcon}>{formatDate(ad.created_at)}</Label>
                                 </div>
@@ -75,33 +71,11 @@ export default function AdDetail() {
 
                         </div>
 
-                        {/* Card Details */}
-                        <div className="flex p-4 bg-white border border-cherry-200 justify-between rounded-md items-center gap-4">
-                            <div className="flex items-center gap-4">
-                                <span>Location: {ad.regions.region_name}</span>
 
-                            </div>
-                        </div>
-                        {/* Gallery */}
-                        {/* {ad.ad_images.length > 0 && (<div className="grid md:grid-cols-2 lg:grid-cols-4 2xl:grid-cols-6 gap-4 mt-10">
-                        {ad.ad_images.map(image => {
-                            return <div key={image.uuid}><img src={image.image_url} className="mb-2 rounded-md w-full object-cover aspect-square" /></div>
-                        })}
-                    </div>)} */}
 
                         {galleryImages.length > 0 ? <SimpleGallery
                             galleryID="my-test-gallery"
                             images={galleryImages}
-                        // images={[
-                        //     {
-                        //         largeURL:
-                        //             'https://cdn.photoswipe.com/photoswipe-demo-images/photos/1/img-2500.jpg',
-                        //         thumbnailURL:
-                        //             'https://cdn.photoswipe.com/photoswipe-demo-images/photos/1/img-200.jpg',
-                        //         width: 1875,
-                        //         height: 2500,
-                        //     },
-                        // ]}
                         /> : null}
 
                     </div>

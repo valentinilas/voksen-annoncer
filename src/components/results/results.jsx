@@ -36,33 +36,38 @@ export default function Results() {
   return (
     <>
 
-      <section className="container mx-auto bg-white dark:bg-zinc-900 mt-1  rounded-lg shadow-sm">
+      <section className="container mx-auto">
 
-        <div className="grid grid-cols-12 gap-8 ">
-          <div className="col-span-4">
-            <Filters
-              refetchAdList={refetchAdList}
-              selectedCategory={selectedCategory}
-              setSelectedCategory={setSelectedCategory}
-              selectedSubCategory={selectedSubCategory}
-              setSelectedSubCategory={setSelectedSubCategory}
-              selectedRegion={selectedRegion}
-              setSelectedRegion={setSelectedRegion}
-              searchTerm={searchTerm}
-              setSearchTerm={setSearchTerm}
-            />
-          </div>
-          <div className="col-span-8">
-            {ads && ads.length > 0 ? (
-              ads.map(ad => (
-                <Result key={ad.uuid} data={ad} />
-              ))
-            ) : (
-              <p className="text-center dark:text-zinc-200">No ads found</p>
-            )}
-          </div>
-
+        {/* Filters */}
+        <div className="filters">
+          <Filters
+            refetchAdList={refetchAdList}
+            selectedCategory={selectedCategory}
+            setSelectedCategory={setSelectedCategory}
+            selectedSubCategory={selectedSubCategory}
+            setSelectedSubCategory={setSelectedSubCategory}
+            selectedRegion={selectedRegion}
+            setSelectedRegion={setSelectedRegion}
+            searchTerm={searchTerm}
+            setSearchTerm={setSearchTerm}
+          />
         </div>
+
+
+
+        {ads && ads.length > 0 ? (
+          ads.map(ad => (
+            <Result key={ad.uuid} data={ad} />
+          ))
+        ) : (
+
+          <div className="bg-white dark:bg-zinc-900 p-5 my-2 rounded-lg shadow-sm">
+            <p className="text-center dark:text-zinc-200 py-10">No ads found</p>
+          </div>
+        )}
+
+
+
 
       </section>
     </>
