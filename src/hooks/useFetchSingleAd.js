@@ -10,7 +10,20 @@ const useFetchSingleAd = (uuid) => {
             try {
                 const { data: ad, error } = await supabase
                     .from('ads')
-                    .select('*, regions (region_name), profiles(*, genders (gender_name), regions (region_name)), ad_images(uuid, image_url, image_width, image_height)')
+                    .select(`*, 
+                        regions (region_name), 
+                        profiles(*, genders (gender_name), 
+                        regions (region_name)), 
+                        ad_images(uuid, image_url, image_width, image_height),  
+                        ad_categories (
+                            category_id,
+                            category_name
+                        ),
+                        ad_sub_categories (
+                            sub_category_id,
+                            sub_category_name
+                        )
+                        `)
                     .eq('uuid', uuid)
                     .maybeSingle();
 

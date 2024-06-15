@@ -20,7 +20,7 @@ export default function AdDetail() {
 
     const { adId } = useParams();
     const { ad, loading, error } = useFetchSingleAd(adId);
-
+    console.log(ad);
 
     if (loading) {
         return (
@@ -39,50 +39,59 @@ export default function AdDetail() {
     }
 
 
-    const galleryImages = ad.ad_images.map(image=>{
-        return{
+    const galleryImages = ad.ad_images.map(image => {
+        return {
             ...image,
             largeURL: image.image_url.split('?')[0],
             thumbnailURL: image.image_url,
             width: image.image_width,
-            height:image.image_height
+            height: image.image_height
         }
     })
     // console.log(galleryImages);
 
     return (
         <>
-        <section className="container mx-auto   mt-10 rounded-lg ">
-            <div className="grid grid-cols-12 gap-6">
-                {/* Ad detail */}
-                <div className="bg-white dark:bg-zinc-900 shadow-sm rounded-md p-5 col-span-12 lg:col-span-8">
-                    {/* Card main content */}
-                    <div className="">
-                        <div className="result-text dark:text-zinc-200">
-                         <Label Icon={CalendarDaysIcon}>{formatDate(ad.created_at)}</Label>
-                            <h3 className="font-bold text-2xl mb-4">{ad.title}</h3>
-                            <div><pre className="font-sans whitespace-pre-wrap">{ad.description}</pre></div>
+            <section className="container mx-auto   mt-10 rounded-lg ">
+                <div className="grid grid-cols-12 gap-6">
+                    {/* Ad detail */}
+                    <div className="bg-white dark:bg-zinc-900 shadow-sm rounded-md p-5 col-span-12 lg:col-span-8">
+                        {/* Card main content */}
+                        <div className="">
+                            <div className="result-text dark:text-zinc-200 ">
+                                <div className="border-b dark:border-zinc-950 flex justify-between">
+                                    <div>
+                                        <span className="py-2 px-4 dark:bg-zinc-950 rounded-full text-sm	">{ad.ad_categories?.category_name} / {ad.ad_sub_categories?.sub_category_name}</span>
+                                        
+                                       
+                                       
+                                    </div>
+                                    <Label Icon={CalendarDaysIcon}>{formatDate(ad.created_at)}</Label>
+                                </div>
+
+                                <h3 className="font-bold text-2xl mb-4">{ad.title}</h3>
+                                <div><pre className="font-sans whitespace-pre-wrap">{ad.description}</pre></div>
+                            </div>
+
                         </div>
 
-                    </div>
+                        {/* Card Details */}
+                        <div className="flex p-4 bg-white border border-cherry-200 justify-between rounded-md items-center gap-4">
+                            <div className="flex items-center gap-4">
+                                <span>Location: {ad.regions.region_name}</span>
 
-                    {/* Card Details */}
-                    <div className="flex p-4 bg-white border border-cherry-200 justify-between rounded-md items-center gap-4">
-                        <div className="flex items-center gap-4">
-                            <span>Location: {ad.regions.region_name}</span>
-
+                            </div>
                         </div>
-                    </div>
-                    {/* Gallery */}
-                    {/* {ad.ad_images.length > 0 && (<div className="grid md:grid-cols-2 lg:grid-cols-4 2xl:grid-cols-6 gap-4 mt-10">
+                        {/* Gallery */}
+                        {/* {ad.ad_images.length > 0 && (<div className="grid md:grid-cols-2 lg:grid-cols-4 2xl:grid-cols-6 gap-4 mt-10">
                         {ad.ad_images.map(image => {
                             return <div key={image.uuid}><img src={image.image_url} className="mb-2 rounded-md w-full object-cover aspect-square" /></div>
                         })}
                     </div>)} */}
 
-                   {galleryImages.length > 0 ? <SimpleGallery
-                        galleryID="my-test-gallery"
-                        images={galleryImages}
+                        {galleryImages.length > 0 ? <SimpleGallery
+                            galleryID="my-test-gallery"
+                            images={galleryImages}
                         // images={[
                         //     {
                         //         largeURL:
@@ -93,16 +102,16 @@ export default function AdDetail() {
                         //         height: 2500,
                         //     },
                         // ]}
-                    /> : null}
+                        /> : null}
 
+                    </div>
+                    <div className="p-5 col-span-12 lg:col-span-4">
+                        <AdProfile profileData={ad.profiles} />
+                    </div>
+                    {/* Profile */}
                 </div>
-                <div className="p-5 col-span-12 lg:col-span-4">
-                    <AdProfile profileData={ad.profiles} />
-                </div>
-                {/* Profile */}
-            </div>
-        </section>
-        <Spotlight/>
+            </section>
+            <Spotlight />
         </>
     );
 }

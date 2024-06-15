@@ -44,6 +44,8 @@ const useFetchSpotlightAdList = () => {
                     .range(0, 12);
 
 
+
+
                 if (error) {
                     throw error;
                 }

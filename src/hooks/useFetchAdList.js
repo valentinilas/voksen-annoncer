@@ -5,18 +5,24 @@ import { cdnUrl } from '../util/cdn-url';
 const CACHE_KEY = 'ads_cache';
 const CACHE_EXPIRATION = 10 * 60 * 1000; // 10 minutes
 
-const useFetchAdList = () => {
+const useFetchAdList = (selectedCategory,selectedSubCategory, selectedRegion, searchTerm) => {
     const [data, setData] = useState({ ads: null, loading: true, error: null });
 
     const getCachedAds = () => {
-        const cachedData = localStorage.getItem(CACHE_KEY);
-        if (!cachedData) return null;
+        try {
+            const cachedData = localStorage.getItem(CACHE_KEY);
+            if (!cachedData) return null;
 
-        const { ads, timestamp } = JSON.parse(cachedData);
-        const isExpired = Date.now() - timestamp > CACHE_EXPIRATION;
+            const { ads, timestamp } = JSON.parse(cachedData);
+            const isExpired = Date.now() - timestamp > CACHE_EXPIRATION;
 
-        return isExpired ? null : ads;
+            return isExpired ? null : ads;
+        } catch (error) {
+            console.error('Error parsing cached data:', error);
+            return null;
+        }
     };
+
     const setCachedAds = (ads) => {
         const cacheData = {
             ads,
@@ -25,46 +31,83 @@ const useFetchAdList = () => {
         localStorage.setItem(CACHE_KEY, JSON.stringify(cacheData));
     };
 
+    async function fetchAdList() {
+        console.log('AdList: Loading live data');
+        try {
+            let query = supabase
+                .from('ads')
+                .select(`
+                    *,
+                    ad_categories (
+                        category_id,
+                        category_name
+                    ),
+                    ad_sub_categories (
+                        sub_category_id,
+                        sub_category_name
+                    )
+                    regions(region_name),
+                    profiles(username),
+                    ad_images(uuid, image_url, image_width, image_height)
+                `)
+
+
+                .order('created_at', { ascending: false });
+
+            if (selectedCategory && selectedCategory !== 'all') {
+                query = query.eq('category_id', selectedCategory);
+            }
+            if (selectedSubCategory && selectedSubCategory !== 'all') {
+                query = query.eq('sub_category_id', selectedSubCategory);
+            }
+            if (selectedRegion && selectedRegion !== 'all') {
+                query = query.eq('region_id', selectedRegion);
+            }
+            if (searchTerm && searchTerm) {
+                query = query.ilike('title', `%${searchTerm}%`);
+            }
+
+
+            const { data: ads, error } = await query;
+
+            if (error) {
+                throw error;
+            }
+            console.log(ads);
+            const transformedAds = ads.map(ad => ({
+                ...ad,
+                ad_images: ad.ad_images?.map(image => ({
+                    ...image,
+                    image_url: cdnUrl(image.image_url, 300, 300)
+                }))
+            }));
+
+            setCachedAds(transformedAds);
+            setData({ ads: transformedAds, loading: false, error: null });
+        } catch (error) {
+            console.error('Error fetching data:', error);
+            setData({ ads: null, loading: false, error: error.message });
+        }
+    }
+
     useEffect(() => {
         const cachedAds = getCachedAds();
         if (cachedAds) {
             console.log('AdList: Loading from cache');
             setData({ ads: cachedAds, loading: false, error: null });
-            return;
+        } else {
+            fetchAdList();
         }
 
-        async function fetchAdList() {
-            console.log('AdList: Loading live data');
-            try {
-                const { data: ads, error } = await supabase
-                    .from('ads')
-                    .select('*, regions (region_name), profiles(username), ad_images(uuid, image_url, image_width, image_height)')
-                    .order('created_at', { ascending: false });
-
-                if (error) {
-                    throw error;
-                }
-                // Transform image URLs using cdnUrl
-                const transformedAds = ads.map(ad => ({
-                    ...ad,
-                    ad_images: ad.ad_images.map(image => ({
-                        ...image,
-                        image_url: cdnUrl(image.image_url, 300, 300) 
-                    }))
-                }));
-
-                setCachedAds(transformedAds);
-                setData({ ads: transformedAds, loading: false, error: null });
-            } catch (error) {
-                console.error('Error fetching data:', error);
-                setData({ ads: null, loading: false, error: error.message });
-            }
-        }
-
-        fetchAdList();
+        
     }, []);
 
-    return data;
+    const refetchAdList = async () => {
+        setData({ ads: null, loading: true, error: null });
+        await fetchAdList();
+    };
+
+    return { ...data, refetchAdList };
 };
 
 export default useFetchAdList;

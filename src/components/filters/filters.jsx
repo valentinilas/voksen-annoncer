@@ -1,81 +1,127 @@
-import React, { useState } from 'react';
-import { AdjustmentsHorizontalIcon } from "@heroicons/react/24/outline";
-import { MagnifyingGlassIcon } from "@heroicons/react/24/outline";
-
-import { useEffect } from "react";
-
+import { useState, useEffect } from 'react';
+import { AdjustmentsHorizontalIcon, MagnifyingGlassIcon } from "@heroicons/react/24/outline";
 import Button from '../button/button';
+import useFetchRegions from '../../hooks/useFetchRegions';
+import useFetchCategories from '../../hooks/useFetchCategories';
 
-import { supabase } from '../../lib/supabase';
+export default function Filters({ refetchAdList, selectedCategory, setSelectedCategory, selectedSubCategory, setSelectedSubCategory, selectedRegion, setSelectedRegion, searchTerm, setSearchTerm }) {
+  const { regions, loading: regionsLoading, error: regionsError } = useFetchRegions();
+  const { categories, loading: categoriesLoading, error: categoriesError } = useFetchCategories();
 
-
-export default function Filters() {
-
-  const [regionList, setRegionList] = useState([]);
-
-  useEffect(() => {
-    getRegions();
-  }, []);
-
-  async function getRegions() {
-    let { data: regions, error } = await supabase
-      .from('regions')
-      .select('*')
-
-    setRegionList(regions);
-    // console.log(regions);
-    // console.log(error);
-  }
-
-
-  const [dropdown1, setDropdown1] = useState('');
-  const [dropdown2, setDropdown2] = useState('');
-  const [searchTerm, setSearchTerm] = useState('');
-
-  const handleDropdown1Change = (e) => {
-    setDropdown1(e.target.value);
+  // Handle change in main category selection
+  const handleMainCategoryChange = (e) => {
+    setSelectedCategory(e.target.value);
+    setSelectedSubCategory('all'); // Reset sub-category selection
   };
 
-  const handleDropdown2Change = (e) => {
-    setDropdown2(e.target.value);
+  // Handle change in sub category selection
+  const handleSubCategoryChange = (e) => {
+    setSelectedSubCategory(e.target.value);
   };
 
-  const handleSearchChange = (e) => {
-    setSearchTerm(e.target.value);
+  // Handle search form submission
+  const handleSearch = (e) => {
+    e.preventDefault();
+    refetchAdList();
   };
 
-  const handleSearch = () => {
-    // Perform the search with the selected filters and search term
-    console.log('Search Term:', searchTerm);
-    console.log('Dropdown 1:', dropdown1);
-    console.log('Dropdown 2:', dropdown2);
+  // Render options for sub-categories based on selected main category
+  const renderSubCategoryOptions = () => {
+    const mainCategory = categories.find(cat => cat.category_id === Number(selectedCategory));
+    if (mainCategory && mainCategory.ad_sub_categories) {
+      return mainCategory.ad_sub_categories.map(subcategory => (
+        <option key={subcategory.sub_category_id} value={subcategory.sub_category_id}>{subcategory.sub_category_name}</option>
+      ));
+    }
+    return null;
   };
+
   return (
-    <section className="container mx-auto bg-white dark:bg-zinc-900 p-5 mt-10 rounded-lg shadow-sm">
-      <div className="flex gap-4 items-center justify-center">
-        <div className="filter-group ">
-          <select
-            className="border p-2 rounded-md"
-            id="dropdown1" value={dropdown1} onChange={handleDropdown1Change}>
-            <option value="all">Whole country</option>
-            {regionList.map(region=> <option key={region.id} value={region.id}>{region.region_name}</option>)}
-          </select>
-        </div>
+    <section className="container mx-auto bg-white dark:bg-zinc-800 p-5 mt-10 mb-10 rounded-lg ">
+      <div className="flex flex-col gap-4 items-start justify-start">
+        <div className="filter-group rounded-md w-full">
 
-        <div className="filter-group rounded-md">
           <input
-            className="border p-2"
+            className="border p-2 w-full"
             type="text"
-            id="search"
             value={searchTerm}
-            onChange={handleSearchChange}
+            onChange={(e) => setSearchTerm(e.target.value)}
             placeholder="Search..."
           />
         </div>
+        <div className="filter-group w-full">
+          {regionsLoading ? (
+            <p>Loading regions...</p>
+          ) : regionsError ? (
+            <p>Error loading regions</p>
+          ) : (
+            <>
+              <span>Location</span>
+              <select
+                className="border p-2 rounded-md w-full"
+                value={selectedRegion}
+                onChange={(e) => setSelectedRegion(e.target.value)}>
+                <option value="all">All</option>
+                {regions.map(region => (
+                  <option key={region.id} value={region.id}>{region.region_name}</option>
+                ))}
+              </select>
+            </>
+          )}
+        </div>
+        <div className="filter-group w-full">
+          {categoriesLoading ? (
+            <p>Loading Categories...</p>
+          ) : categoriesError ? (
+            <p>Error loading categories</p>
+          ) : (
+            <>
+             <span>Category</span>
+              <select
+                className="border p-2 rounded-md w-full"
+                value={selectedCategory}
+                onChange={handleMainCategoryChange}>
+                <option value="all">All</option>
+                {categories.map(category => (
+                  <option key={category.category_id} value={category.category_id}>{category.category_name}</option>
+                ))}
+              </select>
+
+            </>
+          )}
+        </div>
+
+        {categoriesLoading ? (
+          <p>Loading Categories...</p>
+        ) : categoriesError ? (
+          <p>Error loading categories</p>
+        ) : (
+          <>
+            <div className="filter-group w-full">
+              {selectedCategory !== 'all' && (
+                <>
+                 <span>Sub-category</span>
+                 <select
+                  className="border p-2 rounded-md w-full"
+                  value={selectedSubCategory}
+                  onChange={handleSubCategoryChange}>
+                  <option value="all">All</option>
+                  {renderSubCategoryOptions()}
+                </select>
+                 </>
+               
+              )}
+            </div>
+          </>
+        )}
+
+
+
+
+
 
         <Button variant="secondary" Icon={MagnifyingGlassIcon} onClick={handleSearch}>Search</Button>
-        <Button variant="tertiary" size="m-icon-only" Icon={AdjustmentsHorizontalIcon}></Button>
-
+        {/* <Button variant="tertiary" size="m-icon-only" Icon={AdjustmentsHorizontalIcon}></Button> */}
       </div>
     </section>
   );
