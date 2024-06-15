@@ -5,7 +5,7 @@ import { cdnUrl } from '../util/cdn-url';
 const CACHE_KEY = 'ads_cache';
 const CACHE_EXPIRATION = 10 * 60 * 1000; // 10 minutes
 
-const useFetchAdList = (selectedCategory,selectedSubCategory, selectedRegion, searchTerm) => {
+const useFetchAdList = (selectedCategory, selectedSubCategory, selectedRegion, searchTerm) => {
     const [data, setData] = useState({ ads: null, loading: true, error: null });
 
     const getCachedAds = () => {
@@ -50,7 +50,7 @@ const useFetchAdList = (selectedCategory,selectedSubCategory, selectedRegion, se
                     profiles(username),
                     ad_images(uuid, image_url, image_width, image_height)
                 `)
-
+                .eq('is_approved', true)
 
                 .order('created_at', { ascending: false });
 
@@ -99,7 +99,7 @@ const useFetchAdList = (selectedCategory,selectedSubCategory, selectedRegion, se
             fetchAdList();
         }
 
-        
+
     }, []);
 
     const refetchAdList = async () => {
