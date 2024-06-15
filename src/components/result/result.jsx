@@ -19,7 +19,8 @@ export default function Result({ data }) {
         }
         return text.substring(0, maxLength) + '...';
     }
-
+    console.log(data);
+console.log(ad_images);
     return (<div>
         <div className="mb-6    shadow-sm px-5 py-10  rounded-md bg-white dark:bg-zinc-900 ">
             {/* Card main content */}

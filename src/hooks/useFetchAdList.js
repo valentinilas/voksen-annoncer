@@ -38,6 +38,7 @@ const useFetchAdList = (selectedCategory, selectedSubCategory, selectedRegion, s
                 .from('ads')
                 .select(`
                     *,
+                    ad_images (uuid, image_url, image_width, image_height),
                     ad_categories (
                         category_id,
                         category_name
@@ -47,8 +48,8 @@ const useFetchAdList = (selectedCategory, selectedSubCategory, selectedRegion, s
                         sub_category_name
                     )
                     regions(region_name),
-                    profiles(username),
-                    ad_images(uuid, image_url, image_width, image_height)
+                    profiles(username)
+                    
                 `)
                 .eq('is_approved', true)
 
