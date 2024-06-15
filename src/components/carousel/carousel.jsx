@@ -23,7 +23,6 @@ const EmblaCarousel = (props) => {
     onNextButtonClick
   } = usePrevNextButtons(emblaApi)
 
-
   return (
     <section className="embla">
       <div className="embla__viewport" ref={emblaRef}>
@@ -35,13 +34,13 @@ const EmblaCarousel = (props) => {
       </div>
 
       <div className="embla__controls">
-        <div className="embla__buttons">
-          <PrevButton onClick={onPrevButtonClick} disabled={prevBtnDisabled} />
-          <NextButton onClick={onNextButtonClick} disabled={nextBtnDisabled} />
+        <div className="embla__buttons ">
+          <PrevButton onClick={onPrevButtonClick} disabled={prevBtnDisabled}  />
+          <NextButton onClick={onNextButtonClick} disabled={nextBtnDisabled}  />
         </div>
 
         <div className="embla__dots">
-          {scrollSnaps.map((_, index) => (
+          {scrollSnaps.length> 1 && scrollSnaps.map((_, index) => (
             <DotButton
               key={index}
               onClick={() => onDotButtonClick(index)}

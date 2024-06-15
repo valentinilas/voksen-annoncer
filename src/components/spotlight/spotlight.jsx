@@ -7,6 +7,7 @@ import { ChevronLeftIcon, ChevronRightIcon } from "@heroicons/react/24/outline";
 import { cdnUrl } from "../../util/cdn-url";
 
 import useFetchSpotlightAdList from "../../hooks/useFetchSpotlightAdList";
+import DefaultImage from "../default-image/default-image";
 
 export default function Spotlight() {
     const { ads, loading, error } = useFetchSpotlightAdList();
@@ -28,20 +29,45 @@ export default function Spotlight() {
         );
     }
 
+    const neededDummySlides = Math.max(0, 6 - ads.length);
+
+    const dummySlides = Array.from({ length: neededDummySlides }).map((_, index) => (
+        <div className="embla__slide" key={`dummy-${index}`}>
+            {/* Example of a simple dummy slide */}
+            <div className="shadow-sm bg-white dark:bg-zinc-800 dark:border-zinc-700 text-black dark:text-zinc-200  rounded-md m-2 p-2 border-solid border-2 border-stone-100 ">
+                <DefaultImage />
+                <h5 className="font-bold truncate text-sm">Get promoted</h5>
+                <p className="truncate text-sm">get promoted</p>
+            </div>
+        </div>
+    ));
+
+    const combinedSlides = [...ads.map(ad => (
+        <NavLink to={`/ad/${ad.uuid}`} className="embla__slide" key={ad.uuid}>
+            <div className="shadow-sm bg-white dark:bg-zinc-800 dark:border-zinc-700 text-black dark:text-zinc-200  rounded-md m-2 p-2 border-solid border-2 border-stone-100 hover:border-cherry-600 transition-colors">
+                <img src={ad.ad_images[0]?.image_url} className="mb-2 rounded-md w-full object-cover aspect-square" alt={ad.title} />
+                <h5 className="font-bold truncate text-sm">{ad.title}</h5>
+                <p className="truncate text-sm">{ad.description}</p>
+            </div>
+        </NavLink>
+    )), ...dummySlides];
+
+
     const OPTIONS = { loop: false, align: 'start', containScroll: 'trimSnaps' };
 
-    const SLIDES = ads.map((ad) => {
-        const { uuid, ad_images, title, description } = ad;
-        return (
-            <NavLink to={`/ad/${uuid}`} className="embla__slide" key={uuid}>
-                <div className="shadow-sm bg-white dark:bg-zinc-800 dark:border-zinc-700 text-black dark:text-zinc-200  rounded-md m-2 p-2 border-solid border-2 border-stone-100 hover:border-cherry-600 transition-colors">
-                    <img src={ad_images[0]?.image_url} className="mb-2 rounded-md w-full object-cover aspect-square" alt={title} />
-                    <h5 className="font-bold truncate text-sm">{title}</h5>
-                    <p className="truncate text-sm">{description}</p>
-                </div>
-            </NavLink>
-        );
-    });
+
+    // const SLIDES = ads.map((ad) => {
+    //     const { uuid, ad_images, title, description } = ad;
+    //     return (
+    //         <NavLink to={`/ad/${uuid}`} className="embla__slide" key={uuid}>
+    //             <div className="shadow-sm bg-white dark:bg-zinc-800 dark:border-zinc-700 text-black dark:text-zinc-200  rounded-md m-2 p-2 border-solid border-2 border-stone-100 hover:border-cherry-600 transition-colors">
+    //                 <img src={ad_images[0]?.image_url} className="mb-2 rounded-md w-full object-cover aspect-square" alt={title} />
+    //                 <h5 className="font-bold truncate text-sm">{title}</h5>
+    //                 <p className="truncate text-sm">{description}</p>
+    //             </div>
+    //         </NavLink>
+    //     );
+    // });
 
     return (
         <section className="container mx-auto bg-white dark:bg-zinc-900 transition-colors p-5 mt-10 rounded-lg shadow-sm">
@@ -50,7 +76,7 @@ export default function Spotlight() {
                 <Button variant="secondary" size="s" onClick={() => alert('Sign up!')}>Get promoted</Button>
             </div>
 
-            <EmblaCarousel slides={SLIDES} options={OPTIONS} />
+            <EmblaCarousel slides={combinedSlides} options={OPTIONS} />
         </section>
     );
 }
