@@ -24,11 +24,7 @@ export default function NavBar() {
     const { avatar_url, username, is_admin } = profile || {};
 
 
-    // if (!(loading || error) && profile.username) {
-    //     username = profile.username;
-    // }
 
-    console.log(profile);
 
 
 
@@ -45,17 +41,18 @@ export default function NavBar() {
     }
 
     return (
-        <div className="navbar bg-base-200 rounded-box px-5">
+        <div className="navbar bg-base-200 rounded-box px-5 shadow-sm">
             <div className="navbar-start">
                 <NavLink to="/" className="flex gap-4 items-center">
                     <img className="w-16	" src={logo} alt="Voksen Annoncer" />
-                    <span className="font-bold text-black-900 dark:text-white text-xl">Voksen Annoncer</span>
+                    <span className="font-bold text-black-900 dark:text-white text-xl hidden md:block">Voksen Annoncer</span>
                 </NavLink>
             </div>
             <div className="navbar-center hidden lg:flex">
                 <ul className="menu menu-horizontal px-1 gap-2">
                     <li>  <NavLink to="/">Annoncer</NavLink></li>
-                    <li>  <NavLink to="/dashboard">Support</NavLink></li>
+                    <li>  <NavLink to="/about">About</NavLink></li>
+                    <li>  <NavLink to="/support">Support</NavLink></li>
                 </ul>
             </div>
 
@@ -73,7 +70,7 @@ export default function NavBar() {
                 <div className="navbar-end gap-4">
 
                     <ThemeToggle />
-                    {username && <NavLink className="link link-hover text-sm font-bold" to="/dashboard">{username}</NavLink>}
+                    {username && <NavLink className="link link-hover text-sm font-bold hidden md:block" to="/dashboard">{username}</NavLink>}
                     <div className="dropdown dropdown-end">
 
                         <div tabIndex={0} role="button" className="btn btn-ghost btn-circle avatar ">

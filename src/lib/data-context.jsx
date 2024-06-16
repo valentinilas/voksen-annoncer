@@ -14,7 +14,7 @@ export function DataProvider({ children }) {
 
 
     useEffect(() => {
-        console.log("FETCHING DATA");
+   
         async function getAdList() {
             try {
                 let { data: ads, error } = await supabase

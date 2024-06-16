@@ -45,7 +45,7 @@ export default function Admin() {
         </div>;
     }
 
-    console.log(ads);
+    // console.log(ads);
 
     return (
         <>
@@ -64,6 +64,7 @@ export default function Admin() {
                                 <tr>
                                     <th></th>
                                     <th>ID</th>
+                                    <th>User</th>
                                     <th>Title</th>
                                     <th>Link</th>
                                     <th>Approved</th>

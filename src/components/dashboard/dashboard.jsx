@@ -24,7 +24,7 @@ export default function Dashboard() {
                     </div>
 
                 </div>
-                <div className="col-span-12 lg:col-span-8  lg:p-6 ">
+                <div className="col-span-12 lg:col-span-8 p-6 ">
                     <MyAds />
                 </div>
             </div>

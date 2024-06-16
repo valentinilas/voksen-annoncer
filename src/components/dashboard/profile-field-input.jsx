@@ -3,13 +3,13 @@ import Label from "../label/label";
 
 const ProfileFieldInput = forwardRef(({ type, label, visibility, placeholder, icon: Icon, editing, name, fieldError, defaultValue, ...props }, ref) => (
     <p className="mb-2 bg-base-200 p-4 rounded-box">
-        <div className="flex justify-between">
+        <span className="flex justify-between">
         <Label type="profile" Icon={Icon}>
             <span className="font-bold mb-1">{label}</span>
            
         </Label>
        
-        </div>
+        </span>
        
         {editing ? (
             <input
@@ -21,12 +21,12 @@ const ProfileFieldInput = forwardRef(({ type, label, visibility, placeholder, ic
                 defaultValue={defaultValue} // Use defaultValue instead of value
             />
         ) : (
-            <div>
+            <>
              
             {visibility !== undefined ? (
                 <Label className="mt-2" type={visibility ? 'success' : 'warning'}>{visibility ? 'Visible' : 'Hidden'}</Label>
             ) : <span className="">{!defaultValue ? placeholder : defaultValue}</span> }
-            </div>
+            </>
           
         )}
 

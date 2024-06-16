@@ -17,6 +17,7 @@ const useFetchAdminAdList = () => {
                 .select(`
                     *,
                     regions (region_name),
+                     profiles(username),
                     ad_images (uuid, image_url, image_width, image_height),
                     ad_categories (
                         category_id,
@@ -27,7 +28,7 @@ const useFetchAdminAdList = () => {
                         sub_category_name
                     )
                    
-                    profiles(username)
+                   
                     
                 `)
 
@@ -41,7 +42,7 @@ const useFetchAdminAdList = () => {
             if (error) {
                 throw error;
             }
-            console.log(ads);
+            // console.log(ads);
             const transformedAds = ads.map(ad => ({
                 ...ad,
                 ad_images: ad.ad_images?.map(image => ({

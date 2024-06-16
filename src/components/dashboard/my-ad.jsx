@@ -36,7 +36,7 @@ export default function MyAd({ ad, deleteRow }) {
         }
         return text.substring(0, maxLength) + '...';
     }
-    console.log(ad);
+
 
     const { uuid, title, description, ad_images, created_at, is_approved, ad_categories, ad_sub_categories, regions } = ad;
 
@@ -46,9 +46,9 @@ export default function MyAd({ ad, deleteRow }) {
 
             <li key={uuid} className="bg-base-200 p-5 my-2 rounded-box ">
 
-                <div className="grid grid-cols-12 gap-8 ">
+                <div className="grid grid-cols-1 md:grid-cols-12 gap-8 ">
 
-                    <div className="col-span-12 flex justify-between items-center border-b pb-5  border-base-300">
+                    <div className="col-span-1 md:col-span-12 flex justify-between items-center border-b pb-5  border-base-300">
 
                         <Label type={is_approved ? 'success' : 'warning'}>{is_approved ? 'Approved' : 'Pending approval'}</Label>
 
@@ -60,12 +60,12 @@ export default function MyAd({ ad, deleteRow }) {
                             </ul>
                         </div>
                     </div>
-                    <div className="col-span-8 ">
+                    <div className="col-span-1 md:col-span-8 ">
 
 
 
-                        <h4 className="font-bold text-lg mb-4 truncate">{title}</h4>
-                        <p className="text-ellipsis overflow-hidden">{truncateText(description, 300)}</p>
+                    <NavLink className="block" to={`/ad/${uuid}`}><h4 className="font-bold text-lg mb-4 truncate">{title}</h4></NavLink>
+                    <NavLink className="block" to={`/ad/${uuid}`}> <p className="text-ellipsis overflow-hidden">{truncateText(description, 300)}</p></NavLink>
                         {/* <div className="flex gap-2  pt-5 mt-5 items-center ">
 
                             <Button variant="secondary">Edit</Button>
@@ -73,9 +73,9 @@ export default function MyAd({ ad, deleteRow }) {
 
                         </div> */}
                     </div>
-                    <div className="col-span-4">
+                    <div className="col-span-1 md:col-span-4">
 
-                        <NavLink to={`/ad/${uuid}`}>{ad_images.length > 0 ? <img src={ad_images[0].image_url} className="mb-2 rounded-box w-full object-cover aspect-square bg-neutral border-base-100" /> : <DefaultImage />}</NavLink>
+                        <NavLink className="block" to={`/ad/${uuid}`}>{ad_images.length > 0 ? <img src={ad_images[0].image_url} className="rounded-box w-full object-cover aspect-square bg-neutral border-base-100" /> : <DefaultImage />}</NavLink>
                     </div>
 
                 </div>

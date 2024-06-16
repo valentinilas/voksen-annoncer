@@ -41,7 +41,7 @@ export function AuthProvider({ children }) {
 
                 setSession(session);
                 getProfile(session.user.id);
-                console.log(session)
+            
             } else {
                 setProfileData({ profile: null, loading: false, error: "No session available" });
             }

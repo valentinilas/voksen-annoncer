@@ -10,7 +10,6 @@ export default function CreateAd() {
     const { regions, loading: regionsLoading, error: regionsError } = useFetchRegions();
     const { categories, loading: categoriesLoading, error: categoriesError } = useFetchCategories();
     const [selectedMainCategory, setSelectedMainCategory] = useState(''); // New state for main category
-    console.log('categories', categories);
     const [uploading, setUploading] = useState(false); // New loading state
 
     const { register, handleSubmit, setError, formState: { errors } } = useForm();
@@ -52,12 +51,10 @@ export default function CreateAd() {
             console.error('Error getting public URL:', error);
             return null;
         }
-        console.log(data.publicUrl);
         return data.publicUrl;
     };
 
     const onSubmit = async (data) => {
-        console.log(data);
         setUploading(true); // Start loading
 
         // Upload files and get their URLs along with dimensions
@@ -150,153 +147,154 @@ export default function CreateAd() {
         setSelectedMainCategory(e.target.value);
     };
 
-    console.log(selectedMainCategory)
 
     return (
-        <div className="container mx-auto bg-base-200 mt-10 p-5 rounded-lg shadow-sm sm:max-w-sm">
-            <h2 className="text-2xl font-bold mb-4 dark:text-zinc-400">Create Ad</h2>
-            <form onSubmit={handleSubmit(onSubmit)}>
-                <div className="mb-4">
-                    <label className="block  text-sm font-bold mb-2" htmlFor="title">
-                        Title
-                    </label>
-                    <input
-                        id="title"
-                        type="text"
-                        className="input input-bordered w-full"
-                        {...register("title", {
-                            required: "Title is required",
-                            maxLength: {
-                                value: 160,
-                                message: "Title must be 160 characters or less"
-                            }
-                        })}
-                    />
-                    {errors.title && <p className="text-red-500 text-sm">{errors.title.message}</p>}
-
-                </div>
-                <div className="mb-4">
-                    <label className="block  text-sm font-bold mb-2" htmlFor="description">
-                        Description
-                    </label>
-                    <textarea
-                        id="description"
-                        rows="5"
-                        className="input input-bordered w-full"
-                        {...register("description", {
-                            required: "Description is required",
-                        })}
-                    ></textarea>
-                    {errors.description && <p className="text-red-500 text-sm">{errors.description.message}</p>}
-
-                </div>
-                <div className="mb-4">
-                    <label className="block  text-sm font-bold mb-2" htmlFor="images">
-                        Upload Images
-                    </label>
-                    <input
-                        ref={fileInput}
-                        id="images"
-                        type="file"
-                        multiple
-                        className="file-input file-input-bordered w-full"
-                        onChange={handleFileChange}
-                    />
-                    {imageError && <p className="text-red-500 text-sm">{imageError}</p>}
-
-
-                </div>
-                <div className="mb-4">
-                    <label className="block  text-sm font-bold mb-2" htmlFor="region">
-                        Region
-                    </label>
-                    {regionsLoading ? (
-                        <p className="dark:text-zinc-200">Loading regions...</p>
-                    ) : regionsError ? (
-                        <p className="dark:text-zinc-200">Error loading regions</p>
-                    ) : (
-                        <select
-                            id="region"
-                            className="select select-bordered w-full"
-                            {...register("region_id", {
-                                required: "Please select a region",
+        <div className="mt-10  rounded-box shadow-sm container mx-auto px-5">
+            <div className="bg-base-200 p-5 mt-2 mb-2 rounded-box shadow-sm">
+                <h2 className="text-2xl font-bold mb-4 dark:text-zinc-400">Create Ad</h2>
+                <form onSubmit={handleSubmit(onSubmit)}>
+                    <div className="mb-4">
+                        <label className="block  text-sm font-bold mb-2" htmlFor="title">
+                            Title
+                        </label>
+                        <input
+                            id="title"
+                            type="text"
+                            className="input input-bordered w-full"
+                            {...register("title", {
+                                required: "Title is required",
+                                maxLength: {
+                                    value: 160,
+                                    message: "Title must be 160 characters or less"
+                                }
                             })}
-                        >
-                            <option value="">Select a region</option>
-                            {regions?.map((region) => (
-                                <option key={region.id} value={region.id}>
-                                    {region.region_name}
-                                </option>
-                            ))}
-                        </select>
+                        />
+                        {errors.title && <p className="text-red-500 text-sm">{errors.title.message}</p>}
 
-                    )}
-                    {errors.region_id && <p className="text-red-500 text-sm">{errors.region_id.message}</p>}
-
-                </div>
-
-                <div className="mb-4">
-                    <label className="block  text-sm font-bold mb-2" htmlFor="region">
-                        Region
-                    </label>
-                    {categoriesLoading ? (
-                        <p className="dark:text-zinc-200">Loading categories...</p>
-                    ) : categoriesError ? (
-                        <p className="dark:text-zinc-200">Error loading categories</p>
-                    ) : (
-                        <select
-                            id="category"
-                            className="select select-bordered w-full"
-                            {...register("category_id", {
-                                required: "Please select a category",
+                    </div>
+                    <div className="mb-4">
+                        <label className="block  text-sm font-bold mb-2" htmlFor="description">
+                            Description
+                        </label>
+                        <textarea
+                            id="description"
+                            rows="7"
+                            className="textarea textarea-bordered w-full"
+                            {...register("description", {
+                                required: "Description is required",
                             })}
-                            onChange={handleMainCategoryChange}
-                        >
-                            <option value="">Select a category</option>
-                            {categories?.map((category) =>
-                                
+                        ></textarea>
+                        {errors.description && <p className="text-red-500 text-sm">{errors.description.message}</p>}
+
+                    </div>
+                    <div className="mb-4">
+                        <label className="block  text-sm font-bold mb-2" htmlFor="images">
+                            Upload Images
+                        </label>
+                        <input
+                            ref={fileInput}
+                            id="images"
+                            type="file"
+                            multiple
+                            className="file-input file-input-bordered w-full"
+                            onChange={handleFileChange}
+                        />
+                        {imageError && <p className="text-red-500 text-sm">{imageError}</p>}
+
+
+                    </div>
+                    <div className="mb-4">
+                        <label className="block  text-sm font-bold mb-2" htmlFor="region">
+                            Region
+                        </label>
+                        {regionsLoading ? (
+                            <p className="dark:text-zinc-200">Loading regions...</p>
+                        ) : regionsError ? (
+                            <p className="dark:text-zinc-200">Error loading regions</p>
+                        ) : (
+                            <select
+                                id="region"
+                                className="select select-bordered w-full"
+                                {...register("region_id", {
+                                    required: "Please select a region",
+                                })}
+                            >
+                                <option value="">Select a region</option>
+                                {regions?.map((region) => (
+                                    <option key={region.id} value={region.id}>
+                                        {region.region_name}
+                                    </option>
+                                ))}
+                            </select>
+
+                        )}
+                        {errors.region_id && <p className="text-red-500 text-sm">{errors.region_id.message}</p>}
+
+                    </div>
+
+                    <div className="mb-4">
+                        <label className="block  text-sm font-bold mb-2" htmlFor="region">
+                            Region
+                        </label>
+                        {categoriesLoading ? (
+                            <p className="dark:text-zinc-200">Loading categories...</p>
+                        ) : categoriesError ? (
+                            <p className="dark:text-zinc-200">Error loading categories</p>
+                        ) : (
+                            <select
+                                id="category"
+                                className="select select-bordered w-full"
+                                {...register("category_id", {
+                                    required: "Please select a category",
+                                })}
+                                onChange={handleMainCategoryChange}
+                            >
+                                <option value="">Select a category</option>
+                                {categories?.map((category) =>
+
                                     <option key={category.category_id} value={category.category_id}>
                                         {category.category_name}
                                     </option>
-                               
-                            )}
-                        </select>
 
-                    )}
-                    {errors.category_id && <p className="text-red-500 text-sm">{errors.category_id.message}</p>}
+                                )}
+                            </select>
 
-                </div>
-                {selectedMainCategory && (
-                    <div className="mb-4">
-                        <label className="block  text-sm font-bold mb-2" htmlFor="sub-category">
-                            Sub-Category
-                        </label>
-                        <select
-                            id="sub-category"
-                            className="select select-bordered w-full"
-                            {...register("sub_category_id", {
-                                required: "Please select a sub-category",
-                            })}
-                        >
-                            <option value="">Select a sub-category</option>
-                            {categories
-                            ?.filter(category => category.category_id === Number(selectedMainCategory))
-                            .flatMap(category => category.ad_sub_categories)
-                            .map((subCategory) => (
-                                <option key={subCategory.sub_category_id} value={subCategory.sub_category_id}>
-                                    {subCategory.sub_category_name}
-                                </option>
-                            ))}
-                        </select>
-                        {errors.sub_category_id && <p className="text-red-500 text-sm">{errors.sub_category_id.message}</p>}
+                        )}
+                        {errors.category_id && <p className="text-red-500 text-sm">{errors.category_id.message}</p>}
+
                     </div>
-                )}
+                    {selectedMainCategory && (
+                        <div className="mb-4">
+                            <label className="block  text-sm font-bold mb-2" htmlFor="sub-category">
+                                Sub-Category
+                            </label>
+                            <select
+                                id="sub-category"
+                                className="select select-bordered w-full"
+                                {...register("sub_category_id", {
+                                    required: "Please select a sub-category",
+                                })}
+                            >
+                                <option value="">Select a sub-category</option>
+                                {categories
+                                    ?.filter(category => category.category_id === Number(selectedMainCategory))
+                                    .flatMap(category => category.ad_sub_categories)
+                                    .map((subCategory) => (
+                                        <option key={subCategory.sub_category_id} value={subCategory.sub_category_id}>
+                                            {subCategory.sub_category_name}
+                                        </option>
+                                    ))}
+                            </select>
+                            {errors.sub_category_id && <p className="text-red-500 text-sm">{errors.sub_category_id.message}</p>}
+                        </div>
+                    )}
 
-                <div className="flex items-center justify-between">
-                    <Button type="submit" disabled={uploading}>{uploading ? 'Uploading...' : 'Create Ad'}</Button>
-                </div>
-                {uploading && <p>Uploading images, please wait...</p>}
-            </form>
+                    <div className="flex items-center justify-between">
+                        <Button type="submit" disabled={uploading}>{uploading ? 'Uploading...' : 'Create Ad'}</Button>
+                    </div>
+                    {uploading && <p>Uploading images, please wait...</p>}
+                </form>
+            </div>
         </div>
     );
 }

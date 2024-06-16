@@ -26,11 +26,11 @@ export default function Result({ data }) {
     return (<div>
         <div className="bg-base-200 p-5 my-2 rounded-box shadow-sm">
             {/* Card main content */}
-            <div className="grid grid-cols-12 gap-10">
-                <div className="result-image col-span-3">
-                    <NavLink to={`/ad/${uuid}`}>{ad_images.length > 0 ? <img src={ad_images[0].image_url} className="mb-2 rounded-box w-full object-cover aspect-square bg-neutral border-base-100" /> : <DefaultImage />}</NavLink>
+            <div className="grid grid-cols-1 md:grid-cols-12 gap-10">
+                <div className="result-image col-span-1 md:col-span-3">
+                    <NavLink to={`/ad/${uuid}`}>{ad_images.length > 0 ? <img src={ad_images[0].image_url} className="rounded-box w-full object-cover aspect-square bg-neutral border-base-100" /> : <DefaultImage />}</NavLink>
                 </div>
-                <div className="result-text col-span-9  flex flex-col justify-start items-start gap-2">
+                <div className="result-text col-span-1 md:col-span-9  flex flex-col justify-start items-start gap-2">
 
                 <NavLink to={`/ad/${uuid}`}><h3 className=" text-2xl mb-4">{title}</h3></NavLink>
                 <NavLink to={`/ad/${uuid}`}><div>{truncateText(description, 350)}</div></NavLink>
@@ -43,13 +43,13 @@ export default function Result({ data }) {
             {/* Details */}
             <div>
                 <div className="border-t border-base-300 flex justify-between mt-5 pt-5">
-                    <div className="flex gap-2 items-center">
+                    <div className="flex gap-2 items-center flex-wrap">
                         <Label Icon={CalendarDaysIcon}>{formatDate(created_at)}</Label>
                         <Label Icon={MapPinIcon}>{regions?.region_name}</Label>
                         <Label Icon={TagIcon}>{ad_categories?.category_name}</Label>
                         <Label Icon={TagIcon}>{ad_sub_categories?.sub_category_name}</Label>
                     </div>
-                    <Button Icon={ChevronRightIcon} iconDirection="right" className="self-start" to={`/ad/${uuid}`}>Details</Button>
+                    <Button Icon={ChevronRightIcon} iconDirection="right" className="self-start hidden md:inline-flex" to={`/ad/${uuid}`}>Details</Button>
                 </div>
             </div>
 

@@ -25,6 +25,8 @@ import AdDetail from './components/ad-detail/ad-detail';
 import Dashboard from './components/dashboard/dashboard';
 import SignUpWelcome from './components/sign-up/sign-up-welcome';
 import Admin from './components/dashboard/admin-page';
+import Support from './pages/support';
+import CookiePolicy from './pages/cookie-policy';
 
 
 
@@ -38,6 +40,8 @@ function App() {
       // Loaded in the outlet component
       children: [
         { path: '/', element: <Home /> },
+        { path: '/support', element: <Support /> },
+        { path: '/cookie-policy', element: <CookiePolicy /> },
         { path: '/dashboard', element: <ProtectedRoute><Dashboard /></ProtectedRoute> },
         { path: '/admin', element: <AdminRoute><Admin /></AdminRoute> },
         { path: '/new-ad', element: <ProtectedRoute><CreateAd /></ProtectedRoute> },

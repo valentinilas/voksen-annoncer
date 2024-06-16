@@ -25,6 +25,13 @@ export default function Filters({ refetchAdList, selectedCategory, setSelectedCa
     refetchAdList();
   };
 
+  const handleKeyDown = (e) => {
+    if (e.key === 'Enter') {
+      e.preventDefault();
+      refetchAdList();
+    }
+  }
+
   // Render options for sub-categories based on selected main category
   const renderSubCategoryOptions = () => {
     const mainCategory = categories.find(cat => cat.category_id === Number(selectedCategory));
@@ -47,6 +54,7 @@ export default function Filters({ refetchAdList, selectedCategory, setSelectedCa
             value={searchTerm}
             onChange={(e) => setSearchTerm(e.target.value)}
             placeholder="Search..."
+            onKeyDown={handleKeyDown}
           />
         </div>
         <div className="filter-group w-full">

@@ -84,6 +84,7 @@ const AdRow = ({ ad, index, setData }) => {
         <tr key={ad.uuid} className="hover">
             <th>{index}</th>
             <td>{ad.uuid}</td>
+            <td>{ad.profiles?.username}</td>
             <td>{truncateText(ad.title, 20)}</td>
             <td><NavLink className="btn btn-neutral" to={`/ad/${ad.uuid}`}>See Ad</NavLink></td>
             <td>

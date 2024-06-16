@@ -36,7 +36,7 @@ export default function Results() {
   return (
     <>
 
-      <section className="container mx-auto">
+      <section className="container mx-auto px-5">
 
         {/* Filters */}
         <div className="filters">

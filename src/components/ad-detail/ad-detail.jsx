@@ -63,7 +63,7 @@ export default function AdDetail() {
 
     return (
         <>
-            <section className="container mx-auto   mt-10 rounded-lg ">
+            <section className="container mx-auto   mt-10 rounded-lg px-5 ">
                 <div className="grid grid-cols-12 gap-6">
                     {/* Ad detail */}
                     <div className="bg-base-200 p-5 my-2 rounded-box shadow-sm col-span-12 lg:col-span-8 flex flex-col">
