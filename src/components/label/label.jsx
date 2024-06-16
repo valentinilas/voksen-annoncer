@@ -1,6 +1,6 @@
 export default function Label({ children, type, Icon, className, ...props }) {
     // Default
-    let classes = `badge badge-outline py-4 gap-2 ${className}`;
+    let classes = `badge py-4 gap-2 ${className}`;
 
     // Profile
     if(type === 'profile'){
