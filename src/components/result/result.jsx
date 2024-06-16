@@ -24,13 +24,13 @@ export default function Result({ data }) {
     }
 
     return (<div>
-        <div className="bg-white dark:bg-zinc-900 p-5 my-2 rounded-lg shadow-sm">
+        <div className="bg-base-200 p-5 my-2 rounded-box shadow-sm">
             {/* Card main content */}
             <div className="grid grid-cols-12 gap-10">
                 <div className="result-image col-span-3">
-                    <NavLink to={`/ad/${uuid}`}>{ad_images.length > 0 ? <img src={ad_images[0].image_url} className="mb-2 rounded-md w-full object-cover aspect-square border-solid border-2 dark:border-zinc-700 border-stone-100 hover:border-cherry-600 transition-colors" /> : <DefaultImage />}</NavLink>
+                    <NavLink to={`/ad/${uuid}`}>{ad_images.length > 0 ? <img src={ad_images[0].image_url} className="mb-2 rounded-box w-full object-cover aspect-square bg-neutral border-base-100" /> : <DefaultImage />}</NavLink>
                 </div>
-                <div className="result-text col-span-9 text-black dark:text-zinc-200 flex flex-col justify-start items-start gap-2">
+                <div className="result-text col-span-9  flex flex-col justify-start items-start gap-2">
 
                     <h3 className=" text-2xl mb-4">{title}</h3>
                     <div>{truncateText(description, 350)}</div>

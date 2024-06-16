@@ -27,18 +27,29 @@ const useFetchAuthUserAdList = () => {
             try {
                 const { data: ads, error } = await supabase
                     .from('ads')
-                    .select('*, ad_images (uuid, image_url, image_width, image_height)')
+                    .select(`*, 
+                        regions (region_name),
+                        ad_images (uuid, image_url, image_width, image_height),
+                        ad_categories (
+                            category_id,
+                            category_name
+                        ),
+                        ad_sub_categories (
+                            sub_category_id,
+                            sub_category_name
+                        )
+                        ad_images (uuid, image_url, image_width, image_height)`)
                     .eq('user_id', profileId)
                     .order('created_at', { ascending: false });
 
                 if (error) throw error;
 
-                 // Transform image URLs using cdnUrl
-                 const transformedAds = ads.map(ad => ({
+                // Transform image URLs using cdnUrl
+                const transformedAds = ads.map(ad => ({
                     ...ad,
                     ad_images: ad.ad_images.map(image => ({
                         ...image,
-                        image_url: cdnUrl(image.image_url, 300, 300) 
+                        image_url: cdnUrl(image.image_url, 300, 300)
                     }))
                 }));
 

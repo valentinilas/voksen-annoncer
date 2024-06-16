@@ -39,10 +39,10 @@ export default function MainNav() {
     return (
         <nav>
             <ul className="flex items-center">
-               
+
                 <li><Button variant="text" to="/">Home</Button></li>
                 <li><Button variant="text" href="/">Support</Button></li>
-                <li><ThemeToggle/></li>
+                <li><ThemeToggle /></li>
                 <li className="pl-6 ml-6 border-l border-cherry-200 flex gap-2">
                     {!session &&
                         <>
@@ -52,7 +52,7 @@ export default function MainNav() {
                     }
                     {session &&
                         <>
-                           
+
                             <Button variant="tertiary" Icon={UserIcon} to="/dashboard">{username}</Button>
                             <Button variant="tertiary" Icon={ArrowLeftStartOnRectangleIcon} onClick={handleLogOut}>Log out</Button>
                             <Button variant="primary" Icon={PlusIcon} to="/new-ad">Create a new ad</Button>
@@ -60,6 +60,15 @@ export default function MainNav() {
                     }
 
 
+                </li>
+                <li>
+                    <div className="dropdown dropdown-end">
+                        <div tabIndex={0} role="button" className="btn btn-ghost rounded-btn">Dropdown</div>
+                        <ul tabIndex={0} className="menu dropdown-content z-[1] p-2 shadow bg-base-100 rounded-box w-52 mt-4">
+                            <li><a>Item 1</a></li>
+                            <li><a>Item 2</a></li>
+                        </ul>
+                    </div>
                 </li>
 
             </ul>

@@ -24,7 +24,7 @@ export default function Dashboard() {
                     </div>
 
                 </div>
-                <div className="my-ads bg-stone-100 dark:bg-zinc-950 col-span-12 lg:col-span-8  text-black lg:p-6 rounded-md">
+                <div className="my-ads bg-zinc-300 dark:bg-zinc-950 col-span-12 lg:col-span-8  text-black lg:p-6 rounded-md">
                     <MyAds />
                 </div>
             </div>

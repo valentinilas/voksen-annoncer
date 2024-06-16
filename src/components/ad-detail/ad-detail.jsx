@@ -53,7 +53,7 @@ export default function AdDetail() {
             <section className="container mx-auto   mt-10 rounded-lg ">
                 <div className="grid grid-cols-12 gap-6">
                     {/* Ad detail */}
-                    <div className="bg-white dark:bg-zinc-900 shadow-sm rounded-md p-5 col-span-12 lg:col-span-8">
+                    <div className="bg-zinc-100 dark:bg-zinc-900 shadow-sm rounded-md p-5 col-span-12 lg:col-span-8">
                         {/* Card main content */}
                         <div className="">
                             <div className="result-text dark:text-zinc-200 ">

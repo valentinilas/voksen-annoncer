@@ -37,18 +37,18 @@ export default function Filters({ refetchAdList, selectedCategory, setSelectedCa
   };
 
   return (
-    <section className=" bg-white dark:bg-zinc-900 p-5 mt-10 mb-2 rounded-lg shadow-sm">
-      <div className="flex gap-4 items-start justify-start">
-        {/* <div className="filter-group rounded-md w-full">
+    <section className="bg-base-200 p-5 mt-10 mb-2 rounded-box shadow-sm">
+      <div className="flex flex-col md:flex-row gap-4 items-start justify-start">
+        <div className="filter-group rounded-md w-full">
 
           <input
-            className="border p-2 w-full"
+            className="border p-2 rounded-md w-full"
             type="text"
             value={searchTerm}
             onChange={(e) => setSearchTerm(e.target.value)}
             placeholder="Search..."
           />
-        </div> */}
+        </div>
         <div className="filter-group w-full">
           {regionsLoading ? (
             <p>Loading regions...</p>
@@ -57,7 +57,7 @@ export default function Filters({ refetchAdList, selectedCategory, setSelectedCa
           ) : (
             <>
               <select
-                className="border p-2 rounded-md w-full"
+                className="border p-2 rounded-md w-full bg-white"
                 value={selectedRegion}
                 onChange={(e) => setSelectedRegion(e.target.value)}>
                 <option value="all">All locations</option>
@@ -76,7 +76,7 @@ export default function Filters({ refetchAdList, selectedCategory, setSelectedCa
           ) : (
             <>
               <select
-                className="border p-2 rounded-md w-full"
+                className="border p-2 rounded-md w-full bg-white"
                 value={selectedCategory}
                 onChange={handleMainCategoryChange}>
                 <option value="all">All categories</option>
@@ -99,7 +99,7 @@ export default function Filters({ refetchAdList, selectedCategory, setSelectedCa
        
                 <>
                   <select
-                    className="border p-2 rounded-md w-full"
+                    className="border p-2 rounded-md w-full bg-white"
                     value={selectedSubCategory}
                     onChange={handleSubCategoryChange}>
                     <option value="all">All sub-categories</option>
@@ -117,7 +117,7 @@ export default function Filters({ refetchAdList, selectedCategory, setSelectedCa
 
 
 
-        <Button variant="secondary" Icon={MagnifyingGlassIcon} onClick={handleSearch}>Filter</Button>
+        <Button variant="primary" Icon={MagnifyingGlassIcon} onClick={handleSearch}>Filter</Button>
         {/* <Button variant="tertiary" size="m-icon-only" Icon={AdjustmentsHorizontalIcon}></Button> */}
       </div>
     </section>

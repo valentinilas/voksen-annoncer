@@ -16,7 +16,7 @@ const ProfileFieldInput = forwardRef(({ type, label, placeholder, icon: Icon, ed
                 defaultValue={defaultValue} // Use defaultValue instead of value
             />
         ) : (
-            <span className="text-zinc-200">{!defaultValue ? placeholder : defaultValue}</span> 
+            <span className="dark:text-zinc-200">{!defaultValue ? placeholder : defaultValue}</span> 
         )}
         {fieldError && editing  && <span className="text-red-500 block">{fieldError.message}</span>}
     </p>

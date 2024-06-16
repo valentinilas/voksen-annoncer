@@ -34,7 +34,7 @@ export default function Spotlight() {
     const dummySlides = Array.from({ length: neededDummySlides }).map((_, index) => (
         <div className="embla__slide" key={`dummy-${index}`}>
             {/* Example of a simple dummy slide */}
-            <div className="shadow-sm bg-white dark:bg-zinc-800 dark:border-zinc-700 text-black dark:text-zinc-200  rounded-md m-2 p-2 border-solid border-2 border-stone-100 ">
+            <div className="rounded-box bg-base-100 m-2 p-2 border-solid border-transparent border-2 hover:border-secondary ">
                 <DefaultImage />
                 <h5 className="font-bold truncate text-sm">Get promoted</h5>
                 <p className="truncate text-sm">get promoted</p>
@@ -44,7 +44,7 @@ export default function Spotlight() {
 
     const combinedSlides = [...ads.map(ad => (
         <NavLink to={`/ad/${ad.uuid}`} className="embla__slide" key={ad.uuid}>
-            <div className="shadow-sm bg-white dark:bg-zinc-800 dark:border-zinc-700 text-black dark:text-zinc-200  rounded-md m-2 p-2 border-solid border-2 border-stone-100 hover:border-cherry-600 transition-colors">
+            <div className="rounded-box bg-base-100 m-2 p-2 border-solid border-transparent border-2 hover:border-secondary">
                 <img src={ad.ad_images[0]?.image_url} className="mb-2 rounded-md w-full object-cover aspect-square" alt={ad.title} />
                 <h5 className="font-bold truncate text-sm">{ad.title}</h5>
                 <p className="truncate text-sm">{ad.description}</p>
@@ -70,9 +70,9 @@ export default function Spotlight() {
     // });
 
     return (
-        <section className="container mx-auto bg-white dark:bg-zinc-900 transition-colors p-5 mt-10 rounded-lg shadow-sm">
+        <section className="container mx-auto bg-base-200 transition-colors p-5 mt-10 rounded-box shadow-sm">
             <div className="flex justify-between items-center mb-4">
-                <h3 className="text-lg font-bold dark:text-zinc-200">Spotlight</h3>
+                <h3 className="text-lg font-bold">Spotlight</h3>
                 <Button variant="secondary" size="s" onClick={() => alert('Sign up!')}>Get promoted</Button>
             </div>
 

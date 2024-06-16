@@ -5,6 +5,9 @@ export default {
         "./src/**/*.{js,ts,jsx,tsx}",
     ],
     darkMode: 'selector',
+    daisyui: {
+        themes: ["cupcake", "dark"],
+    },
     theme: {
         extend: {
             colors: {
@@ -24,5 +27,7 @@ export default {
             }
         },
     },
-    plugins: [],
+    plugins: [
+        require('daisyui'),
+    ],
 }

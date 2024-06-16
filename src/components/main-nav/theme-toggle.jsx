@@ -7,8 +7,8 @@ const ThemeToggle = () => {
     const iconClasses = 'size-6 text-cherry-700 dark:text-cherry-400'
     return (
 
-
-        <Button onClick={toggleTheme} variant="tertiary" size="m-icon-only" Icon={theme === 'light' ? MoonIcon : SunIcon}></Button>
+        <Button onClick={toggleTheme} variant="tertiary" size="m-icon-only" Icon={theme === 'cupcake' ? MoonIcon : SunIcon}></Button>
+        // <Button onClick={toggleTheme} variant="tertiary" size="m-icon-only" Icon={theme === 'cupcake' ? MoonIcon : SunIcon}></Button>
 
     );
 };
