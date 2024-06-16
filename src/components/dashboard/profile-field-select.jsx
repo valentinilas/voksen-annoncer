@@ -17,7 +17,7 @@ const ProfileFieldSelect = forwardRef(({ options, labelKey, label, placeholder, 
                         {...props}
                         name={name}
                         ref={ref}
-                        className={`rounded p-2 w-full ${fieldError ? 'border border-red-500' : ''}`}
+                        className={`select select-bordered mt-2 w-full ${fieldError ? 'border border-red-500' : ''}`}
                         defaultValue={defaultValue} // Use defaultValue here
                     >
                         <option value="">Select an option</option>

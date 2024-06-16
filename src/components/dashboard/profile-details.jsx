@@ -27,7 +27,7 @@ export default function ProfileDetail() {
     const [editing, setEditing] = useState(false);
     const { register, handleSubmit, setValue, formState: { errors } } = useForm();
 
-    const fieldsToLoad = ["username", "birthday", "bio", "gender_id", "region_id", "contact_email", "contact_phone", "contact_sms"];
+    const fieldsToLoad = ["username", "birthday", "bio", "gender_id", "region_id", "contact_email", "contact_phone", "contact_sms", "email_visible", "phone_visible", "sms_visible"];
 
     useEffect(() => {
         if (profile) {
@@ -36,6 +36,7 @@ export default function ProfileDetail() {
                     setValue(key, profile[key]);
                 }
             });
+       
         }
     }, [profile, setValue]);
 
@@ -190,6 +191,7 @@ export default function ProfileDetail() {
                 name="contact_email"
                 label="E-mail"
                 placeholder="-"
+                
                 icon={EnvelopeIcon}
                 editing={editing}
                 fieldError={errors.contact_email}
@@ -202,11 +204,24 @@ export default function ProfileDetail() {
                     }
                 })}
             />
+            <ProfileFieldInput
+                name="email_visible"
+                label="Email Visibility"
+                type="checkbox"
+                placeholder="-"
+                visibility={profile.email_visible}
+                icon={EnvelopeIcon}
+                editing={editing}
+                fieldError={errors.email_visible}
+                // defaultValue={profile.email_visible}
+                {...register("email_visible")}
+            />
 
             <ProfileFieldInput
                 name="contact_phone"
                 label="Phone"
                 placeholder="-"
+             
                 icon={DevicePhoneMobileIcon}
                 editing={editing}
                 fieldError={errors.contact_phone}
@@ -218,11 +233,24 @@ export default function ProfileDetail() {
                     }
                 })}
             />
+            <ProfileFieldInput
+                name="phone_visible"
+                label="Phone Visibility"
+                type="checkbox"
+                placeholder="-"
+                visibility={profile.phone_visible}
+                icon={DevicePhoneMobileIcon}
+                editing={editing}
+                fieldError={errors.phone_visible}
+                // defaultValue={profile.phone_visible}
+                {...register("phone_visible")}
+            />
 
             <ProfileFieldInput
                 name="contact_sms"
                 label="SMS"
                 placeholder="-"
+               
                 icon={ChatBubbleLeftRightIcon}
                 editing={editing}
                 fieldError={errors.contact_sms}
@@ -234,6 +262,22 @@ export default function ProfileDetail() {
                     }
                 })}
             />
+
+            <ProfileFieldInput
+                name="sms_visible"
+                label="SMS Visibility"
+                type="checkbox"
+                placeholder="-"
+                visibility={profile.sms_visible}
+                icon={ChatBubbleLeftRightIcon}
+                editing={editing}
+                fieldError={errors.sms_visible}
+                // defaultValue={profile.sms_visible}
+                {...register("sms_visible")}
+            />
+
+
+
         </div>
     );
 }

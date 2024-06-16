@@ -45,7 +45,7 @@ export default function NavBar() {
     }
 
     return (
-        <div className="navbar bg-base-200 rounded-box">
+        <div className="navbar bg-base-200 rounded-box px-5">
             <div className="navbar-start">
                 <NavLink to="/" className="flex gap-4 items-center">
                     <img className="w-16	" src={logo} alt="Voksen Annoncer" />
@@ -73,7 +73,7 @@ export default function NavBar() {
                 <div className="navbar-end gap-4">
 
                     <ThemeToggle />
-                    {username && <NavLink className="link link-hover" to="/dashboard">{username}</NavLink>}
+                    {username && <NavLink className="link link-hover text-sm font-bold" to="/dashboard">{username}</NavLink>}
                     <div className="dropdown dropdown-end">
 
                         <div tabIndex={0} role="button" className="btn btn-ghost btn-circle avatar ">

@@ -36,8 +36,8 @@ export default function Spotlight() {
             {/* Example of a simple dummy slide */}
             <div className="rounded-box bg-base-100 m-2 p-2 border-solid border-transparent border-2 hover:border-secondary ">
                 <DefaultImage />
-                <h5 className="font-bold truncate text-sm">Get promoted</h5>
-                <p className="truncate text-sm">get promoted</p>
+                {/* <h5 className="font-bold truncate text-sm">Get promoted</h5>
+                <p className="truncate text-sm">get promoted</p> */}
             </div>
         </div>
     ));
@@ -73,7 +73,7 @@ export default function Spotlight() {
         <section className="container mx-auto bg-base-200 transition-colors p-5 mt-10 rounded-box shadow-sm">
             <div className="flex justify-between items-center mb-4">
                 <h3 className="text-lg font-bold">Spotlight</h3>
-                <Button variant="secondary" size="s" onClick={() => alert('Sign up!')}>Get promoted</Button>
+                {/* <Button variant="secondary" size="s" onClick={() => alert('Sign up!')}>Get promoted</Button> */}
             </div>
 
             <EmblaCarousel slides={combinedSlides} options={OPTIONS} />

@@ -63,10 +63,11 @@ export default function Admin() {
                             <thead>
                                 <tr>
                                     <th></th>
-                                    <th>UUID</th>
-                                    <th>title</th>
-                                    <th>URL</th>
+                                    <th>ID</th>
+                                    <th>Title</th>
+                                    <th>Link</th>
                                     <th>Approved</th>
+                                    <th>Delete</th>
 
                                 </tr>
                             </thead>

@@ -11,7 +11,7 @@ export default function AdProfile({ profileData }) {
 
     const { session } = useAuth();
 
-    const { avatar_url, username, bio, birthday, regions, genders, contact_email, contact_phone, contact_sms } = profileData;
+    const { avatar_url, username, bio, birthday, regions, genders, contact_email, contact_phone, contact_sms, email_visible, phone_visible, sms_visible } = profileData;
     const age = birthday ? calculateAge(new Date(birthday).getFullYear()) : '-';
 
     return (
@@ -61,24 +61,26 @@ export default function AdProfile({ profileData }) {
             {session ? ( // Check if the user is logged in
                 <>
 
-                    <p className="mb-2 bg-base-200 p-4 rounded-box">
+                    {email_visible ? <p className="mb-2 bg-base-200 p-4 rounded-box">
                         <Label type="profile" Icon={EnvelopeIcon}>
                             <span className="font-bold mb-1">E-mail</span>
                         </Label>
                         <span className="">{contact_email}</span>
-                    </p>
-                    <p className="mb-2 bg-base-200 p-4 rounded-box">
+                    </p> : <p className="mb-2 bg-base-200 p-4 rounded-box">The user has chosen to hide their e-mail</p>}
+
+                    {phone_visible ? <p className="mb-2 bg-base-200 p-4 rounded-box">
                         <Label type="profile" Icon={DevicePhoneMobileIcon}>
                             <span className="font-bold mb-1">Phone</span>
                         </Label>
                         <span className="">{contact_phone}</span>
-                    </p>
-                    <p className="mb-2 bg-base-200 p-4 rounded-box">
+                    </p> : <p className="mb-2 bg-base-200 p-4 rounded-box">The user has chosen to hide their phone number</p>}
+
+                    {sms_visible ? <p className="mb-2 bg-base-200 p-4 rounded-box">
                         <Label type="profile" Icon={ChatBubbleLeftRightIcon}>
                             <span className="font-bold mb-1">SMS</span>
                         </Label>
                         <span className="">{contact_sms}</span>
-                    </p>
+                    </p> : <p className="mb-2 bg-base-200 p-4 rounded-box">The user has chosen to hide their SMS number</p>}
                 </>) : (
                 <p className="text-stone-600 text-md">You must be logged in to see the contact information.</p>
             )}
