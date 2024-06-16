@@ -20,7 +20,7 @@ export default function AdProfile({ profileData }) {
             {avatar_url && (
                 <div className="text-center mb-6">
                     <img
-                        className="rounded-full border-4 border-cherry-600 size-32 mx-auto mb-2"
+                        className="rounded-full border-4 border-neutral-content size-32 mx-auto mb-2"
                         src={cdnUrl(avatar_url, 300, 300)}
                         alt={`Avatar ${username}`}
                     />
@@ -32,52 +32,52 @@ export default function AdProfile({ profileData }) {
             )}
 
 
-            <p className="mb-2 bg-stone-200 dark:bg-zinc-900 p-4 rounded-2xl">
+            <p className="mb-2 bg-base-200 p-4 rounded-box">
                 <Label type="profile" Icon={ChatBubbleBottomCenterTextIcon}>
                     <span className="font-bold mb-1">Description</span>
                 </Label>
-                <span className="dark:text-zinc-200">{bio}</span>
+                <span className="">{bio}</span>
             </p>
-            <p className="mb-2 bg-stone-200 dark:bg-zinc-900 p-4 rounded-2xl">
+            <p className="mb-2 bg-base-200 p-4 rounded-box">
                 <Label type="profile" Icon={SparklesIcon}>
                     <span className="font-bold mb-1">Age</span>
                 </Label>
-                <span className="dark:text-zinc-200">{age}</span>
+                <span className="">{age}</span>
             </p>
-            <p className="mb-2 bg-stone-200 dark:bg-zinc-900 p-4 rounded-2xl">
+            <p className="mb-2 bg-base-200 p-4 rounded-box">
                 <Label type="profile" Icon={UserCircleIcon}>
                     <span className="font-bold mb-1">Gender</span>
                 </Label>
-                <span className="dark:text-zinc-200">{genders?.gender_name}</span>
+                <span className="">{genders?.gender_name}</span>
             </p>
-            <p className="mb-2 bg-stone-200 dark:bg-zinc-900 p-4 rounded-2xl">
+            <p className="mb-2 bg-base-200 p-4 rounded-box">
                 <Label type="profile" Icon={MapPinIcon}>
                     <span className="font-bold mb-1">Location</span>
                 </Label>
-                <span className="dark:text-zinc-200">{regions?.region_name}</span>
+                <span className="">{regions?.region_name}</span>
             </p>
-            <h4 className="text-xl mb-4 mt-6 dark:text-zinc-200">Contact info</h4>
+            <h4 className="text-xl mb-4 mt-6 ">Contact info</h4>
 
             {session ? ( // Check if the user is logged in
                 <>
 
-                    <p className="mb-2 bg-stone-200 dark:bg-zinc-900 p-4 rounded-2xl">
+                    <p className="mb-2 bg-base-200 p-4 rounded-box">
                         <Label type="profile" Icon={EnvelopeIcon}>
                             <span className="font-bold mb-1">E-mail</span>
                         </Label>
-                        <span className="dark:text-zinc-200">{contact_email}</span>
+                        <span className="">{contact_email}</span>
                     </p>
-                    <p className="mb-2 bg-stone-200 dark:bg-zinc-900 p-4 rounded-2xl">
+                    <p className="mb-2 bg-base-200 p-4 rounded-box">
                         <Label type="profile" Icon={DevicePhoneMobileIcon}>
                             <span className="font-bold mb-1">Phone</span>
                         </Label>
-                        <span className="dark:text-zinc-200">{contact_phone}</span>
+                        <span className="">{contact_phone}</span>
                     </p>
-                    <p className="mb-2 bg-stone-200 dark:bg-zinc-900 p-4 rounded-2xl">
+                    <p className="mb-2 bg-base-200 p-4 rounded-box">
                         <Label type="profile" Icon={ChatBubbleLeftRightIcon}>
                             <span className="font-bold mb-1">SMS</span>
                         </Label>
-                        <span className="dark:text-zinc-200">{contact_sms}</span>
+                        <span className="">{contact_sms}</span>
                     </p>
                 </>) : (
                 <p className="text-stone-600 text-md">You must be logged in to see the contact information.</p>

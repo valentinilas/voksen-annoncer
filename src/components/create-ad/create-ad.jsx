@@ -153,17 +153,17 @@ export default function CreateAd() {
     console.log(selectedMainCategory)
 
     return (
-        <div className="container mx-auto dark:bg-zinc-900 bg-white mt-10 p-5 rounded-lg shadow-sm sm:max-w-sm">
+        <div className="container mx-auto bg-base-200 mt-10 p-5 rounded-lg shadow-sm sm:max-w-sm">
             <h2 className="text-2xl font-bold mb-4 dark:text-zinc-400">Create Ad</h2>
             <form onSubmit={handleSubmit(onSubmit)}>
                 <div className="mb-4">
-                    <label className="block text-gray-700 dark:text-zinc-200 text-sm font-bold mb-2" htmlFor="title">
+                    <label className="block  text-sm font-bold mb-2" htmlFor="title">
                         Title
                     </label>
                     <input
                         id="title"
                         type="text"
-                        className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 dark:bg-zinc-800 dark:text-zinc-200 dark:border-zinc-600 leading-tight focus:outline-none focus:shadow-outline"
+                        className="input input-bordered w-full"
                         {...register("title", {
                             required: "Title is required",
                             maxLength: {
@@ -176,13 +176,13 @@ export default function CreateAd() {
 
                 </div>
                 <div className="mb-4">
-                    <label className="block text-gray-700 dark:text-zinc-200 text-sm font-bold mb-2" htmlFor="description">
+                    <label className="block  text-sm font-bold mb-2" htmlFor="description">
                         Description
                     </label>
                     <textarea
                         id="description"
                         rows="5"
-                        className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 dark:bg-zinc-800 dark:text-zinc-200 dark:border-zinc-600 leading-tight focus:outline-none focus:shadow-outline"
+                        className="input input-bordered w-full"
                         {...register("description", {
                             required: "Description is required",
                         })}
@@ -191,7 +191,7 @@ export default function CreateAd() {
 
                 </div>
                 <div className="mb-4">
-                    <label className="block text-gray-700 dark:text-zinc-200 text-sm font-bold mb-2" htmlFor="images">
+                    <label className="block  text-sm font-bold mb-2" htmlFor="images">
                         Upload Images
                     </label>
                     <input
@@ -199,7 +199,7 @@ export default function CreateAd() {
                         id="images"
                         type="file"
                         multiple
-                        className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 dark:bg-zinc-800 dark:text-zinc-200 dark:border-zinc-600 leading-tight focus:outline-none focus:shadow-outline"
+                        className="file-input file-input-bordered w-full"
                         onChange={handleFileChange}
                     />
                     {imageError && <p className="text-red-500 text-sm">{imageError}</p>}
@@ -207,7 +207,7 @@ export default function CreateAd() {
 
                 </div>
                 <div className="mb-4">
-                    <label className="block text-gray-700 dark:text-zinc-200 text-sm font-bold mb-2" htmlFor="region">
+                    <label className="block  text-sm font-bold mb-2" htmlFor="region">
                         Region
                     </label>
                     {regionsLoading ? (
@@ -217,7 +217,7 @@ export default function CreateAd() {
                     ) : (
                         <select
                             id="region"
-                            className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 dark:bg-zinc-800 dark:text-zinc-200 dark:border-zinc-600 leading-tight focus:outline-none focus:shadow-outline"
+                            className="select select-bordered w-full"
                             {...register("region_id", {
                                 required: "Please select a region",
                             })}
@@ -236,7 +236,7 @@ export default function CreateAd() {
                 </div>
 
                 <div className="mb-4">
-                    <label className="block text-gray-700 dark:text-zinc-200 text-sm font-bold mb-2" htmlFor="region">
+                    <label className="block  text-sm font-bold mb-2" htmlFor="region">
                         Region
                     </label>
                     {categoriesLoading ? (
@@ -246,7 +246,7 @@ export default function CreateAd() {
                     ) : (
                         <select
                             id="category"
-                            className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 dark:bg-zinc-800 dark:text-zinc-200 dark:border-zinc-600 leading-tight focus:outline-none focus:shadow-outline"
+                            className="select select-bordered w-full"
                             {...register("category_id", {
                                 required: "Please select a category",
                             })}
@@ -268,12 +268,12 @@ export default function CreateAd() {
                 </div>
                 {selectedMainCategory && (
                     <div className="mb-4">
-                        <label className="block text-gray-700 dark:text-zinc-200 text-sm font-bold mb-2" htmlFor="sub-category">
+                        <label className="block  text-sm font-bold mb-2" htmlFor="sub-category">
                             Sub-Category
                         </label>
                         <select
                             id="sub-category"
-                            className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 dark:bg-zinc-800 dark:text-zinc-200 dark:border-zinc-600 leading-tight focus:outline-none focus:shadow-outline"
+                            className="select select-bordered w-full"
                             {...register("sub_category_id", {
                                 required: "Please select a sub-category",
                             })}

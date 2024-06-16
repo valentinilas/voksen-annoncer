@@ -5,26 +5,26 @@ const ThemeContext = createContext();
 export const useTheme = () => useContext(ThemeContext);
 
 export const ThemeProvider = ({ children }) => {
-    const [theme, setTheme] = useState('cupcake');
+    const [theme, setTheme] = useState('light');
 
     useEffect(() => {
-        const savedTheme = localStorage.getItem('theme') || 'cupcake';
+        const savedTheme = localStorage.getItem('theme') || 'light';
         setTheme(savedTheme);
         if (savedTheme === 'dark') {
             document.documentElement.dataset.theme = 'dark';
         } else {
-            document.documentElement.dataset.theme = 'cupcake';
+            document.documentElement.dataset.theme = 'light';
         }
     }, []);
 
     const toggleTheme = () => {
-        const newTheme = theme === 'cupcake' ? 'dark' : 'cupcake';
+        const newTheme = theme === 'light' ? 'dark' : 'light';
         setTheme(newTheme);
         localStorage.setItem('theme', newTheme);
         if (newTheme === 'dark') {
             document.documentElement.dataset.theme = 'dark';
         } else {
-            document.documentElement.dataset.theme = 'cupcake';
+            document.documentElement.dataset.theme = 'light';
         }
     };
 

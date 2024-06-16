@@ -53,17 +53,11 @@ export default function AdDetail() {
             <section className="container mx-auto   mt-10 rounded-lg ">
                 <div className="grid grid-cols-12 gap-6">
                     {/* Ad detail */}
-                    <div className="bg-zinc-100 dark:bg-zinc-900 shadow-sm rounded-md p-5 col-span-12 lg:col-span-8">
+                    <div className="bg-base-200 p-5 my-2 rounded-box shadow-sm col-span-12 lg:col-span-8 flex flex-col">
                         {/* Card main content */}
                         <div className="">
                             <div className="result-text dark:text-zinc-200 ">
-                                <div className="border-b dark:border-zinc-950 flex justify-between pb-5 mb-10">
-                                    <div className="flex gap-2">
-                                        <Label Icon={MapPinIcon}>{ad.regions?.region_name}</Label>
-                                        <Label Icon={TagIcon}>{ad.ad_categories?.category_name} / {ad.ad_sub_categories?.sub_category_name}</Label>
-                                    </div>
-                                    <Label Icon={CalendarDaysIcon}>{formatDate(ad.created_at)}</Label>
-                                </div>
+
 
                                 <h3 className="font-bold text-2xl mb-4">{ad.title}</h3>
                                 <div><pre className="font-sans whitespace-pre-wrap">{ad.description}</pre></div>
@@ -76,7 +70,16 @@ export default function AdDetail() {
                         {galleryImages.length > 0 ? <SimpleGallery
                             galleryID="my-test-gallery"
                             images={galleryImages}
+                            
                         /> : null}
+
+                        <div className="border-t pt-5 mt-5 border-base-300  flex flex-wrap gap-2 ">
+                            <Label Icon={CalendarDaysIcon}>{formatDate(ad.created_at)}</Label>
+                                <Label Icon={MapPinIcon}>{ad.regions?.region_name}</Label>
+                                <Label Icon={TagIcon}>{ad.ad_categories?.category_name}</Label>
+                                <Label Icon={TagIcon}>{ad.ad_sub_categories?.sub_category_name}</Label>
+                           
+                        </div>
 
                     </div>
                     <div className="p-5 col-span-12 lg:col-span-4">
@@ -84,6 +87,7 @@ export default function AdDetail() {
                     </div>
                     {/* Profile */}
                 </div>
+
             </section>
             <Spotlight />
         </>

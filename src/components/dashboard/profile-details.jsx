@@ -87,7 +87,7 @@ export default function ProfileDetail() {
     }
 
     return (
-        <div className="h-full bg-zinc-300 dark:bg-zinc-950 p-6 rounded-lg">
+        <div className="h-full  p-6 rounded-lg">
             <Avatar />
 
             <div className="flex gap-2 justify-center my-6">

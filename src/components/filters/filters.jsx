@@ -42,7 +42,7 @@ export default function Filters({ refetchAdList, selectedCategory, setSelectedCa
         <div className="filter-group rounded-md w-full">
 
           <input
-            className="border p-2 rounded-md w-full"
+            className="input input-bordered w-full "
             type="text"
             value={searchTerm}
             onChange={(e) => setSearchTerm(e.target.value)}
@@ -57,7 +57,7 @@ export default function Filters({ refetchAdList, selectedCategory, setSelectedCa
           ) : (
             <>
               <select
-                className="border p-2 rounded-md w-full bg-white"
+                className="select select-bordered w-full"
                 value={selectedRegion}
                 onChange={(e) => setSelectedRegion(e.target.value)}>
                 <option value="all">All locations</option>
@@ -76,7 +76,7 @@ export default function Filters({ refetchAdList, selectedCategory, setSelectedCa
           ) : (
             <>
               <select
-                className="border p-2 rounded-md w-full bg-white"
+                className="select select-bordered w-full"
                 value={selectedCategory}
                 onChange={handleMainCategoryChange}>
                 <option value="all">All categories</option>
@@ -99,7 +99,7 @@ export default function Filters({ refetchAdList, selectedCategory, setSelectedCa
        
                 <>
                   <select
-                    className="border p-2 rounded-md w-full bg-white"
+                    className="select select-bordered w-full "
                     value={selectedSubCategory}
                     onChange={handleSubCategoryChange}>
                     <option value="all">All sub-categories</option>

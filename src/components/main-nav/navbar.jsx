@@ -10,7 +10,6 @@ import { NavLink } from "react-router-dom";
 import { cdnUrl } from "../../util/cdn-url";
 import Label from "../label/label";
 
-import { useTheme } from "../../lib/theme-context";
 
 import { useAuth } from "../../lib/auth-context";
 
@@ -18,7 +17,6 @@ import ThemeToggle from "./theme-toggle";
 
 export default function NavBar() {
 
-    const { theme, toggleTheme } = useTheme();
 
     const { profileData, session, auth_user_log_out } = useAuth();
 
@@ -55,44 +53,54 @@ export default function NavBar() {
                 </NavLink>
             </div>
             <div className="navbar-center hidden lg:flex">
-                <ul className="menu menu-horizontal px-1">
+                <ul className="menu menu-horizontal px-1 gap-2">
                     <li>  <NavLink to="/">Annoncer</NavLink></li>
                     <li>  <NavLink to="/dashboard">Support</NavLink></li>
                 </ul>
             </div>
-            <div className="navbar-end flex-none gap-4">
 
+            {!session &&
 
-                {username && <NavLink className="link link-hover" to="/dashboard">{username}</NavLink>}
-                <div className="dropdown dropdown-end">
-
-                    <div tabIndex={0} role="button" className="btn btn-ghost btn-circle avatar ">
-
-                        {avatar_url ? (
-                            <img
-                                className="rounded-full  w-8 h-8"
-                                src={cdnUrl(avatar_url, 300, 300)}
-                                alt={`Avatar ${username ?? username}`}
-                            />
-                        ) : (
-                            <UserIcon className="w-8 h-8" />
-                        )}
-                    </div>
-                    <ul tabIndex={0} className="menu menu-sm dropdown-content mt-3 z-[1] p-2 shadow bg-base-100 rounded-box w-52">
-                        <li>
-                            <NavLink to="/dashboard">Dashboard</NavLink>
-                        </li>
-                        <li>
-                            <button class="justify-between" onClick={toggleTheme}>
-                                Theme
-                                <span class="badge">{theme}</span>
-                            </button>
-                        </li>
-
-                        <li><button onClick={handleLogOut}>Log out</button></li>
+                <div className="navbar-end ">
+                    <ul className="menu menu-horizontal px-1 gap-2">
+                        <li>  <Button variant="tertiary" Icon={ArrowLeftEndOnRectangleIcon} to="/sign-in">Login</Button></li>
+                        <li>  <Button variant="primary" Icon={UserPlusIcon} to="/sign-up">Sign up</Button></li>
                     </ul>
                 </div>
-            </div>
+            }
+            {session &&
+                <div className="navbar-end gap-4">
+                   
+                   <Button variant="primary" Icon={PlusIcon} to="/new-ad">Create a new ad</Button>
+                   <ThemeToggle/>
+                    {username && <NavLink className="link link-hover" to="/dashboard">{username}</NavLink>}
+                    <div className="dropdown dropdown-end">
+
+                        <div tabIndex={0} role="button" className="btn btn-ghost btn-circle avatar ">
+
+                            {avatar_url ? (
+                                <img
+                                    className="rounded-full  w-8 h-8"
+                                    src={cdnUrl(avatar_url, 300, 300)}
+                                    alt={`Avatar ${username ?? username}`}
+                                />
+                            ) : (
+                                <UserIcon className="w-8 h-8" />
+                            )}
+                        </div>
+                        <ul tabIndex={0} className="menu menu-sm dropdown-content mt-3 z-[1] p-2 shadow bg-base-100 rounded-box w-52">
+                            <li>
+                                <NavLink to="/dashboard">Dashboard</NavLink>
+                            </li>
+                           
+
+                            <li><button onClick={handleLogOut}>Log out</button></li>
+                        </ul>
+                    </div>
+                   
+                </div>
+            }
         </div>
     );
 }
+

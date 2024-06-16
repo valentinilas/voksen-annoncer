@@ -61,7 +61,7 @@ export default function Results() {
           ))
         ) : (
 
-          <div className="bg-white dark:bg-zinc-900 p-5 my-2 rounded-lg shadow-sm">
+          <div className="bg-base-200 rounded-box p-5 my-2">
             <p className="text-center dark:text-zinc-200 py-10">No ads found</p>
           </div>
         )}

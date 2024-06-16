@@ -6,7 +6,7 @@ export default {
     ],
     darkMode: 'selector',
     daisyui: {
-        themes: ["cupcake", "dark"],
+        themes: ["light", "dark"],
     },
     theme: {
         extend: {

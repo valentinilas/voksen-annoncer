@@ -20,7 +20,7 @@ export default function SimpleGallery(props) {
     }, []);
 
     return (
-        <div className="pswp-gallery grid md:grid-cols-2 lg:grid-cols-4 2xl:grid-cols-4 gap-4 mt-10" id={props.galleryID}>
+        <div className="pswp-gallery grid md:grid-cols-2 lg:grid-cols-4 2xl:grid-cols-4 gap-4 mt-10 mb-auto" id={props.galleryID}>
             {props.images.map((image, index) => (
                 <a
                     className="relative group"

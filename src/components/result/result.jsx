@@ -42,11 +42,12 @@ export default function Result({ data }) {
             </div>
             {/* Details */}
             <div>
-                <div className="border-t dark:border-zinc-950 flex justify-between mt-5 pt-5">
+                <div className="border-t border-base-300 flex justify-between mt-5 pt-5">
                     <div className="flex gap-2 items-center">
                         <Label Icon={CalendarDaysIcon}>{formatDate(created_at)}</Label>
                         <Label Icon={MapPinIcon}>{regions?.region_name}</Label>
-                        <Label Icon={TagIcon}>{ad_categories?.category_name} / {ad_sub_categories?.sub_category_name}</Label>
+                        <Label Icon={TagIcon}>{ad_categories?.category_name}</Label>
+                        <Label Icon={TagIcon}>{ad_sub_categories?.sub_category_name}</Label>
                     </div>
                     <Button Icon={ChevronRightIcon} iconDirection="right" className="self-start" to={`/ad/${uuid}`}>Details</Button>
                 </div>
