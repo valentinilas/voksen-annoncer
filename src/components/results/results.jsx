@@ -14,7 +14,7 @@ export default function Results() {
   const [selectedRegion, setSelectedRegion] = useState('all');
   const [searchTerm, setSearchTerm] = useState('');
   const [page, setPage] = useState(1);
-  const pageSize = 3;
+  const pageSize = 10;
 
   const { ads, loading, error, total, refetchAdList } = useFetchAdList(selectedCategory, selectedSubCategory, selectedRegion, searchTerm, page, pageSize);
 
