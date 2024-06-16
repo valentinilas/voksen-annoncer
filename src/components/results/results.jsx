@@ -13,8 +13,10 @@ export default function Results() {
   const [selectedSubCategory, setSelectedSubCategory] = useState('all');
   const [selectedRegion, setSelectedRegion] = useState('all');
   const [searchTerm, setSearchTerm] = useState('');
+  const [page, setPage] = useState(1);
+  const pageSize = 3;
 
-  const { ads, loading, error, refetchAdList } = useFetchAdList(selectedCategory, selectedSubCategory, selectedRegion, searchTerm);
+  const { ads, loading, error, total, refetchAdList } = useFetchAdList(selectedCategory, selectedSubCategory, selectedRegion, searchTerm, page, pageSize);
 
 
   if (loading) {
@@ -32,6 +34,10 @@ export default function Results() {
       </section>
     );
   }
+
+  // const totalPages = total ? Math.ceil(total / pageSize) : 0;
+  const totalPages = Math.ceil(total / pageSize);
+
 
   return (
     <>
@@ -67,7 +73,17 @@ export default function Results() {
         )}
 
 
+        {/* Pagination Controls */}
 
+        <div className="flex justify-center">
+          <div className="join mx-auto mt-2">
+            <button className={`join-item btn ${page === 1 ? 'btn-disabled' : ''}`} onClick={() => setPage(page > 1 ? page - 1 : 1)} >«</button>
+            <button className="join-item btn">Page {page} of {totalPages}</button>
+            <button className={`join-item btn ${page === totalPages ? 'btn-disabled' : ''}`} onClick={() => setPage(page < totalPages ? page + 1 : page)} >»</button>
+          </div>
+
+        </div>
+      
 
       </section>
     </>

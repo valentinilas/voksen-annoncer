@@ -2,34 +2,8 @@ import { useEffect, useState } from 'react';
 import { supabase } from '../lib/supabase';
 import { cdnUrl } from '../util/cdn-url';
 
-const CACHE_KEY = 'ads_cache';
-const CACHE_EXPIRATION = 10 * 60 * 1000; // 10 minutes
-
-const useFetchAdList = (selectedCategory, selectedSubCategory, selectedRegion, searchTerm) => {
-    const [data, setData] = useState({ ads: null, loading: true, error: null });
-
-    const getCachedAds = () => {
-        try {
-            const cachedData = localStorage.getItem(CACHE_KEY);
-            if (!cachedData) return null;
-
-            const { ads, timestamp } = JSON.parse(cachedData);
-            const isExpired = Date.now() - timestamp > CACHE_EXPIRATION;
-
-            return isExpired ? null : ads;
-        } catch (error) {
-            console.error('Error parsing cached data:', error);
-            return null;
-        }
-    };
-
-    const setCachedAds = (ads) => {
-        const cacheData = {
-            ads,
-            timestamp: Date.now(),
-        };
-        localStorage.setItem(CACHE_KEY, JSON.stringify(cacheData));
-    };
+const useFetchAdList = (selectedCategory, selectedSubCategory, selectedRegion, searchTerm, page, pageSize) => {
+    const [data, setData] = useState({ ads: null, loading: true, error: null, total: 0 });
 
     async function fetchAdList() {
         console.log('AdList: Loading live data');
@@ -38,7 +12,7 @@ const useFetchAdList = (selectedCategory, selectedSubCategory, selectedRegion, s
                 .from('ads')
                 .select(`
                     *,
-                     regions (region_name),
+                    regions (region_name),
                     ad_images (uuid, image_url, image_width, image_height),
                     ad_categories (
                         category_id,
@@ -51,10 +25,11 @@ const useFetchAdList = (selectedCategory, selectedSubCategory, selectedRegion, s
                    
                     profiles(username)
                     
-                `)
+                `, { count: 'exact' })
                 .eq('is_approved', true)
 
-                .order('created_at', { ascending: false });
+                .order('created_at', { ascending: false })
+                .range((page - 1) * pageSize, page * pageSize - 1);;
 
             if (selectedCategory && selectedCategory !== 'all') {
                 query = query.eq('category_id', selectedCategory);
@@ -70,7 +45,7 @@ const useFetchAdList = (selectedCategory, selectedSubCategory, selectedRegion, s
             }
 
 
-            const { data: ads, error } = await query;
+            const { data: ads, error, count } = await query;
 
             if (error) {
                 throw error;
@@ -84,28 +59,18 @@ const useFetchAdList = (selectedCategory, selectedSubCategory, selectedRegion, s
                 }))
             }));
 
-            setCachedAds(transformedAds);
-            setData({ ads: transformedAds, loading: false, error: null });
+            setData({ ads: transformedAds, loading: false, error: null, total: count });
         } catch (error) {
             console.error('Error fetching data:', error);
-            setData({ ads: null, loading: false, error: error.message });
+            setData({ ads: null, loading: false, error: error.message, total: 0 });
         }
     }
 
     useEffect(() => {
-        const cachedAds = getCachedAds();
-        if (cachedAds) {
-            console.log('AdList: Loading from cache');
-            setData({ ads: cachedAds, loading: false, error: null });
-        } else {
-            fetchAdList();
-        }
-
-
-    }, []);
+        fetchAdList();
+    }, [page]);
 
     const refetchAdList = async () => {
-        setData({ ads: null, loading: true, error: null });
         await fetchAdList();
     };
 
