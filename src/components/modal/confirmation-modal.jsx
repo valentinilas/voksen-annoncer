@@ -18,7 +18,7 @@ const ConfirmationModal = forwardRef(function ConfirmationModal({ onCancel, onCo
   })
 
   return (
-    <dialog ref={dialog} className="p-10 bg-white shadow-xl rounded-lg backdrop:bg-black/20">
+    <dialog ref={dialog} className="p-10 bg-base-100 shadow-xl rounded-box backdrop:bg-black/20">
       <h3 className="text-xl mb-3 text-center">Are you sure?</h3>
       {/* <p>{message}</p> */}
       <div className="flex justify-center mt-10 gap-2">

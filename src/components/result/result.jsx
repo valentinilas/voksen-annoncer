@@ -32,8 +32,8 @@ export default function Result({ data }) {
                 </div>
                 <div className="result-text col-span-9  flex flex-col justify-start items-start gap-2">
 
-                    <h3 className=" text-2xl mb-4">{title}</h3>
-                    <div>{truncateText(description, 350)}</div>
+                <NavLink to={`/ad/${uuid}`}><h3 className=" text-2xl mb-4">{title}</h3></NavLink>
+                <NavLink to={`/ad/${uuid}`}><div>{truncateText(description, 350)}</div></NavLink>
                    
 
 

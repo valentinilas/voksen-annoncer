@@ -19,7 +19,7 @@ export default function Results() {
 
   if (loading) {
     return (
-      <section className="container mx-auto bg-white dark:bg-zinc-900 mt-1 p-5 rounded-lg shadow-sm">
+      <section className="container mx-auto bg-base-200 mt-1 p-5 rounded-lg shadow-sm">
         <p>Loading data...</p>
       </section>
     );
@@ -27,7 +27,7 @@ export default function Results() {
 
   if (error) {
     return (
-      <section className="container mx-auto bg-white dark:bg-zinc-900 mt-1 p-5 rounded-lg shadow-sm">
+      <section className="container mx-auto bg-base-200 mt-1 p-5 rounded-lg shadow-sm">
         <p>Error loading data: {error}</p>
       </section>
     );

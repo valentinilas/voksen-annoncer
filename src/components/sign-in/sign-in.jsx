@@ -27,7 +27,7 @@ export default function SignIn() {
     };
 
     return (
-        <div className="container mx-auto bg-base-100 mt-10 p-5 rounded-lg shadow-sm sm:max-w-sm">
+        <div className="container mx-auto bg-base-200 mt-10 p-5 rounded-box  sm:max-w-sm">
             <div className="sm:mx-auto sm:w-full sm:max-w-sm">
                 <h2 className="text-2xl font-bold mb-10 text-center dark:text-zinc-400">Sign in</h2>
                 <form onSubmit={handleSubmit(onSubmit)}>

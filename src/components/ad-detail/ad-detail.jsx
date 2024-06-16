@@ -4,7 +4,7 @@ import Label from "../label/label";
 
 import { CalendarDaysIcon, TagIcon, MapPinIcon } from "@heroicons/react/24/outline";
 
-
+import { useAuth } from "../../lib/auth-context";
 
 
 import useFetchSingleAd from "../../hooks/useFetchSingleAd";
@@ -15,6 +15,11 @@ import Spotlight from "../spotlight/spotlight";
 
 export default function AdDetail() {
 
+    const { profileData, session, auth_user_log_out } = useAuth();
+
+    const { profile, loading: loadingProfile, error: errorProfile } = profileData;
+    const {is_admin} = profile || {};
+
 
 
     const { adId } = useParams();
@@ -23,7 +28,7 @@ export default function AdDetail() {
 
     if (loading) {
         return (
-            <section className="container mx-auto bg-white p-5 mt-10 rounded-lg shadow-sm">
+            <section className="container mx-auto bg-base-200 p-5 mt-10 rounded-lg shadow-sm">
                 <p>Loading data...</p>
             </section>
         );
@@ -31,10 +36,18 @@ export default function AdDetail() {
 
     if (error) {
         return (
-            <section className="container mx-auto bg-white p-5 mt-10 rounded-lg shadow-sm">
+            <section className="container mx-auto bg-base-200 p-5 mt-10 rounded-lg shadow-sm">
                 <p>Error loading data: {error}</p>
             </section>
         );
+    }
+
+    if (!is_admin && !ad.is_approved) {
+        return (
+            <section className="container mx-auto bg-base-200 p-5 mt-10 rounded-lg shadow-sm">
+                <p>This ad has not been approved yet. Check back later!</p>
+            </section>
+        )
     }
 
 
@@ -70,15 +83,15 @@ export default function AdDetail() {
                         {galleryImages.length > 0 ? <SimpleGallery
                             galleryID="my-test-gallery"
                             images={galleryImages}
-                            
+
                         /> : null}
 
                         <div className="border-t pt-5 mt-5 border-base-300  flex flex-wrap gap-2 ">
                             <Label Icon={CalendarDaysIcon}>{formatDate(ad.created_at)}</Label>
-                                <Label Icon={MapPinIcon}>{ad.regions?.region_name}</Label>
-                                <Label Icon={TagIcon}>{ad.ad_categories?.category_name}</Label>
-                                <Label Icon={TagIcon}>{ad.ad_sub_categories?.sub_category_name}</Label>
-                           
+                            <Label Icon={MapPinIcon}>{ad.regions?.region_name}</Label>
+                            <Label Icon={TagIcon}>{ad.ad_categories?.category_name}</Label>
+                            <Label Icon={TagIcon}>{ad.ad_sub_categories?.sub_category_name}</Label>
+
                         </div>
 
                     </div>

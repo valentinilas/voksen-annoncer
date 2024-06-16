@@ -8,7 +8,7 @@ import { NavLink } from "react-router-dom";
 import MyAd from "./my-ad";
 
 import Label from "../label/label";
-import { CalendarDaysIcon } from "@heroicons/react/24/outline";
+import { CalendarDaysIcon, PlusIcon } from "@heroicons/react/24/outline";
 
 import useFetchAuthUserAdList from "../../hooks/useFetchAuthUserAdList";
 
@@ -70,7 +70,12 @@ export default function MyAds() {
 
     return (
         <>
-            <h4 className="text-xl mb-4 dark:text-zinc-400">My ads ({ads.length})</h4>
+            <div className="flex justify-between items-center mb-5">
+                <h4 className="text-xl  ">My ads ({ads.length})</h4>
+                <Button variant="primary" Icon={PlusIcon} to="/new-ad">Create a new ad</Button>
+            </div>
+
+
 
             <ol>
                 {ads.map((ad, index) => {

@@ -21,7 +21,7 @@ export default function NavBar() {
     const { profileData, session, auth_user_log_out } = useAuth();
 
     const { profile, loading: loadingProfile, error: errorProfile } = profileData;
-    const { avatar_url, username } = profile || {};
+    const { avatar_url, username, is_admin } = profile || {};
 
 
     // if (!(loading || error) && profile.username) {
@@ -63,6 +63,7 @@ export default function NavBar() {
 
                 <div className="navbar-end ">
                     <ul className="menu menu-horizontal px-1 gap-2">
+                        <li> <ThemeToggle /></li>
                         <li>  <Button variant="tertiary" Icon={ArrowLeftEndOnRectangleIcon} to="/sign-in">Login</Button></li>
                         <li>  <Button variant="primary" Icon={UserPlusIcon} to="/sign-up">Sign up</Button></li>
                     </ul>
@@ -70,9 +71,8 @@ export default function NavBar() {
             }
             {session &&
                 <div className="navbar-end gap-4">
-                   
-                   <Button variant="primary" Icon={PlusIcon} to="/new-ad">Create a new ad</Button>
-                   <ThemeToggle/>
+
+                    <ThemeToggle />
                     {username && <NavLink className="link link-hover" to="/dashboard">{username}</NavLink>}
                     <div className="dropdown dropdown-end">
 
@@ -89,15 +89,23 @@ export default function NavBar() {
                             )}
                         </div>
                         <ul tabIndex={0} className="menu menu-sm dropdown-content mt-3 z-[1] p-2 shadow bg-base-100 rounded-box w-52">
+                            {is_admin && <li>
+                                <NavLink to="/admin">Admin</NavLink>
+                            </li>
+                            }
+                            <li>
+                                <NavLink to="/new-ad">New Ad</NavLink>
+                            </li>
+
                             <li>
                                 <NavLink to="/dashboard">Dashboard</NavLink>
                             </li>
-                           
+
 
                             <li><button onClick={handleLogOut}>Log out</button></li>
                         </ul>
                     </div>
-                   
+
                 </div>
             }
         </div>
