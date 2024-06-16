@@ -29,6 +29,10 @@ export default function Spotlight() {
         );
     }
 
+    if(!ads.length){
+        return;
+    }
+
     const neededDummySlides = Math.max(0, 6 - ads.length);
 
     const dummySlides = Array.from({ length: neededDummySlides }).map((_, index) => (
