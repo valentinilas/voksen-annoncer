@@ -13,7 +13,6 @@ import Label from "../label/label";
 
 import { useAuth } from "../../lib/auth-context";
 
-import ThemeToggle from "./theme-toggle";
 
 export default function NavBar() {
 
@@ -48,28 +47,32 @@ export default function NavBar() {
                     <span className="font-bold text-black-900 dark:text-white text-xl hidden md:block">Voksen Annoncer</span>
                 </NavLink>
             </div>
-            <div className="navbar-center hidden lg:flex">
+            {/* <div className="navbar-center hidden lg:flex">
                 <ul className="menu menu-horizontal px-1 gap-2">
                     <li>  <NavLink to="/">Annoncer</NavLink></li>
                     <li>  <NavLink to="/about">About</NavLink></li>
                     <li>  <NavLink to="/support">Support</NavLink></li>
+
                 </ul>
-            </div>
+            </div> */}
 
             {!session &&
 
                 <div className="navbar-end ">
                     <ul className="menu menu-horizontal px-1 gap-2">
-                        <li> <ThemeToggle /></li>
-                        <li>  <Button variant="tertiary" Icon={ArrowLeftEndOnRectangleIcon} to="/sign-in">Login</Button></li>
-                        <li>  <Button variant="primary" Icon={UserPlusIcon} to="/sign-up">Sign up</Button></li>
+                        <li><Button variant="primary" Icon={ArrowLeftEndOnRectangleIcon} to="/sign-in">Log in</Button></li>
+                        {/* <li><Button variant="primary" Icon={UserPlusIcon} to="/sign-up">Sign up</Button></li> */}
+                        <li>
+                            <label for="my-drawer" aria-label="open sidebar" class="btn btn-circle btn-ghost">
+                                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" class="inline-block w-6 h-6 stroke-current"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path></svg>
+                            </label>
+                        </li>
                     </ul>
                 </div>
             }
             {session &&
                 <div className="navbar-end gap-4">
 
-                    <ThemeToggle />
                     {username && <NavLink className="link link-hover text-sm font-bold hidden md:block" to="/dashboard">{username}</NavLink>}
                     <div className="dropdown dropdown-end">
 
@@ -93,15 +96,20 @@ export default function NavBar() {
                             <li>
                                 <NavLink to="/new-ad">New Ad</NavLink>
                             </li>
-
                             <li>
-                                <NavLink to="/dashboard">Dashboard</NavLink>
+                                <NavLink to="/dashboard">Profile</NavLink>
                             </li>
-
-
                             <li><button onClick={handleLogOut}>Log out</button></li>
                         </ul>
                     </div>
+                    <ul className="menu menu-horizontal px-1 gap-2">
+                        
+                        <li>
+                            <label for="my-drawer" aria-label="open sidebar" class="btn btn-circle btn-ghost">
+                                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" class="inline-block w-6 h-6 stroke-current"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path></svg>
+                            </label>
+                        </li>
+                    </ul>
 
                 </div>
             }
