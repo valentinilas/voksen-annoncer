@@ -7,6 +7,9 @@ import { useAuth } from "../lib/auth-context";
 
 import i18n from "../translations/i18n";
 
+import flag_dk from '../assets/flags/denmark.svg';
+import flag_gb from '../assets/flags/great-britain.svg';
+
 
 import { useTranslation } from "react-i18next";
 
@@ -48,7 +51,7 @@ export default function RootLayout() {
                         <>
                             {is_admin && <li><NavLink to="/admin"> <Cog6ToothIcon className="size-5" />{t("navigation.admin")}</NavLink></li>}
                             <li><NavLink to="/dashboard"><UserIcon className="size-5" />{t("navigation.profile")}</NavLink></li>
-                            <li><NavLink to="/new-ad"><PlusIcon className="size-5" />Create ad</NavLink></li>
+                            <li><NavLink to="/new-ad"><PlusIcon className="size-5" />{t("navigation.create-ad")}</NavLink></li>
                             <li><button onClick={handleLogOut}><ArrowLeftStartOnRectangleIcon className="size-5" />{t("navigation.log-out")}</button></li>
                             <li className="border-b border-b-base-300 my-4"> </li>
 
@@ -60,8 +63,8 @@ export default function RootLayout() {
                     <li>  <NavLink to="/about">{t("navigation.about")}</NavLink></li>
                     <li>  <NavLink to="/cookie-policy">{t("navigation.cookie-policy")}</NavLink></li>
                     <li className="border-b border-b-base-300 my-4"> </li>
-                    <li>   <button onClick={() => changeLanguage("en")} >English</button></li>
-                    <li>   <button onClick={() => changeLanguage("da")} >Dansk</button></li>
+                    <li>   <button onClick={() => changeLanguage("en")}><img className="size-5" src={flag_gb} alt="English"/> English</button></li>
+                    <li>   <button onClick={() => changeLanguage("da")}><img className="size-5" src={flag_dk} alt="English"/>Dansk</button></li>
 
 
                     {/* not logged in */}
