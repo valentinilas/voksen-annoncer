@@ -5,8 +5,18 @@ import { NavLink } from "react-router-dom";
 import { PlusIcon, UserIcon, Cog6ToothIcon, ArrowLeftStartOnRectangleIcon } from "@heroicons/react/24/outline";
 import { useAuth } from "../lib/auth-context";
 
+import i18n from "../translations/i18n";
+
+
+import { useTranslation } from "react-i18next";
 
 export default function RootLayout() {
+    const [t] = useTranslation();
+
+    const changeLanguage = (lng) => {
+        i18n.changeLanguage(lng);
+    };
+
     const { profileData, session, auth_user_log_out } = useAuth();
 
     const { profile, loading: loadingProfile, error: errorProfile } = profileData;
@@ -32,29 +42,34 @@ export default function RootLayout() {
             <div className="drawer-side">
                 <label htmlFor="my-drawer" aria-label="close sidebar" className="drawer-overlay"></label>
                 <ul className="menu p-4 w-80 min-h-full bg-base-200 text-base-content">
-                    <li className="w-full p-4 border-b border-b-base-300 font-bold mb-4"> Menu</li>
+                    <li className="w-full p-4 border-b border-b-base-300 font-bold mb-4">{t("navigation.menu")}</li>
                     {/* Logged in */}
                     {session &&
                         <>
-                            {is_admin && <li><NavLink to="/admin"> <Cog6ToothIcon className="size-5" />Admin</NavLink></li>}
-                            <li><NavLink to="/dashboard"><UserIcon className="size-5" />Profile</NavLink></li>
+                            {is_admin && <li><NavLink to="/admin"> <Cog6ToothIcon className="size-5" />{t("navigation.admin")}</NavLink></li>}
+                            <li><NavLink to="/dashboard"><UserIcon className="size-5" />{t("navigation.profile")}</NavLink></li>
                             <li><NavLink to="/new-ad"><PlusIcon className="size-5" />Create ad</NavLink></li>
-                            <li><button onClick={handleLogOut}><ArrowLeftStartOnRectangleIcon className="size-5" />Log out</button></li>
+                            <li><button onClick={handleLogOut}><ArrowLeftStartOnRectangleIcon className="size-5" />{t("navigation.log-out")}</button></li>
                             <li className="border-b border-b-base-300 my-4"> </li>
 
                         </>
                     }
                     {/* Generic */}
-                    <li>  <NavLink to="/">Annoncer</NavLink></li>
-                    <li>  <NavLink to="/support">Support</NavLink></li>
-                    <li>  <NavLink to="/about">About</NavLink></li>
-                    <li>  <NavLink to="/cookie-policy">Cookie policy</NavLink></li>
+                    <li>  <NavLink to="/">{t("navigation.ads")}</NavLink></li>
+                    <li>  <NavLink to="/support">{t("navigation.support")}</NavLink></li>
+                    <li>  <NavLink to="/about">{t("navigation.about")}</NavLink></li>
+                    <li>  <NavLink to="/cookie-policy">{t("navigation.cookie-policy")}</NavLink></li>
+                    <li className="border-b border-b-base-300 my-4"> </li>
+                    <li>   <button onClick={() => changeLanguage("en")} >English</button></li>
+                    <li>   <button onClick={() => changeLanguage("da")} >Dansk</button></li>
+
+
                     {/* not logged in */}
                     {!session &&
                         <>
                             <li className="border-b border-b-base-300 my-4"> </li>
-                            <li>  <NavLink to="/sign-in">Log in</NavLink></li>
-                            <li>  <NavLink to="/sign-up">Register</NavLink></li>
+                            <li>  <NavLink to="/sign-in">{t("navigation.log-in")}</NavLink></li>
+                            <li>  <NavLink to="/sign-up">{t("navigation.sign-up")}</NavLink></li>
                         </>
                     }
                     <li className="border-b border-b-base-300 my-4"> </li>

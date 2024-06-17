@@ -12,10 +12,12 @@ import Label from "../label/label";
 
 
 import { useAuth } from "../../lib/auth-context";
+import { useTranslation } from 'react-i18next';
 
 
 export default function NavBar() {
 
+    const [t] = useTranslation();
 
     const { profileData, session, auth_user_log_out } = useAuth();
 
@@ -46,15 +48,9 @@ export default function NavBar() {
                     <img className="w-10 md:w-16	" src={logo} alt="Voksen Annoncer" />
                     <span className="font-bold text-black-900 dark:text-white text-xl hidden md:block">Voksen Annoncer</span>
                 </NavLink>
+               
             </div>
-            {/* <div className="navbar-center hidden lg:flex">
-                <ul className="menu menu-horizontal px-1 gap-2">
-                    <li>  <NavLink to="/">Annoncer</NavLink></li>
-                    <li>  <NavLink to="/about">About</NavLink></li>
-                    <li>  <NavLink to="/support">Support</NavLink></li>
-
-                </ul>
-            </div> */}
+  
 
             {!session &&
 
@@ -91,7 +87,7 @@ export default function NavBar() {
                         </div>
                         <ul tabIndex={0} className="menu menu-sm dropdown-content mt-3 z-[1] p-2 shadow bg-base-100 rounded-box w-52">
                             {is_admin && <li>
-                                <NavLink to="/admin">Admin</NavLink>
+                                <NavLink to="/admin">{t("navigation.admin")}</NavLink>
                             </li>
                             }
                             <li>

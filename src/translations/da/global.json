@@ -1,0 +1,12 @@
+{
+    "navigation": {
+        "menu": "Menu",
+        "admin": "Admin",
+        "ads": "Annonce",
+        "support": "Support",
+        "about": "Om",
+        "cookie-policy": "Cookiepolitik",
+        "log-in": "Log ind",
+        "sign-up": "Tilmeld"
+    }
+}

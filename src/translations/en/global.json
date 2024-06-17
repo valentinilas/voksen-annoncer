@@ -1,0 +1,13 @@
+{
+    "navigation": {
+        "menu": "Menu",
+        "admin": "Admin",
+        "ads": "Ads",
+        "support": "Support",
+        "about": "About",
+        "cookie-policy": "Cookie Policy",
+        "log-in": "Log in",
+        "log-out": "Log out",
+        "sign-up": "Sign up"
+    }
+}
