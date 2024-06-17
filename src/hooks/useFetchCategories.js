@@ -38,7 +38,9 @@ const useFetchCategories = () => {
             try {
                 let { data, error } = await supabase
                     .from('ad_categories')
-                    .select('*, ad_sub_categories(*)');
+                    .select('*, ad_sub_categories(*)')
+                    .order('category_id', { ascending: true });
+
 
                 if (error) {
                     throw error;

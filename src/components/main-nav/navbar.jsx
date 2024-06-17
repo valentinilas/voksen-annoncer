@@ -91,12 +91,12 @@ export default function NavBar() {
                             </li>
                             }
                             <li>
-                                <NavLink to="/new-ad">New Ad</NavLink>
+                                <NavLink to="/new-ad">{t("navigation.create-ad")}</NavLink>
                             </li>
                             <li>
-                                <NavLink to="/dashboard">Profile</NavLink>
+                                <NavLink to="/dashboard">{t("navigation.profile")}</NavLink>
                             </li>
-                            <li><button onClick={handleLogOut}>Log out</button></li>
+                            <li><button onClick={handleLogOut}>{t("navigation.log-out")}</button></li>
                         </ul>
                     </div>
                     <ul className="menu menu-horizontal px-1 gap-2">

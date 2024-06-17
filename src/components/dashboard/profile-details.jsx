@@ -17,12 +17,22 @@ import useFetchGenders from "../../hooks/useFetchGenders";
 import ProfileFieldInput from "./profile-field-input";
 import ProfileFieldSelect from "./profile-field-select";
 import Avatar from "./profile-avatar";
+import { useTranslation } from "react-i18next";
+import translateArray from "../../util/translate-array";
+
 
 export default function ProfileDetail() {
+
+    const [t] = useTranslation();
+
     const { profileData, setProfileData } = useAuth();
     const { profile, loading: profileLoading, error: profileError } = profileData;
-    const { regions, loading: regionsLoading, error: regionsError } = useFetchRegions();
-    const { genders, loading: gendersLoading, error: gendersError } = useFetchGenders();
+    const { regions, loading: regionsLoading, error: regionsError } = useFetchRegions([]);
+    const { genders, loading: gendersLoading, error: gendersError } = useFetchGenders([]);
+
+
+
+
 
     const [editing, setEditing] = useState(false);
     const { register, handleSubmit, setValue, formState: { errors } } = useForm();
@@ -39,6 +49,9 @@ export default function ProfileDetail() {
        
         }
     }, [profile, setValue]);
+
+
+
 
     const onSubmit = async (data) => {
         console.log(data);
@@ -86,6 +99,17 @@ export default function ProfileDetail() {
     if (!profile) {
         return <p>No profile available.</p>;
     }
+
+
+
+
+
+    const translatedGenders = translateArray(t,'genders', 'gender_name', genders)
+
+      
+
+
+
 
     return (
         <div className="h-full  p-6 rounded-lg">
@@ -162,7 +186,7 @@ export default function ProfileDetail() {
                 label="Gender"
                 icon={UserCircleIcon}
                 editing={editing}
-                options={genders}
+                options={translatedGenders}
                 loading={gendersLoading}
                 error={gendersError}
                 fieldError={errors.gender_id}

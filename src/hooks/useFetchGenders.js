@@ -1,11 +1,13 @@
 import { useEffect, useState } from 'react';
 import { supabase } from '../lib/supabase';
-
 const CACHE_KEY = 'genders_cache';
 const CACHE_EXPIRATION = 10 * 60 * 1000; // 10 minutes
 
+
+
 const useFetchGenders = () => {
     const [data, setData] = useState({ genders: null, loading: true, error: null });
+
 
     const getCachedGenders = () => {
         const cachedData = localStorage.getItem(CACHE_KEY);
