@@ -290,9 +290,17 @@ export default function CreateAd() {
                     )}
 
                     <div className="flex items-center justify-between">
-                        <Button type="submit" disabled={uploading}>{uploading ? 'Uploading...' : 'Create Ad'}</Button>
+                        <Button type="submit" disabled={uploading}>
+                            {uploading ? (
+                                <>
+                                    <span className="loading loading-spinner loading-md"></span> Creating ad...
+                                </>
+                            ) : (
+                                'Create Ad'
+                            )}
+                        </Button>
                     </div>
-                    {uploading && <p>Uploading images, please wait...</p>}
+                    {/* {uploading && <p><span className="loading loading-spinner loading-md"></span> Creating ad, please wait...</p>} */}
                 </form>
             </div>
         </div>

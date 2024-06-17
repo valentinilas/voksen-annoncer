@@ -21,16 +21,23 @@ export default function Results() {
 
   if (loading) {
     return (
-      <section className="container mx-auto bg-base-200 mt-1 p-5 rounded-lg shadow-sm">
-        <p>Loading data...</p>
+      <section className="container mx-auto p-5">
+        <div className="text-center">
+          {/* <p className="text-center">Loading Ads...</p> */}
+          <span className="loading loading-spinner loading-md"></span>
+
+        </div>
+
       </section>
     );
   }
 
   if (error) {
     return (
-      <section className="container mx-auto bg-base-200 mt-1 p-5 rounded-lg shadow-sm">
-        <p>Error loading data: {error}</p>
+      <section className="container mx-auto p-5">
+        <div className="bg-base-200 p-5 rounded-box shadow-sm">
+          <p className="text-center">Error loading Ads: {error}</p>
+        </div>
       </section>
     );
   }
@@ -83,7 +90,7 @@ export default function Results() {
           </div>
 
         </div>
-      
+
 
       </section>
     </>

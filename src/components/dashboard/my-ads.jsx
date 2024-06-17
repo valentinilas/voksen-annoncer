@@ -53,11 +53,18 @@ export default function MyAds() {
 
 
     if (loading) {
-        return <p className="dark:text-zinc-200">Loading ads...</p>;
+        return <div className="bg-base-200 p-5 rounded-box shadow-sm">
+            <p className="text-center">Loading ads... {error}</p>
+        </div>
+
+
     }
 
     if (error) {
-        return <p className="dark:text-zinc-200">Error loading ads: {error}</p>;
+        return <div className="bg-base-200 p-5 rounded-box shadow-sm">
+            <p className="text-center">Error loading ads. {error}</p>
+        </div>
+
     }
 
 
