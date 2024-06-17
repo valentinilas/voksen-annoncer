@@ -30,7 +30,7 @@ export default function RootLayout() {
                 <Footer />
             </div>
             <div className="drawer-side">
-                <label for="my-drawer" aria-label="close sidebar" class="drawer-overlay"></label>
+                <label htmlFor="my-drawer" aria-label="close sidebar" className="drawer-overlay"></label>
                 <ul className="menu p-4 w-80 min-h-full bg-base-200 text-base-content">
                     <li className="w-full p-4 border-b border-b-base-300 font-bold mb-4"> Menu</li>
                     {/* Logged in */}

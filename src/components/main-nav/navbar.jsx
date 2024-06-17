@@ -63,8 +63,9 @@ export default function NavBar() {
                         <li><Button variant="primary" Icon={ArrowLeftEndOnRectangleIcon} to="/sign-in">Log in</Button></li>
                         {/* <li><Button variant="primary" Icon={UserPlusIcon} to="/sign-up">Sign up</Button></li> */}
                         <li>
-                            <label for="my-drawer" aria-label="open sidebar" class="btn btn-circle btn-ghost">
-                                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" class="inline-block w-6 h-6 stroke-current"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path></svg>
+                            <label htmlFor="my-drawer" aria-label="open sidebar" className="btn btn-circle btn-ghost">
+                                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" className="inline-block w-6 h-6 stroke-current"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M4 6h16M4 12h16M4 18h16"></path></svg>
+
                             </label>
                         </li>
                     </ul>
@@ -103,10 +104,10 @@ export default function NavBar() {
                         </ul>
                     </div>
                     <ul className="menu menu-horizontal px-1 gap-2">
-                        
+
                         <li>
-                            <label for="my-drawer" aria-label="open sidebar" class="btn btn-circle btn-ghost">
-                            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" className="inline-block w-6 h-6 stroke-current"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M4 6h16M4 12h16M4 18h16"></path></svg>
+                            <label htmlFor="my-drawer" aria-label="open sidebar" className="btn btn-circle btn-ghost">
+                                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" className="inline-block w-6 h-6 stroke-current"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M4 6h16M4 12h16M4 18h16"></path></svg>
 
                             </label>
                         </li>

@@ -125,7 +125,7 @@ export default function Filters({ refetchAdList, selectedCategory, setSelectedCa
 
 
 
-        <Button variant="primary" Icon={MagnifyingGlassIcon} onClick={handleSearch}>Filter</Button>
+        <Button variant="secondary" Icon={MagnifyingGlassIcon} onClick={handleSearch}>Filter</Button>
         {/* <Button variant="tertiary" size="m-icon-only" Icon={AdjustmentsHorizontalIcon}></Button> */}
       </div>
     </section>
