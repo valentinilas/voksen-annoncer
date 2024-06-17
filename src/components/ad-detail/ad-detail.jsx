@@ -102,7 +102,7 @@ export default function AdDetail() {
                 </div>
 
             </section>
-            <Spotlight />
+            {/* <Spotlight /> */}
         </>
     );
 }
