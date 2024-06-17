@@ -1,4 +1,5 @@
 import { Outlet } from "react-router-dom";
+import { useState } from "react";
 import Header from "../components/header/header";
 import Footer from "../components/footer/footer";
 import { NavLink } from "react-router-dom";
@@ -15,9 +16,11 @@ import { useTranslation } from "react-i18next";
 
 export default function RootLayout() {
     const [t] = useTranslation();
+    const [currentLanguage, setCurrentLanguage] = useState(i18n.language);
 
     const changeLanguage = (lng) => {
         i18n.changeLanguage(lng);
+        setCurrentLanguage(lng);
     };
 
     const { profileData, session, auth_user_log_out } = useAuth();
@@ -63,8 +66,8 @@ export default function RootLayout() {
                     <li>  <NavLink to="/about">{t("navigation.about")}</NavLink></li>
                     <li>  <NavLink to="/cookie-policy">{t("navigation.cookie-policy")}</NavLink></li>
                     <li className="border-b border-b-base-300 my-4"> </li>
-                    <li>   <button onClick={() => changeLanguage("en")}><img className="size-5" src={flag_gb} alt="English"/> English</button></li>
-                    <li>   <button onClick={() => changeLanguage("da")}><img className="size-5" src={flag_dk} alt="English"/>Dansk</button></li>
+                    <li>   <button onClick={() => changeLanguage("en")} className={currentLanguage === "en" ? "active" : ""}><img className="size-5" src={flag_gb} alt="English" /> English</button></li>
+                    <li>   <button onClick={() => changeLanguage("da")} className={currentLanguage === "da" ? "active" : ""}><img className="size-5" src={flag_dk} alt="English" />Dansk</button></li>
 
 
                     {/* not logged in */}
