@@ -5,7 +5,7 @@ export default function Footer (){
     const year = new Date().getFullYear();
     return (
        <footer className="container mx-auto p-5">
-        <p className="text-center dark:text-zinc-200">{t("footer.copyright")} &copy; {year} Voksen Annoncer. {t("footer.rights")}</p>
+        <p className="text-center dark:text-zinc-200">&copy; {year} Voksen Annoncer.</p>
        </footer>
     );
 }
