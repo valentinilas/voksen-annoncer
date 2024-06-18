@@ -12,8 +12,43 @@ const AdRow = ({ ad, index, setData }) => {
         return text.substring(0, maxLength) + '...';
     }
 
-     // Handle delete row
-     const deleteRow = async (row_value) => {
+
+
+
+    // Handle delete row
+    const deleteRow = async (row_value) => {
+
+        // Handle image deletion
+        const { data: adImages, error } = await supabase
+            .from('ad_images')
+            .select('image_url')
+            .eq('ad_id', row_value);
+
+        console.log(adImages);
+
+        if (error) {
+            console.error('Error fetching ad images:', error);
+            return;
+        }
+
+        // Prepare an array of file paths to delete
+        const filePaths = adImages.map(image => {
+            const parts = image.image_url.split('/');
+            return 'ad-images/' + parts.pop(); // Assuming 'ad-images/' is the correct prefix
+        });
+
+        // Delete all images from storage in one request
+        const { error: deleteError } = await supabase.storage
+            .from('voksen-annoncer')
+            .remove(filePaths);
+
+        if (deleteError) {
+            console.error('Error deleting images:', deleteError);
+            // Handle error as needed
+        } else {
+            console.log('Images deleted successfully.');
+            // Proceed with other actions after successful deletion
+        }
 
         try {
             const { error } = await supabase
@@ -29,7 +64,7 @@ const AdRow = ({ ad, index, setData }) => {
                 ads: prevData.ads.filter(ad => ad.uuid !== row_value)
             }));
 
-            console.log(`Deleted ad: ${row_value}`);
+            console.log('Ad and associated images deleted successfully.');
 
         }
         catch (error) {
@@ -100,7 +135,7 @@ const AdRow = ({ ad, index, setData }) => {
                 <ConfirmationModal ref={dialog} onCancel={() => { hideModal() }} onConfirm={() => confirmDelete(ad.uuid)} />
             </td>
 
- 
+
         </tr>
     );
 };

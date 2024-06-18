@@ -73,7 +73,7 @@ export default function AdProfile({ profileData }) {
                             <span className="font-bold mb-1">{t("profile.phone")}</span>
                         </Label>
                         <span className="">{contact_phone}</span>
-                    </p> : <p className="mb-2 bg-base-200 p-4 rounded-box">T{t("profile.user-hidden-phone")}</p>}
+                    </p> : <p className="mb-2 bg-base-200 p-4 rounded-box">{t("profile.user-hidden-phone")}</p>}
 
                     {sms_visible ? <p className="mb-2 bg-base-200 p-4 rounded-box">
                         <Label type="profile" Icon={ChatBubbleLeftRightIcon}>

@@ -1,6 +1,6 @@
 function translateArray(t,translation_key, source_key, data) {
     
-    console.log(translation_key, source_key, data);
+
     
     const mappedData = [];
     for (const item of data) {

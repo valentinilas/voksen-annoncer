@@ -52,12 +52,12 @@ export default function MyAd({ ad, deleteRow }) {
 
                     <div className="col-span-1 md:col-span-12 flex justify-between items-center border-b pb-5  border-base-300">
 
-                        <Label type={is_approved ? 'success' : 'warning'}>{is_approved ? 'Approved' : 'Pending approval'}</Label>
+                        <Label type={is_approved ? 'success' : 'warning'}>{is_approved ? `${t('ads.approved')}` : `${t('ads.pending-approval')}`}</Label>
 
                         <div className="dropdown dropdown-end">
                             <div tabIndex={0} role="button" className="btn btn-ghost btn-circle"><EllipsisVerticalIcon className="size-5 " /></div>
                             <ul tabIndex={0} className="dropdown-content z-[1] menu p-2 shadow bg-base-100 rounded-box w-52">
-                                <li><button>{t('ads.edit')}</button></li>
+                                {/* <li><button>{t('ads.edit')}</button></li> */}
                                 <li><button onClick={() => showModal()}>{t("ads.delete")}</button></li>
                             </ul>
                         </div>
