@@ -53,7 +53,7 @@ export default function NavBar() {
 
                 <div className="navbar-end ">
                     <ul className="menu menu-horizontal px-1 gap-2">
-                        <li><Button variant="primary" Icon={ArrowLeftEndOnRectangleIcon} to="/sign-in">Log in</Button></li>
+                        <li><Button variant="primary" Icon={ArrowLeftEndOnRectangleIcon} to="/sign-in" className="hidden md:inline-flex">Log in</Button></li>
                         {/* <li><Button variant="primary" Icon={UserPlusIcon} to="/sign-up">Sign up</Button></li> */}
                         <li>
                             <label htmlFor="my-drawer" aria-label="open sidebar" className="btn btn-circle btn-ghost">

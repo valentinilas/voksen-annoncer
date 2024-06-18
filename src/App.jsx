@@ -27,6 +27,7 @@ import SignUpWelcome from './components/sign-up/sign-up-welcome';
 import Admin from './components/dashboard/admin-page';
 import Support from './pages/support';
 import CookiePolicy from './pages/cookie-policy';
+import About from './pages/about';
 
 
 
@@ -41,6 +42,7 @@ function App() {
       children: [
         { path: '/', element: <Home /> },
         { path: '/support', element: <Support /> },
+        { path: '/about', element: <About/> },
         { path: '/cookie-policy', element: <CookiePolicy /> },
         { path: '/dashboard', element: <ProtectedRoute><Dashboard /></ProtectedRoute> },
         { path: '/admin', element: <AdminRoute><Admin /></AdminRoute> },
