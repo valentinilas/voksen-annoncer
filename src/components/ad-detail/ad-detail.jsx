@@ -6,7 +6,7 @@ import { CalendarDaysIcon, TagIcon, MapPinIcon } from "@heroicons/react/24/outli
 
 import { useAuth } from "../../lib/auth-context";
 
-
+import { useTranslation } from "react-i18next";
 import useFetchSingleAd from "../../hooks/useFetchSingleAd";
 import AdProfile from "./ad-profile";
 
@@ -14,11 +14,12 @@ import SimpleGallery from "./ad-gallery";
 import Spotlight from "../spotlight/spotlight";
 
 export default function AdDetail() {
+    const [t] = useTranslation();
 
     const { profileData, session, auth_user_log_out } = useAuth();
 
     const { profile, loading: loadingProfile, error: errorProfile } = profileData;
-    const {is_admin} = profile || {};
+    const { is_admin } = profile || {};
 
 
 
@@ -45,7 +46,7 @@ export default function AdDetail() {
     if (!is_admin && !ad.is_approved) {
         return (
             <section className="container mx-auto bg-base-200 p-5 mt-10 rounded-lg shadow-sm">
-                <p>This ad has not been approved yet. Check back later!</p>
+                <p>{t("ads.not-approved")}</p>
             </section>
         )
     }
@@ -89,8 +90,8 @@ export default function AdDetail() {
                         <div className="border-t pt-5 mt-5 border-base-300  flex flex-wrap gap-2 ">
                             <Label Icon={CalendarDaysIcon}>{formatDate(ad.created_at)}</Label>
                             <Label Icon={MapPinIcon}>{ad.regions?.region_name}</Label>
-                            <Label Icon={TagIcon}>{ad.ad_categories?.category_name}</Label>
-                            <Label Icon={TagIcon}>{ad.ad_sub_categories?.sub_category_name}</Label>
+                            <Label Icon={TagIcon}>{t(`categories.${ad.ad_categories?.category_name}`)}</Label>
+                            <Label Icon={TagIcon}>{t(`subcategories.${ad.ad_sub_categories?.sub_category_name}`)}</Label>
 
                         </div>
 

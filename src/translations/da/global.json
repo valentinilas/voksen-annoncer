@@ -96,6 +96,7 @@
         "All locations":"Alle steder"
     },
     "ads":{
-        "Details":"Detalier"
+        "Details":"Detalier",
+        "not-approved":"This ad has not been approved yet. Check back later."
     }
 }
