@@ -6,10 +6,11 @@ import { cdnUrl } from "../../util/cdn-url";
 
 import { CalendarDaysIcon, TagIcon, MapPinIcon, ChevronRightIcon } from "@heroicons/react/24/outline";
 
-
+import { useTranslation } from "react-i18next";
 import DefaultImage from "../default-image/default-image";
 
 export default function Result({ data }) {
+    const [t] = useTranslation();
 
     const { uuid = "", title = "", created_at = null, description = "", ad_images = [], regions = [], ad_categories = [], ad_sub_categories = [] } = data;
 
@@ -46,10 +47,10 @@ export default function Result({ data }) {
                     <div className="flex gap-2 items-center flex-wrap">
                         <Label Icon={CalendarDaysIcon}>{formatDate(created_at)}</Label>
                         <Label Icon={MapPinIcon}>{regions?.region_name}</Label>
-                        <Label Icon={TagIcon}>{ad_categories?.category_name}</Label>
-                        <Label Icon={TagIcon}>{ad_sub_categories?.sub_category_name}</Label>
+                        <Label Icon={TagIcon}>{t(`categories.${ad_categories?.category_name}`)}</Label>
+                        <Label Icon={TagIcon}>{t(`subcategories.${ad_sub_categories?.sub_category_name}`)}</Label>
                     </div>
-                    <Button Icon={ChevronRightIcon} iconDirection="right" className="self-start hidden md:inline-flex" to={`/ad/${uuid}`}>Details</Button>
+                    <Button Icon={ChevronRightIcon} iconDirection="right" className="self-start hidden md:inline-flex" to={`/ad/${uuid}`}>{t("ads.Details")}</Button>
                 </div>
             </div>
 

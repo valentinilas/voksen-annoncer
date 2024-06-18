@@ -5,8 +5,11 @@ import Result from "../result/result";
 
 import Filters from "../filters/filters";
 import useFetchAdList from "../../hooks/useFetchAdList";
+import { useTranslation } from "react-i18next";
+
 
 export default function Results() {
+  const [t] = useTranslation();
 
 
   const [selectedCategory, setSelectedCategory] = useState('all');
@@ -85,7 +88,7 @@ export default function Results() {
         <div className="flex justify-center">
           <div className="join mx-auto mt-2">
             <button className={`join-item btn ${page === 1 ? 'btn-disabled' : ''}`} onClick={() => setPage(page > 1 ? page - 1 : 1)} >«</button>
-            <button className="join-item btn">Page {page} of {totalPages}</button>
+            <button className="join-item btn">{t("pagination.Page")} {page} {t("pagination.of")} {totalPages}</button>
             <button className={`join-item btn ${page === totalPages ? 'btn-disabled' : ''}`} onClick={() => setPage(page < totalPages ? page + 1 : page)} >»</button>
           </div>
 

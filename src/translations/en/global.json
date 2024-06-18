@@ -12,6 +12,10 @@
         "sign-up": "Sign up",
         "create-ad": "Create ad"
     },
+    "pagination":{
+        "Page": "Page",
+        "of":"of"
+    },
     "genders": {
         "Select an option": "Select an option",
         "Male": "Male",
@@ -90,5 +94,8 @@
         "Search": "Search",
         "Filter": "Filter",
         "All locations":"All locations"
+    },
+    "ads":{
+        "Details":"Details"
     }
 }

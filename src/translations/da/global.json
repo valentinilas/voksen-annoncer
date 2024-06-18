@@ -12,6 +12,10 @@
         "sign-up": "Tilmeld",
         "create-ad": "Opret annonce"
     },
+    "pagination":{
+        "Page": "Side",
+        "of":"af"
+    },
     "genders": {
         "Select an option": "Vælg en mulighed",
         "Male": "Mand",
@@ -90,5 +94,8 @@
         "Search": "Søg",
         "Filter": "Filtrér",
         "All locations":"Alle steder"
+    },
+    "ads":{
+        "Details":"Detalier"
     }
 }
