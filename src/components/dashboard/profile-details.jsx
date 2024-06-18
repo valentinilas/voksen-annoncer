@@ -97,7 +97,7 @@ export default function ProfileDetail() {
     }
 
     if (!profile) {
-        return <p>No profile available.</p>;
+        return <p>{t("profile.no-profile")}</p>;
     }
 
 
@@ -118,41 +118,41 @@ export default function ProfileDetail() {
             <div className="flex gap-2 justify-center my-6">
                 {editing ? (
                     <>
-                        <Button variant="primary" onClick={handleSubmit(onSubmit)}>Save</Button>
-                        <Button variant="secondary" onClick={() => setEditing(false)}>Cancel</Button>
+                        <Button variant="primary" onClick={handleSubmit(onSubmit)}>{t("profile.save")}</Button>
+                        <Button variant="secondary" onClick={() => setEditing(false)}>{t("profile.cancel")}</Button>
                     </>
                 ) : (
                     <>
-                        <Button variant="primary" onClick={() => setEditing(true)}>Edit profile</Button>
-                        <Button variant="tertiary">Delete account</Button>
+                        <Button variant="primary" onClick={() => setEditing(true)}>{t("profile.edit-profile")}</Button>
+                        <Button variant="tertiary">{t("profile.delete-account")}</Button>
                     </>
                 )}
             </div>
 
             <ProfileFieldInput
                 name="username"
-                label="Username"
+                label={t("profile.username")}
                 editing={editing}
                 icon={UserCircleIcon}
                 placeholder="-"
                 fieldError={errors.username}
                 defaultValue={profile.username}
                 {...register("username", {
-                    required: "Username is required",
+                    required: `${t("validation.username-required")}`,
                     maxLength: {
                         value: 12,
-                        message: "Username must be 12 characters or less"
+                        message: `${t("validation.username-length")}`
                     },
                     pattern: {
                         value: /^[a-zA-Z0-9]+$/,
-                        message: "Username must contain only letters and numbers"
+                        message: `${t("validation.username-symbols")}`
                     }
                 })}
             />
 
             <ProfileFieldInput
                 name="birthday"
-                label="Birthday"
+                label={t("profile.birthday")}
                 icon={SparklesIcon}
                 type="date"
                 editing={editing}
@@ -166,7 +166,7 @@ export default function ProfileDetail() {
 
             <ProfileFieldInput
                 name="bio"
-                label="Bio"
+                label={t("profile.bio")}
                 icon={ChatBubbleBottomCenterTextIcon}
                 editing={editing}
                 placeholder="-"
@@ -175,7 +175,7 @@ export default function ProfileDetail() {
                 {...register("bio", {
                     maxLength: {
                         value: 160,
-                        message: "Bio must be 160 characters or less"
+                        message: `${t("validation.bio-length")}`
                     }
                 })}
             />
@@ -183,7 +183,7 @@ export default function ProfileDetail() {
 
             <ProfileFieldSelect
                 name="gender_id"
-                label="Gender"
+                label={t("profile.gender")}
                 icon={UserCircleIcon}
                 editing={editing}
                 options={translatedGenders}
@@ -192,12 +192,12 @@ export default function ProfileDetail() {
                 fieldError={errors.gender_id}
                 defaultValue={profile.gender_id}
                 labelKey="gender_name"
-                {...register("gender_id", { required: "Gender is required" })}
+                {...register("gender_id", { required: `${t("validation.required")}` })}
             />
 
             <ProfileFieldSelect
                 name="region_id"
-                label="Location"
+                label={t("profile.location")}
                 icon={MapPinIcon}
                 editing={editing}
                 options={regions}
@@ -206,14 +206,14 @@ export default function ProfileDetail() {
                 defaultValue={profile.region_id}
                 fieldError={errors.region_id}
                 labelKey='region_name'
-                {...register("region_id", { required: "Region is required" })}
+                {...register("region_id", { required: `${t("validation.required")}` })}
             />
 
-            <h4 className="text-xl mb-4 mt-6 dark:text-zinc-400">Contact info</h4>
+            <h4 className="text-xl mb-4 mt-6 dark:text-zinc-400">{t("profile.contact")}</h4>
 
             <ProfileFieldInput
                 name="contact_email"
-                label="E-mail"
+                label={t("profile.email")}
                 placeholder="-"
                 
                 icon={EnvelopeIcon}
@@ -221,16 +221,16 @@ export default function ProfileDetail() {
                 fieldError={errors.contact_email}
                 defaultValue={profile.contact_email}
                 {...register("contact_email", {
-                    required: "Email is required",
+                    required: `${t("validation.required")}`,
                     pattern: {
                         value: /\S+@\S+\.\S+/,
-                        message: "Invalid email address"
+                        message: `${t("validation.email-invalid")}`
                     }
                 })}
             />
             <ProfileFieldInput
                 name="email_visible"
-                label="Email Visibility"
+                label={t("profile.email-visibility")}
                 type="checkbox"
                 placeholder="-"
                 visibility={profile.email_visible}
@@ -243,7 +243,7 @@ export default function ProfileDetail() {
 
             <ProfileFieldInput
                 name="contact_phone"
-                label="Phone"
+                label={t("profile.phone")}
                 placeholder="-"
              
                 icon={DevicePhoneMobileIcon}
@@ -253,13 +253,13 @@ export default function ProfileDetail() {
                 {...register("contact_phone", {
                     pattern: {
                         value: /^[+]*[(]{0,1}[0-9]{1,4}[)]{0,1}[-\s\./0-9]*$/,
-                        message: "Invalid phone number"
+                        message: `${t("validation.phone-invalid")}`
                     }
                 })}
             />
             <ProfileFieldInput
                 name="phone_visible"
-                label="Phone Visibility"
+                label={t("profile.phone-visibility")}
                 type="checkbox"
                 placeholder="-"
                 visibility={profile.phone_visible}
@@ -272,7 +272,7 @@ export default function ProfileDetail() {
 
             <ProfileFieldInput
                 name="contact_sms"
-                label="SMS"
+                label={t("profile.sms")}
                 placeholder="-"
                
                 icon={ChatBubbleLeftRightIcon}
@@ -282,14 +282,14 @@ export default function ProfileDetail() {
                 {...register("contact_sms", {
                     pattern: {
                         value: /^[+]*[(]{0,1}[0-9]{1,4}[)]{0,1}[-\s\./0-9]*$/,
-                        message: "Invalid phone number"
+                        message: `${t("validation.phone-invalid")}`
                     }
                 })}
             />
 
             <ProfileFieldInput
                 name="sms_visible"
-                label="SMS Visibility"
+                label={t("profile.sms-visibility")}
                 type="checkbox"
                 placeholder="-"
                 visibility={profile.sms_visible}

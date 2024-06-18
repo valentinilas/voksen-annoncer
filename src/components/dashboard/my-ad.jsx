@@ -10,8 +10,10 @@ import { CalendarDaysIcon, TagIcon, MapPinIcon, EllipsisVerticalIcon } from "@he
 import ConfirmationModal from "../modal/confirmation-modal";
 import DefaultImage from "../default-image/default-image";
 
-export default function MyAd({ ad, deleteRow }) {
+import { useTranslation } from "react-i18next";
 
+export default function MyAd({ ad, deleteRow }) {
+    const [t] = useTranslation();
 
     const dialog = useRef(); // we use forward ref in the real dialog
 
@@ -55,8 +57,8 @@ export default function MyAd({ ad, deleteRow }) {
                         <div className="dropdown dropdown-end">
                             <div tabIndex={0} role="button" className="btn btn-ghost btn-circle"><EllipsisVerticalIcon className="size-5 " /></div>
                             <ul tabIndex={0} className="dropdown-content z-[1] menu p-2 shadow bg-base-100 rounded-box w-52">
-                                <li><button>Edit</button></li>
-                                <li><button onClick={() => showModal()}>Delete</button></li>
+                                <li><button>{t('ads.edit')}</button></li>
+                                <li><button onClick={() => showModal()}>{t("ads.delete")}</button></li>
                             </ul>
                         </div>
                     </div>
@@ -64,14 +66,9 @@ export default function MyAd({ ad, deleteRow }) {
 
 
 
-                    <NavLink className="block" to={`/ad/${uuid}`}><h4 className="font-bold text-lg mb-4 truncate">{title}</h4></NavLink>
-                    <NavLink className="block" to={`/ad/${uuid}`}> <p className="text-ellipsis overflow-hidden">{truncateText(description, 300)}</p></NavLink>
-                        {/* <div className="flex gap-2  pt-5 mt-5 items-center ">
+                        <NavLink className="block" to={`/ad/${uuid}`}><h4 className="font-bold text-lg mb-4 truncate">{title}</h4></NavLink>
+                        <NavLink className="block" to={`/ad/${uuid}`}> <p className="text-ellipsis overflow-hidden">{truncateText(description, 300)}</p></NavLink>
 
-                            <Button variant="secondary">Edit</Button>
-                            <Button variant="tertiary" onClick={() => showModal()}>Delete</Button>
-
-                        </div> */}
                     </div>
                     <div className="col-span-1 md:col-span-4">
 
@@ -84,8 +81,8 @@ export default function MyAd({ ad, deleteRow }) {
                 <div className="border-t pt-5 mt-5 border-base-300  flex  flex-wrap gap-2">
                     <Label Icon={CalendarDaysIcon}>{formatDate(created_at)}</Label>
                     <Label Icon={MapPinIcon}>{regions?.region_name}</Label>
-                    <Label Icon={TagIcon}>{ad_categories?.category_name}</Label>
-                    <Label Icon={TagIcon}>{ad_sub_categories?.sub_category_name}</Label>
+                    <Label Icon={TagIcon}>{t(`categories.${ad_categories?.category_name}`)}</Label>
+                    <Label Icon={TagIcon}>{t(`subcategories.${ad_sub_categories?.sub_category_name}`)}</Label>
 
 
                 </div>

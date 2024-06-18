@@ -5,8 +5,12 @@ import { useNavigate } from 'react-router-dom';
 import useFetchRegions from '../../hooks/useFetchRegions';
 import useFetchCategories from '../../hooks/useFetchCategories';
 import { useForm } from 'react-hook-form';
+import { useTranslation } from 'react-i18next';
+
+import translateArray from '../../util/translate-array';
 
 export default function CreateAd() {
+    const [t] = useTranslation();
     const { regions, loading: regionsLoading, error: regionsError } = useFetchRegions();
     const { categories, loading: categoriesLoading, error: categoriesError } = useFetchCategories();
     const [selectedMainCategory, setSelectedMainCategory] = useState(''); // New state for main category
@@ -121,19 +125,19 @@ export default function CreateAd() {
     const handleFileChange = (e) => {
         const selectedFiles = Array.from(e.target.files);
         if (selectedFiles.length > 12) {
-            setImageError('You can upload a maximum of 12 images.');
+            setImageError(t("create-ad.image-length"));
             fileInput.current.value = ''; // Clear the file input
             return;
         }
 
         for (let file of selectedFiles) {
             if (!file.type.startsWith('image/')) {
-                setImageError('Only image files are allowed.');
+                setImageError(t("create-ad.image-type"));
                 fileInput.current.value = ''; // Clear the file input
                 return;
             }
             if (file.size > 2 * 1024 * 1024) { // 2 MB in bytes
-                setImageError('Each image must be less than 2 MB.');
+                setImageError(t("create-ad.image-size"));
                 fileInput.current.value = ''; // Clear the file input
                 return;
             }
@@ -147,6 +151,10 @@ export default function CreateAd() {
         setSelectedMainCategory(e.target.value);
     };
 
+    const translatedCategories = categories
+    ? translateArray(t, 'categories', 'category_name', categories)
+    : [];
+
 
     return (
         <div className="mt-10  rounded-box shadow-sm container mx-auto px-5">
@@ -155,17 +163,17 @@ export default function CreateAd() {
                 <form onSubmit={handleSubmit(onSubmit)}>
                     <div className="mb-4">
                         <label className="block  text-sm font-bold mb-2" htmlFor="title">
-                            Title
+                       {t("create-ad.title")}
                         </label>
                         <input
                             id="title"
                             type="text"
                             className="input input-bordered w-full"
                             {...register("title", {
-                                required: "Title is required",
+                                required: `${t("validation.required")}`,
                                 maxLength: {
                                     value: 160,
-                                    message: "Title must be 160 characters or less"
+                                    message: `${t("validation.title-length")}`
                                 }
                             })}
                         />
@@ -174,14 +182,14 @@ export default function CreateAd() {
                     </div>
                     <div className="mb-4">
                         <label className="block  text-sm font-bold mb-2" htmlFor="description">
-                            Description
+                        {t("create-ad.description")}
                         </label>
                         <textarea
                             id="description"
                             rows="7"
                             className="textarea textarea-bordered w-full"
                             {...register("description", {
-                                required: "Description is required",
+                                required: `${t("validation.required")}`,
                             })}
                         ></textarea>
                         {errors.description && <p className="text-red-500 text-sm">{errors.description.message}</p>}
@@ -189,7 +197,7 @@ export default function CreateAd() {
                     </div>
                     <div className="mb-4">
                         <label className="block  text-sm font-bold mb-2" htmlFor="images">
-                            Upload Images
+                        {t("create-ad.upload-images")}
                         </label>
                         <input
                             ref={fileInput}
@@ -205,7 +213,7 @@ export default function CreateAd() {
                     </div>
                     <div className="mb-4">
                         <label className="block  text-sm font-bold mb-2" htmlFor="region">
-                            Region
+                        {t("create-ad.region")}
                         </label>
                         {regionsLoading ? (
                             <p className="dark:text-zinc-200">Loading regions...</p>
@@ -216,10 +224,10 @@ export default function CreateAd() {
                                 id="region"
                                 className="select select-bordered w-full"
                                 {...register("region_id", {
-                                    required: "Please select a region",
+                                    required: `${t("validation.required")}`,
                                 })}
                             >
-                                <option value="">Select a region</option>
+                                <option value="">{t("create-ad.select-region")}</option>
                                 {regions?.map((region) => (
                                     <option key={region.id} value={region.id}>
                                         {region.region_name}
@@ -234,7 +242,7 @@ export default function CreateAd() {
 
                     <div className="mb-4">
                         <label className="block  text-sm font-bold mb-2" htmlFor="region">
-                            Region
+                        {t("create-ad.category")}
                         </label>
                         {categoriesLoading ? (
                             <p className="dark:text-zinc-200">Loading categories...</p>
@@ -245,12 +253,12 @@ export default function CreateAd() {
                                 id="category"
                                 className="select select-bordered w-full"
                                 {...register("category_id", {
-                                    required: "Please select a category",
+                                    required: `${t("validation.select-category")}`,
                                 })}
                                 onChange={handleMainCategoryChange}
                             >
-                                <option value="">Select a category</option>
-                                {categories?.map((category) =>
+                                <option value=""> {t("create-ad.select-category")}</option>
+                                {translatedCategories?.map((category) =>
 
                                     <option key={category.category_id} value={category.category_id}>
                                         {category.category_name}
@@ -266,19 +274,19 @@ export default function CreateAd() {
                     {selectedMainCategory && (
                         <div className="mb-4">
                             <label className="block  text-sm font-bold mb-2" htmlFor="sub-category">
-                                Sub-Category
+                            {t("create-ad.sub-category")}
                             </label>
                             <select
                                 id="sub-category"
                                 className="select select-bordered w-full"
                                 {...register("sub_category_id", {
-                                    required: "Please select a sub-category",
+                                    required: `${t("validation.select-subcategory")}`,
                                 })}
                             >
-                                <option value="">Select a sub-category</option>
+                                <option value="">{t("create-ad.select-subcategory")}</option>
                                 {categories
                                     ?.filter(category => category.category_id === Number(selectedMainCategory))
-                                    .flatMap(category => category.ad_sub_categories)
+                                    .flatMap(category => translateArray(t,'subcategories', 'sub_category_name',category.ad_sub_categories))
                                     .map((subCategory) => (
                                         <option key={subCategory.sub_category_id} value={subCategory.sub_category_id}>
                                             {subCategory.sub_category_name}
@@ -293,14 +301,13 @@ export default function CreateAd() {
                         <Button type="submit" disabled={uploading}>
                             {uploading ? (
                                 <>
-                                    <span className="loading loading-spinner loading-md"></span> Creating ad...
+                                    <span className="loading loading-spinner loading-md"></span> {t("create-ad.creating-ad")}
                                 </>
                             ) : (
-                                'Create Ad'
+                                `${t("create-ad.submit")}`
                             )}
                         </Button>
                     </div>
-                    {/* {uploading && <p><span className="loading loading-spinner loading-md"></span> Creating ad, please wait...</p>} */}
                 </form>
             </div>
         </div>

@@ -96,7 +96,92 @@
         "All locations":"Alle steder"
     },
     "ads":{
-        "Details":"Detalier",
-        "not-approved":"This ad has not been approved yet. Check back later."
+        "Details": "Detaljer",
+        "not-approved": "Denne annonce er endnu ikke godkendt. Kom tilbage senere.",
+        "My ads": "Mine annoncer",
+        "approved": "Godkendt",
+        "pending-approval": "Afventer godkendelse",
+        "edit": "Rediger",
+        "delete": "Slet",
+        "create-ad": "Opret annonce"
+    },
+    "profile":{
+        "no-profile": "Ingen profil tilgængelig.",
+        "edit-profile": "Rediger profil",
+        "delete-account": "Slet konto",
+        "save": "Gem",
+        "cancel": "Annuller",
+        "username": "Brugernavn",
+        "birthday": "Fødselsdag",
+        "bio": "Biografi",
+        "age": "Alder",
+        "gender": "Køn",
+        "location": "Sted",
+        "email": "E-mail",
+        "email-visibility": "E-mail synlighed",
+        "phone": "Telefon",
+        "phone-visibility": "Telefonsynlighed",
+        "sms": "SMS",
+        "sms-visibility": "SMS-synlighed",
+        "hidden": "Skjult",
+        "visible": "Synlig",
+        "uploading": "Uploader...",
+        "contact": "Kontakt",
+        "user-hidden-email": "Brugeren har valgt at skjule deres e-mail",
+        "user-hidden-phone": "Brugeren har valgt at skjule deres telefonnummer",
+        "user-hidden-sms": "Brugeren har valgt at skjule deres SMS-nummer",
+        "log-in-contact": "Du skal være logget ind for at se kontaktoplysningerne."
     }
+    ,
+    "validation":{
+        "username-required": "Brugernavn er påkrævet",
+        "username-length": "Brugernavn skal være 12 tegn eller færre",
+        "username-symbols": "Brugernavn må kun indeholde bogstaver og tal",
+        "bio-length": "Biografi skal være 160 tegn eller færre",
+        "gender-required": "Køn er påkrævet",
+        "required": "Påkrævet",
+        "email-invalid": "Ugyldig e-mail-adresse",
+        "phone-invalid": "Ugyldigt telefonnummer",
+        "password-required": "Adgangskode er påkrævet",
+        "title-length": "Titel skal være 160 tegn eller færre",
+        "select-category": "Vælg venligst en kategori",
+        "select-subcategory": "Vælg venligst en underkategori"
+    },
+    "auth": {
+        "login": "Log ind",
+        "sign-up": "Opret konto",
+        "username": "Brugernavn",
+        "email": "E-mail",
+        "password": "Adgangskode",
+        "forgot-password": "Glemt adgangskode?",
+        "no-account": "Har du ikke en konto?",
+        "yes-account": "Har du allerede en konto?"
+    },
+    "welcome": {
+        "headline": "Tak for din tilmelding!",
+        "body": "Før du kan bruge din konto, skal du bekræfte din e-mail ved at klikke på det link, vi lige har sendt til dig.",
+        "homepage": "Hjemmeside"
+    },
+    "create-ad": {
+        "image-length": "Du kan uploade højst 12 billeder.",
+        "image-type": "Kun billedfiler er tilladt.",
+        "image-size": "Billeder skal være mindre end 2 MB.",
+        "title": "Titel",
+        "description": "Beskrivelse",
+        "upload-images": "Upload billeder",
+        "region": "Region",
+        "select-region": "Vælg en region",
+        "category": "Kategori",
+        "select-category": "Vælg kategori",
+        "sub-category": "Underkategori",
+        "select-subcategory": "Vælg en underkategori",
+        "creating-ad": "Opretter annonce...",
+        "submit": "Indsend"
+    },
+    "footer": {
+        "copyright": "Ophavsret",
+        "rights": "Alle rettigheder forbeholdes."
+    }
+    
+    
 }

@@ -9,12 +9,13 @@ import MyAd from "./my-ad";
 
 import Label from "../label/label";
 import { CalendarDaysIcon, PlusIcon } from "@heroicons/react/24/outline";
+import { useTranslation } from "react-i18next";
 
 import useFetchAuthUserAdList from "../../hooks/useFetchAuthUserAdList";
 
 
 export default function MyAds() {
-
+    const [t] = useTranslation();
     const { data, setData } = useFetchAuthUserAdList();
     const { ads, loading, error } = data;
 
@@ -70,16 +71,16 @@ export default function MyAds() {
 
     if (!ads.length) {
         return <div className="mb-4 border-dashed border-2 border-cherry-500  shadow-sm px-5 py-10  rounded-md lg:h-full	 flex flex-col items-center justify-center">
-            <h3 className="text-md mb-6 dark:text-zinc-200">You don't have any ads created</h3>
-            <Button to="/new-ad">Create ad</Button>
+            <h3 className="text-md mb-6 dark:text-zinc-200">{t('ads.no-ads')}</h3>
+            <Button to="/new-ad">{t('ads.create-ad')}</Button>
         </div>;
     }
 
     return (
         <>
             <div className="flex justify-between items-center mb-5">
-                <h4 className="text-xl  ">My ads ({ads.length})</h4>
-                <Button variant="primary" Icon={PlusIcon} to="/new-ad">Create a new ad</Button>
+                <h4 className="text-xl  ">{t('ads.My ads')} ({ads.length})</h4>
+                <Button variant="primary" Icon={PlusIcon} to="/new-ad">{t('ads.create-ad')}</Button>
             </div>
 
 
