@@ -1,9 +1,6 @@
 import Button from "../button/button";
-import { UserIcon } from "@heroicons/react/24/outline";
-import { UserPlusIcon } from "@heroicons/react/24/outline";
-import { ArrowLeftEndOnRectangleIcon } from "@heroicons/react/24/outline";
-import { ArrowLeftStartOnRectangleIcon } from "@heroicons/react/24/outline";
-import { PlusIcon } from "@heroicons/react/24/outline";
+import { } from "@heroicons/react/24/outline";
+import { PlusIcon, UserIcon, Cog6ToothIcon, ArrowLeftStartOnRectangleIcon, ArrowLeftEndOnRectangleIcon } from "@heroicons/react/24/outline";
 import { useNavigate } from "react-router-dom";
 import logo from '../../assets/va-logo-cherry.svg';
 import { NavLink } from "react-router-dom";
@@ -48,9 +45,9 @@ export default function NavBar() {
                     <img className="w-10 md:w-16	" src={logo} alt="Voksen Annoncer" />
                     <span className="font-bold text-black-900 dark:text-white text-xl hidden md:block">Voksen Annoncer</span>
                 </NavLink>
-               
+
             </div>
-  
+
 
             {!session &&
 
@@ -85,18 +82,18 @@ export default function NavBar() {
                                 <UserIcon className="w-8 h-8" />
                             )}
                         </div>
-                        <ul tabIndex={0} className="menu menu-sm dropdown-content mt-3 z-[1] p-2 shadow bg-base-100 rounded-box w-52">
+                        <ul tabIndex={0} className="menu menu-sm dropdown-content mt-0 z-[1] p-2 shadow bg-base-100 rounded-box w-52">
                             {is_admin && <li>
-                                <NavLink to="/admin">{t("navigation.admin")}</NavLink>
+                                <NavLink to="/admin"><Cog6ToothIcon className="size-5" /> {t("navigation.admin")}</NavLink>
                             </li>
                             }
                             <li>
-                                <NavLink to="/new-ad">{t("navigation.create-ad")}</NavLink>
+                                <NavLink to="/new-ad"><PlusIcon className="size-5" /> {t("navigation.create-ad")}</NavLink>
                             </li>
                             <li>
-                                <NavLink to="/dashboard">{t("navigation.profile")}</NavLink>
+                                <NavLink to="/dashboard"><UserIcon className="size-5" /> {t("navigation.profile")}</NavLink>
                             </li>
-                            <li><button onClick={handleLogOut}>{t("navigation.log-out")}</button></li>
+                            <li><button onClick={handleLogOut}><ArrowLeftStartOnRectangleIcon className="size-5" /> {t("navigation.log-out")}</button></li>
                         </ul>
                     </div>
                     <ul className="menu menu-horizontal px-1 gap-2">
