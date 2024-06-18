@@ -27,20 +27,20 @@ export default function Admin() {
 
 
     if (loading) {
-        return <div className="container mx-auto bg-base-200  p-5 mt-10 rounded-box">
+        return <div className="bg-base-200 rounded-box">
             <p >Loading ads...</p>
         </div>;
     }
 
     if (error) {
-        return <div className="container mx-auto bg-base-200  p-5 mt-10 rounded-box">
+        return <div className="bg-base-200 rounded-box">
             <p>Error loading ads: {error}</p>
         </div>;
     }
 
 
     if (!ads.length) {
-        return <div className="container mx-auto bg-base-200  p-5 mt-10 rounded-box">
+        return <div className="bg-base-200 rounded-box">
             No ads available
         </div>;
     }
@@ -51,7 +51,7 @@ export default function Admin() {
         <>
            
 
-            <div className="container mx-auto bg-base-200  p-5 mt-10 rounded-box">
+            <div className="admin p-5 bg-base-200 rounded-box">
 
 
 

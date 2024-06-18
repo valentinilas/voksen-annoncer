@@ -42,7 +42,9 @@ export default function RootLayout() {
             <input id="my-drawer" type="checkbox" className="drawer-toggle" />
             <div className="drawer-content">
                 <Header />
-                <Outlet />
+                <div className="container mx-auto p-5">
+                    <Outlet />
+                </div>
                 <Footer />
             </div>
             <div className="drawer-side">

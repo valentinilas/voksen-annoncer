@@ -12,9 +12,9 @@
         "sign-up": "Tilmeld",
         "create-ad": "Opret annonce"
     },
-    "pagination":{
+    "pagination": {
         "Page": "Side",
-        "of":"af"
+        "of": "af"
     },
     "genders": {
         "Select an option": "Vælg en mulighed",
@@ -24,7 +24,7 @@
         "Prefer not to say": "Foretrækker ikke at sige"
     },
     "categories": {
-        "All categories":"Alle kategorier",
+        "All categories": "Alle kategorier",
         "Personal Ads": "Personlige annoncer",
         "Friendship & Networking": "Venskab & Netværk",
         "Escorts & Companionship": "Eskorter & Ledsagelse",
@@ -39,7 +39,7 @@
         "Miscellaneous": "Diverse"
     },
     "subcategories": {
-        "All sub-categories": "Alle underkategorier", 
+        "All sub-categories": "Alle underkategorier",
         "Long-term Relationships": "Langvarige forhold",
         "Open Relationships": "Åbne forhold",
         "Polyamory": "Polyamori",
@@ -89,13 +89,13 @@
         "Sex Dolls & Robots": "Sexdukker & robotter",
         "Erotic Fiction & Writing": "Erotisk fiktion & skrivning",
         "Casual Encounters": "Casual møder"
-      },
-      "filters": {
+    },
+    "filters": {
         "Search": "Søg",
         "Filter": "Filtrér",
-        "All locations":"Alle steder"
+        "All locations": "Alle steder"
     },
-    "ads":{
+    "ads": {
         "Details": "Detaljer",
         "not-approved": "Denne annonce er endnu ikke godkendt. Kom tilbage senere.",
         "My ads": "Mine annoncer",
@@ -105,7 +105,7 @@
         "delete": "Slet",
         "create-ad": "Opret annonce"
     },
-    "profile":{
+    "profile": {
         "no-profile": "Ingen profil tilgængelig.",
         "edit-profile": "Rediger profil",
         "delete-account": "Slet konto",
@@ -131,9 +131,8 @@
         "user-hidden-phone": "Brugeren har valgt at skjule deres telefonnummer",
         "user-hidden-sms": "Brugeren har valgt at skjule deres SMS-nummer",
         "log-in-contact": "Du skal være logget ind for at se kontaktoplysningerne."
-    }
-    ,
-    "validation":{
+    },
+    "validation": {
         "username-required": "Brugernavn er påkrævet",
         "username-length": "Brugernavn skal være 12 tegn eller færre",
         "username-symbols": "Brugernavn må kun indeholde bogstaver og tal",
@@ -178,10 +177,13 @@
         "creating-ad": "Opretter annonce...",
         "submit": "Indsend"
     },
+    "confirm": {
+        "are-you-sure": "Er du sikker?",
+        "yes": "Ja",
+        "cancel": "Annuller"
+    },
     "footer": {
         "copyright": "Ophavsret",
         "rights": "Alle rettigheder forbeholdes."
     }
-    
-    
 }

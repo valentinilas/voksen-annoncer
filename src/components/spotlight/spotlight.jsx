@@ -74,7 +74,7 @@ export default function Spotlight() {
     // });
 
     return (
-        <section className="container mx-auto bg-base-200 transition-colors p-5 mt-10 rounded-box shadow-sm">
+        <section className="container mx-auto bg-base-200 transition-colors p-5  rounded-box shadow-sm">
             <div className="flex justify-between items-center mb-4">
                 <h3 className="text-lg font-bold">Spotlight</h3>
                 {/* <Button variant="secondary" size="s" onClick={() => alert('Sign up!')}>Get promoted</Button> */}

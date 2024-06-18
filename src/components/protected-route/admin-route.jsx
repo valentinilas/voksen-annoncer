@@ -18,7 +18,7 @@ const AdminRoute = ({ children }) => {
 
   if (isLoadingSession || profileLoading || !isSessionLoaded) {
     // Display a loading indicator while the session and profile are being fetched
-    return <div className="container mx-auto bg-base-200  p-5 mt-10 rounded-box">
+    return <div className="container mx-auto bg-base-200  p-5  rounded-box">
     <p >Loading...</p>
   </div>;
   }

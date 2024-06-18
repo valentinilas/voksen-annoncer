@@ -1,8 +1,9 @@
 import Button from "../button/button";
 import { useRef, forwardRef, useImperativeHandle } from "react";
+import { useTranslation } from "react-i18next";
 
 const ConfirmationModal = forwardRef(function ConfirmationModal({ onCancel, onConfirm }, ref) {
-
+const [t] =  useTranslation();
 
   const dialog = useRef()
 
@@ -19,11 +20,11 @@ const ConfirmationModal = forwardRef(function ConfirmationModal({ onCancel, onCo
 
   return (
     <dialog ref={dialog} className="p-10 bg-base-100 shadow-xl rounded-box backdrop:bg-black/20">
-      <h3 className="text-xl mb-3 text-center">Are you sure?</h3>
+      <h3 className="text-xl mb-3 text-center">{t("confirm.are-you-sure")}</h3>
       {/* <p>{message}</p> */}
       <div className="flex justify-center mt-10 gap-2">
-        <Button variant="secondary" onClick={onCancel}>Cancel</Button>
-        <Button variant="primary" onClick={onConfirm}>Confirm</Button>
+        <Button variant="secondary" onClick={onCancel}>{t("confirm.cancel")}</Button>
+        <Button variant="primary" onClick={onConfirm}>{t("confirm.yes")}</Button>
       </div>
     </dialog>
   );

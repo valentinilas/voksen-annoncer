@@ -24,24 +24,18 @@ export default function Results() {
 
   if (loading) {
     return (
-      <section className="container mx-auto p-5">
-        <div className="text-center">
-          {/* <p className="text-center">Loading Ads...</p> */}
+        <div className="bg-base-200 p-5 rounded-box shadow-sm text-center">
           <span className="loading loading-spinner loading-md"></span>
-
         </div>
 
-      </section>
     );
   }
 
   if (error) {
     return (
-      <section className="container mx-auto p-5">
         <div className="bg-base-200 p-5 rounded-box shadow-sm">
           <p className="text-center">Error loading Ads: {error}</p>
         </div>
-      </section>
     );
   }
 
@@ -52,7 +46,7 @@ export default function Results() {
   return (
     <>
 
-      <section className="container mx-auto px-5">
+      <section className="results">
 
         {/* Filters */}
         <div className="filters">

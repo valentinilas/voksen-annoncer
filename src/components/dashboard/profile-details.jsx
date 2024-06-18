@@ -112,7 +112,7 @@ export default function ProfileDetail() {
 
 
     return (
-        <div className="h-full  p-6 rounded-lg">
+        <div className="h-full ">
             <Avatar />
 
             <div className="flex gap-2 justify-center my-6">

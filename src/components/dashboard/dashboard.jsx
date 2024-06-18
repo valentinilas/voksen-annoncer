@@ -7,15 +7,8 @@ import MyAds from "./my-ads";
 export default function Dashboard() {
     const year = new Date().getFullYear();
     return (
-        <section className="container mx-auto  p-0 mt-10 rounded-lg ">
-            {/* <div className="flex gap-2  justify-between items-center  mb-4">
-                <h1 className="text-lg font-bold ">Dashboard</h1>
+        <section className="dashboard">
 
-                <div className="flex gap-2 justify-end">
-                    <Button variant="primary">Edit profile</Button>
-                    <Button variant="tertiary">Delete account</Button>
-                </div>
-            </div> */}
 
             <div className="grid grid-cols-12 gap-6">
                 <div className="col-span-12 lg:col-span-4 ">
@@ -24,7 +17,7 @@ export default function Dashboard() {
                     </div>
 
                 </div>
-                <div className="col-span-12 lg:col-span-8 p-6 ">
+                <div className="col-span-12 lg:col-span-8">
                     <MyAds />
                 </div>
             </div>

@@ -29,7 +29,7 @@ export default function SignIn() {
     };
 
     return (
-        <div className="container mx-auto bg-base-200 mt-10 p-5 rounded-box  sm:max-w-sm">
+        <div className="mx-auto bg-base-200  p-5 rounded-box  sm:max-w-sm">
             <div className="sm:mx-auto sm:w-full sm:max-w-sm">
                 <h2 className="text-2xl font-bold mb-10 text-center dark:text-zinc-400">{t("auth.login")}</h2>
                 <form onSubmit={handleSubmit(onSubmit)}>
@@ -51,7 +51,7 @@ export default function SignIn() {
                     </div>
                     <div className="mt-4">
                         <div className="flex items-center justify-between mb-2">
-                            <label htmlFor="password" className="">{t("auth.password")}</label>
+                            <label htmlFor="password" className="block  text-sm font-bold mb-2">{t("auth.password")}</label>
                             <div className="text-sm">
                                 <a href="#" className="font-semibold text-cherry-600 hover:text-cherry-700">{t("auth.forgot-password")}</a>
                             </div>

@@ -152,164 +152,164 @@ export default function CreateAd() {
     };
 
     const translatedCategories = categories
-    ? translateArray(t, 'categories', 'category_name', categories)
-    : [];
+        ? translateArray(t, 'categories', 'category_name', categories)
+        : [];
 
 
     return (
-        <div className="mt-10  rounded-box shadow-sm container mx-auto px-5">
-            <div className="bg-base-200 p-5 mt-2 mb-2 rounded-box shadow-sm">
-                <h2 className="text-2xl font-bold mb-4 dark:text-zinc-400">Create Ad</h2>
-                <form onSubmit={handleSubmit(onSubmit)}>
-                    <div className="mb-4">
-                        <label className="block  text-sm font-bold mb-2" htmlFor="title">
-                       {t("create-ad.title")}
-                        </label>
-                        <input
-                            id="title"
-                            type="text"
-                            className="input input-bordered w-full"
-                            {...register("title", {
-                                required: `${t("validation.required")}`,
-                                maxLength: {
-                                    value: 160,
-                                    message: `${t("validation.title-length")}`
-                                }
-                            })}
-                        />
-                        {errors.title && <p className="text-red-500 text-sm">{errors.title.message}</p>}
 
-                    </div>
-                    <div className="mb-4">
-                        <label className="block  text-sm font-bold mb-2" htmlFor="description">
+        <div className="bg-base-200 p-5  rounded-box shadow-sm">
+            <h2 className="text-2xl font-bold mb-4 dark:text-zinc-400">Create Ad</h2>
+            <form onSubmit={handleSubmit(onSubmit)}>
+                <div className="mb-4">
+                    <label className="block  text-sm font-bold mb-2" htmlFor="title">
+                        {t("create-ad.title")}
+                    </label>
+                    <input
+                        id="title"
+                        type="text"
+                        className="input input-bordered w-full"
+                        {...register("title", {
+                            required: `${t("validation.required")}`,
+                            maxLength: {
+                                value: 160,
+                                message: `${t("validation.title-length")}`
+                            }
+                        })}
+                    />
+                    {errors.title && <p className="text-red-500 text-sm">{errors.title.message}</p>}
+
+                </div>
+                <div className="mb-4">
+                    <label className="block  text-sm font-bold mb-2" htmlFor="description">
                         {t("create-ad.description")}
-                        </label>
-                        <textarea
-                            id="description"
-                            rows="7"
-                            className="textarea textarea-bordered w-full"
-                            {...register("description", {
+                    </label>
+                    <textarea
+                        id="description"
+                        rows="7"
+                        className="textarea textarea-bordered w-full"
+                        {...register("description", {
+                            required: `${t("validation.required")}`,
+                        })}
+                    ></textarea>
+                    {errors.description && <p className="text-red-500 text-sm">{errors.description.message}</p>}
+
+                </div>
+                <div className="mb-4">
+                    <label className="block  text-sm font-bold mb-2" htmlFor="images">
+                        {t("create-ad.upload-images")}
+                    </label>
+                    <input
+                        ref={fileInput}
+                        id="images"
+                        type="file"
+                        multiple
+                        className="file-input file-input-bordered w-full"
+                        onChange={handleFileChange}
+                    />
+                    {imageError && <p className="text-red-500 text-sm">{imageError}</p>}
+
+
+                </div>
+                <div className="mb-4">
+                    <label className="block  text-sm font-bold mb-2" htmlFor="region">
+                        {t("create-ad.region")}
+                    </label>
+                    {regionsLoading ? (
+                        <p className="dark:text-zinc-200">Loading regions...</p>
+                    ) : regionsError ? (
+                        <p className="dark:text-zinc-200">Error loading regions</p>
+                    ) : (
+                        <select
+                            id="region"
+                            className="select select-bordered w-full"
+                            {...register("region_id", {
                                 required: `${t("validation.required")}`,
                             })}
-                        ></textarea>
-                        {errors.description && <p className="text-red-500 text-sm">{errors.description.message}</p>}
+                        >
+                            <option value="">{t("create-ad.select-region")}</option>
+                            {regions?.map((region) => (
+                                <option key={region.id} value={region.id}>
+                                    {region.region_name}
+                                </option>
+                            ))}
+                        </select>
 
-                    </div>
+                    )}
+                    {errors.region_id && <p className="text-red-500 text-sm">{errors.region_id.message}</p>}
+
+                </div>
+
+                <div className="mb-4">
+                    <label className="block  text-sm font-bold mb-2" htmlFor="region">
+                        {t("create-ad.category")}
+                    </label>
+                    {categoriesLoading ? (
+                        <p className="dark:text-zinc-200">Loading categories...</p>
+                    ) : categoriesError ? (
+                        <p className="dark:text-zinc-200">Error loading categories</p>
+                    ) : (
+                        <select
+                            id="category"
+                            className="select select-bordered w-full"
+                            {...register("category_id", {
+                                required: `${t("validation.select-category")}`,
+                            })}
+                            onChange={handleMainCategoryChange}
+                        >
+                            <option value=""> {t("create-ad.select-category")}</option>
+                            {translatedCategories?.map((category) =>
+
+                                <option key={category.category_id} value={category.category_id}>
+                                    {category.category_name}
+                                </option>
+
+                            )}
+                        </select>
+
+                    )}
+                    {errors.category_id && <p className="text-red-500 text-sm">{errors.category_id.message}</p>}
+
+                </div>
+                {selectedMainCategory && (
                     <div className="mb-4">
-                        <label className="block  text-sm font-bold mb-2" htmlFor="images">
-                        {t("create-ad.upload-images")}
+                        <label className="block  text-sm font-bold mb-2" htmlFor="sub-category">
+                            {t("create-ad.sub-category")}
                         </label>
-                        <input
-                            ref={fileInput}
-                            id="images"
-                            type="file"
-                            multiple
-                            className="file-input file-input-bordered w-full"
-                            onChange={handleFileChange}
-                        />
-                        {imageError && <p className="text-red-500 text-sm">{imageError}</p>}
-
-
-                    </div>
-                    <div className="mb-4">
-                        <label className="block  text-sm font-bold mb-2" htmlFor="region">
-                        {t("create-ad.region")}
-                        </label>
-                        {regionsLoading ? (
-                            <p className="dark:text-zinc-200">Loading regions...</p>
-                        ) : regionsError ? (
-                            <p className="dark:text-zinc-200">Error loading regions</p>
-                        ) : (
-                            <select
-                                id="region"
-                                className="select select-bordered w-full"
-                                {...register("region_id", {
-                                    required: `${t("validation.required")}`,
-                                })}
-                            >
-                                <option value="">{t("create-ad.select-region")}</option>
-                                {regions?.map((region) => (
-                                    <option key={region.id} value={region.id}>
-                                        {region.region_name}
+                        <select
+                            id="sub-category"
+                            className="select select-bordered w-full"
+                            {...register("sub_category_id", {
+                                required: `${t("validation.select-subcategory")}`,
+                            })}
+                        >
+                            <option value="">{t("create-ad.select-subcategory")}</option>
+                            {categories
+                                ?.filter(category => category.category_id === Number(selectedMainCategory))
+                                .flatMap(category => translateArray(t, 'subcategories', 'sub_category_name', category.ad_sub_categories))
+                                .map((subCategory) => (
+                                    <option key={subCategory.sub_category_id} value={subCategory.sub_category_id}>
+                                        {subCategory.sub_category_name}
                                     </option>
                                 ))}
-                            </select>
-
-                        )}
-                        {errors.region_id && <p className="text-red-500 text-sm">{errors.region_id.message}</p>}
-
+                        </select>
+                        {errors.sub_category_id && <p className="text-red-500 text-sm">{errors.sub_category_id.message}</p>}
                     </div>
+                )}
 
-                    <div className="mb-4">
-                        <label className="block  text-sm font-bold mb-2" htmlFor="region">
-                        {t("create-ad.category")}
-                        </label>
-                        {categoriesLoading ? (
-                            <p className="dark:text-zinc-200">Loading categories...</p>
-                        ) : categoriesError ? (
-                            <p className="dark:text-zinc-200">Error loading categories</p>
+                <div className="flex items-center justify-between">
+                    <Button type="submit" disabled={uploading}>
+                        {uploading ? (
+                            <>
+                                <span className="loading loading-spinner loading-md"></span> {t("create-ad.creating-ad")}
+                            </>
                         ) : (
-                            <select
-                                id="category"
-                                className="select select-bordered w-full"
-                                {...register("category_id", {
-                                    required: `${t("validation.select-category")}`,
-                                })}
-                                onChange={handleMainCategoryChange}
-                            >
-                                <option value=""> {t("create-ad.select-category")}</option>
-                                {translatedCategories?.map((category) =>
-
-                                    <option key={category.category_id} value={category.category_id}>
-                                        {category.category_name}
-                                    </option>
-
-                                )}
-                            </select>
-
+                            `${t("create-ad.submit")}`
                         )}
-                        {errors.category_id && <p className="text-red-500 text-sm">{errors.category_id.message}</p>}
-
-                    </div>
-                    {selectedMainCategory && (
-                        <div className="mb-4">
-                            <label className="block  text-sm font-bold mb-2" htmlFor="sub-category">
-                            {t("create-ad.sub-category")}
-                            </label>
-                            <select
-                                id="sub-category"
-                                className="select select-bordered w-full"
-                                {...register("sub_category_id", {
-                                    required: `${t("validation.select-subcategory")}`,
-                                })}
-                            >
-                                <option value="">{t("create-ad.select-subcategory")}</option>
-                                {categories
-                                    ?.filter(category => category.category_id === Number(selectedMainCategory))
-                                    .flatMap(category => translateArray(t,'subcategories', 'sub_category_name',category.ad_sub_categories))
-                                    .map((subCategory) => (
-                                        <option key={subCategory.sub_category_id} value={subCategory.sub_category_id}>
-                                            {subCategory.sub_category_name}
-                                        </option>
-                                    ))}
-                            </select>
-                            {errors.sub_category_id && <p className="text-red-500 text-sm">{errors.sub_category_id.message}</p>}
-                        </div>
-                    )}
-
-                    <div className="flex items-center justify-between">
-                        <Button type="submit" disabled={uploading}>
-                            {uploading ? (
-                                <>
-                                    <span className="loading loading-spinner loading-md"></span> {t("create-ad.creating-ad")}
-                                </>
-                            ) : (
-                                `${t("create-ad.submit")}`
-                            )}
-                        </Button>
-                    </div>
-                </form>
-            </div>
+                    </Button>
+                </div>
+            </form>
         </div>
+
     );
 }

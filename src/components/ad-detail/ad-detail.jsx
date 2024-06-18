@@ -29,7 +29,7 @@ export default function AdDetail() {
 
     if (loading) {
         return (
-            <section className="container mx-auto bg-base-200 p-5 mt-10 rounded-lg shadow-sm">
+            <section className="bg-base-200 p-5  rounded-lg shadow-sm">
                 <p>Loading data...</p>
             </section>
         );
@@ -37,7 +37,7 @@ export default function AdDetail() {
 
     if (error) {
         return (
-            <section className="container mx-auto bg-base-200 p-5 mt-10 rounded-lg shadow-sm">
+            <section className="bg-base-200 p-5  rounded-lg shadow-sm">
                 <p>Error loading data: {error}</p>
             </section>
         );
@@ -45,7 +45,7 @@ export default function AdDetail() {
 
     if (!is_admin && !ad.is_approved) {
         return (
-            <section className="container mx-auto bg-base-200 p-5 mt-10 rounded-lg shadow-sm">
+            <section className="bg-base-200 p-5 rounded-lg shadow-sm">
                 <p>{t("ads.not-approved")}</p>
             </section>
         )
@@ -64,10 +64,10 @@ export default function AdDetail() {
 
     return (
         <>
-            <section className="container mx-auto   mt-10 rounded-lg px-5 ">
+            <section className="ad-detail">
                 <div className="grid grid-cols-12 gap-6">
                     {/* Ad detail */}
-                    <div className="bg-base-200 p-5 my-2 rounded-box shadow-sm col-span-12 lg:col-span-8 flex flex-col">
+                    <div className="bg-base-200 p-5  rounded-box shadow-sm col-span-12 lg:col-span-8 flex flex-col">
                         {/* Card main content */}
                         <div className="">
                             <div className="result-text dark:text-zinc-200 ">
@@ -96,7 +96,7 @@ export default function AdDetail() {
                         </div>
 
                     </div>
-                    <div className="p-5 col-span-12 lg:col-span-4">
+                    <div className="col-span-12 lg:col-span-4">
                         <AdProfile profileData={ad.profiles} />
                     </div>
                     {/* Profile */}

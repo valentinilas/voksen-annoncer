@@ -38,12 +38,12 @@ export default function SignUp() {
     return (
 
 
-        <div className="container mx-auto bg-base-200 mt-10 p-5 rounded-box  sm:max-w-sm">
+        <div className="mx-auto bg-base-200  p-5 rounded-box  sm:max-w-sm">
             <div className="sm:mx-auto sm:w-full sm:max-w-sm ">
                 <h2 className="text-2xl font-bold mb-10 text-center dark:text-zinc-400">{t("auth.sign-up")}</h2>
                 <form onSubmit={handleSubmit(onSubmit)}>
                 <div className="mt-4">
-                        <label htmlFor="username" className="">{t("auth.username")}</label>
+                        <label htmlFor="username" className="block  text-sm font-bold mb-2">{t("auth.username")}</label>
                         <input
                             className="input input-bordered w-full"
                             type="text"
@@ -63,7 +63,7 @@ export default function SignUp() {
                         {errors.username && <span className="text-red-500 text-sm">{errors.username.message}</span>}
                     </div>
                     <div className="mt-4">
-                        <label htmlFor="email" className="">{t("auth.email")}</label>
+                        <label htmlFor="email" className="block  text-sm font-bold mb-2">{t("auth.email")}</label>
                         <input
                             className="input input-bordered w-full"
                             type="email"
@@ -79,7 +79,7 @@ export default function SignUp() {
                         {errors.email && <span className="text-red-500 text-sm">{errors.email.message}</span>}
                     </div>
                     <div className="mt-4">
-                        <label htmlFor="password" className="">{t("auth.password")}</label>
+                        <label htmlFor="password" className="block  text-sm font-bold mb-2">{t("auth.password")}</label>
 
                         <input
                             className="input input-bordered w-full"

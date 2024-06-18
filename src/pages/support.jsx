@@ -2,8 +2,8 @@ import { NavLink } from "react-router-dom";
 
 export default function Support() {
     return (
-        <section className="container mx-auto p-5 ">
-            <div className="bg-base-200 p-5 rounded-box shadow-sm">
+        <section className="support">
+            <div className="bg-base-200 p-20 rounded-box shadow-sm">
                 <h1 className="text-2xl font-bold">Support</h1>
                 <p>For any questions or issues please contact <a href="mailto:voksenannoncer@protonmail.com">voksenannoncer@protonmail.com</a></p>
 
