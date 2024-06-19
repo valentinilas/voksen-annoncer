@@ -41,7 +41,7 @@ export function AuthProvider({ children }) {
 
                 setSession(session);
                 getProfile(session.user.id);
-            
+
             } else {
                 setProfileData({ profile: null, loading: false, error: "No session available" });
             }
@@ -54,7 +54,7 @@ export function AuthProvider({ children }) {
         const { data: { subscription } } = supabase.auth.onAuthStateChange((_event, session) => {
             setSession(session);
             if (session) {
-    
+
 
                 getProfile(session.user.id);
             } else {
@@ -128,15 +128,70 @@ export function AuthProvider({ children }) {
         if (!session) {
             throw new Error("No user is logged in.");
         }
-    
+
         try {
+
+            const userId = session.user.id;
+
+            // Fetch the user's ad images
+            const { data: adImages, error: adImagesError } = await supabase
+                .from('ad_images')
+                .select('image_url')
+                .eq('user_id', userId); // Assuming 'user_id' is the correct field to identify ads by the user
+
+            if (adImagesError) {
+                throw new Error('Error fetching ad images: ' + adImagesError.message);
+            }
+
+            // Prepare an array of file paths to delete
+            const adImagePaths = adImages.map(image => {
+                const parts = image.image_url.split('/');
+                return 'ad-images/' + parts.pop(); // Assuming 'ad-images/' is the correct prefix
+            });
+
+            // Delete all ad images from storage in one request
+            if (adImagePaths.length > 0) {
+                const { error: deleteAdImagesError } = await supabase.storage
+                    .from('voksen-annoncer')
+                    .remove(adImagePaths);
+
+                if (deleteAdImagesError) {
+                    throw new Error('Error deleting ad images: ' + deleteAdImagesError.message);
+                }
+            }
+
+
+            // Fetch the user's profile to get the avatar URL
+            const { data: profile, error: profileError } = await supabase
+                .from('profiles')
+                .select('avatar_url')
+                .eq('id', userId)
+                .single();
+
+            if (profileError) {
+                throw new Error('Error fetching profile: ' + profileError.message);
+            }
+
+            // Delete the user's avatar image from storage
+            if (profile && profile.avatar_url) {
+                const parts = profile.avatar_url.split('/');
+                const avatarPath = 'profile-images/' + parts.pop(); // Assuming 'ad-images/' is the correct prefix
+                const { error: deleteAvatarError } = await supabase.storage
+                    .from('voksen-annoncer')
+                    .remove([avatarPath]);
+
+                if (deleteAvatarError) {
+                    throw new Error('Error deleting avatar: ' + deleteAvatarError.message);
+                }
+            }
+
             // Call the RPC function to delete the user
             const { error } = await supabase.rpc('delete_user');
-    
+
             if (error) {
                 throw error;
             }
-    
+
             // If the user deletion is successful, clear the session and profile data
             setSession(null);
             setProfileData({ profile: null, loading: false, error: null });
@@ -154,7 +209,7 @@ export function AuthProvider({ children }) {
         auth_user_register,
         auth_user_log_in,
         auth_user_log_out,
-        auth_user_delete_account  
+        auth_user_delete_account
     }
 
 
