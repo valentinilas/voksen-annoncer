@@ -192,7 +192,14 @@ export function AuthProvider({ children }) {
                 throw error;
             }
 
-            // If the user deletion is successful, clear the session and profile data
+            // Sign the user out to ensure the session is cleared
+            const { error: signOutError } = await supabase.auth.signOut();
+
+            if (signOutError) {
+                throw new Error('Error signing out: ' + signOutError.message);
+            }
+
+            // Clear local session and profile data
             setSession(null);
             setProfileData({ profile: null, loading: false, error: null });
         } catch (error) {

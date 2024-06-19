@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useEffect, useState, useRef } from "react";
 import { useForm } from "react-hook-form";
 import { supabase } from "../../lib/supabase";
 import { useAuth } from "../../lib/auth-context";
@@ -17,6 +17,7 @@ import useFetchGenders from "../../hooks/useFetchGenders";
 import ProfileFieldInput from "./profile-field-input";
 import ProfileFieldSelect from "./profile-field-select";
 import Avatar from "./profile-avatar";
+import ConfirmationModal from "../modal/confirmation-modal";
 import { useTranslation } from "react-i18next";
 import translateArray from "../../util/translate-array";
 
@@ -34,6 +35,7 @@ export default function ProfileDetail() {
 
 
 
+
     const [editing, setEditing] = useState(false);
     const { register, handleSubmit, setValue, formState: { errors } } = useForm();
 
@@ -46,9 +48,27 @@ export default function ProfileDetail() {
                     setValue(key, profile[key]);
                 }
             });
-       
+
         }
     }, [profile, setValue]);
+
+
+
+    const dialog = useRef(); // we use forward ref in the real dialog
+
+    function showModal() {
+        dialog.current.open();
+    }
+
+    function hideModal() {
+        dialog.current.close();
+    }
+
+    function confirmDelete() {
+        handleDeleteAccount();
+        dialog.current.close();
+
+    }
 
 
 
@@ -113,15 +133,17 @@ export default function ProfileDetail() {
 
 
 
-    const translatedGenders = translateArray(t,'genders', 'gender_name', genders)
+    const translatedGenders = translateArray(t, 'genders', 'gender_name', genders)
 
-      
+
 
 
 
 
     return (
         <div className="h-full ">
+            <ConfirmationModal ref={dialog} onCancel={() => { hideModal() }} onConfirm={() => confirmDelete()} />
+
             <Avatar />
 
             <div className="flex gap-2 justify-center my-6">
@@ -133,7 +155,7 @@ export default function ProfileDetail() {
                 ) : (
                     <>
                         <Button variant="primary" onClick={() => setEditing(true)}>{t("profile.edit-profile")}</Button>
-                        <Button variant="tertiary" onClick={handleDeleteAccount}>{t("profile.delete-account")}</Button>
+                        <Button variant="tertiary" onClick={() => showModal()}>{t("profile.delete-account")}</Button>
                     </>
                 )}
             </div>
@@ -224,7 +246,7 @@ export default function ProfileDetail() {
                 name="contact_email"
                 label={t("profile.email")}
                 placeholder="-"
-                
+
                 icon={EnvelopeIcon}
                 editing={editing}
                 fieldError={errors.contact_email}
@@ -254,7 +276,7 @@ export default function ProfileDetail() {
                 name="contact_phone"
                 label={t("profile.phone")}
                 placeholder="-"
-             
+
                 icon={DevicePhoneMobileIcon}
                 editing={editing}
                 fieldError={errors.contact_phone}
@@ -283,7 +305,7 @@ export default function ProfileDetail() {
                 name="contact_sms"
                 label={t("profile.sms")}
                 placeholder="-"
-               
+
                 icon={ChatBubbleLeftRightIcon}
                 editing={editing}
                 fieldError={errors.contact_sms}
