@@ -25,7 +25,7 @@ export default function ProfileDetail() {
 
     const [t] = useTranslation();
 
-    const { profileData, setProfileData } = useAuth();
+    const { profileData, setProfileData, auth_user_delete_account } = useAuth();
     const { profile, loading: profileLoading, error: profileError } = profileData;
     const { regions, loading: regionsLoading, error: regionsError } = useFetchRegions([]);
     const { genders, loading: gendersLoading, error: gendersError } = useFetchGenders([]);
@@ -82,6 +82,15 @@ export default function ProfileDetail() {
         }
     };
 
+    const handleDeleteAccount = async () => {
+        try {
+            await auth_user_delete_account();
+            alert('Account deleted successfully.');
+        } catch (error) {
+            alert(`Failed to delete account: ${error.message}`);
+        }
+    };
+
     const getMaxDate = () => {
         const today = new Date();
         today.setFullYear(today.getFullYear() - 18);
@@ -124,7 +133,7 @@ export default function ProfileDetail() {
                 ) : (
                     <>
                         <Button variant="primary" onClick={() => setEditing(true)}>{t("profile.edit-profile")}</Button>
-                        <Button variant="tertiary">{t("profile.delete-account")}</Button>
+                        <Button variant="tertiary" onClick={handleDeleteAccount}>{t("profile.delete-account")}</Button>
                     </>
                 )}
             </div>

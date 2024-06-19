@@ -124,6 +124,28 @@ export function AuthProvider({ children }) {
         }
     }
 
+    const auth_user_delete_account = async () => {
+        if (!session) {
+            throw new Error("No user is logged in.");
+        }
+    
+        try {
+            // Call the RPC function to delete the user
+            const { error } = await supabase.rpc('delete_user');
+    
+            if (error) {
+                throw error;
+            }
+    
+            // If the user deletion is successful, clear the session and profile data
+            setSession(null);
+            setProfileData({ profile: null, loading: false, error: null });
+        } catch (error) {
+            console.error('Error deleting account:', error.message);
+            throw new Error(error.message);
+        }
+    };
+
     const value = {
         session,
         profileData,
@@ -131,7 +153,8 @@ export function AuthProvider({ children }) {
         isLoadingSession,
         auth_user_register,
         auth_user_log_in,
-        auth_user_log_out
+        auth_user_log_out,
+        auth_user_delete_account  
     }
 
 
