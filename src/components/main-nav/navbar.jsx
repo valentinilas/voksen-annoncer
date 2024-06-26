@@ -42,8 +42,8 @@ export default function NavBar() {
         <div className="navbar bg-base-200 rounded-box px-5 shadow-sm">
             <div className="navbar-start">
                 <NavLink to="/" className="flex gap-4 items-center">
-                    <img className="w-10 md:w-16	" src={logo} alt="Voksen Annoncer" />
-                    <span className="font-bold text-black-900 dark:text-white text-xl hidden md:block">Voksen Annoncer</span>
+                    <img className="w-10 md:w-16	" src={logo} alt="Vokseannoncer" />
+                    <span className="font-bold text-black-900 dark:text-white text-xl hidden md:block">Voksenannoncer</span>
                 </NavLink>
 
             </div>
